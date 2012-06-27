@@ -1,0 +1,74 @@
+# -*- mode: org -*-
+#+TITLE:     TODO
+#+DRAWERS:   Ranmocy
+#+CATEGORY:  gtd
+#+STARTUP: content
+#+STARTUP: hidestars
+
+* Misc
+** 出手 HHKB
+*** BBS
+[出售] [闵行] HHKB Lite 2 for Mac
+99成新，淘宝上买的，试了一下不喜欢这个手感。
+本来以为7天无条件退款，但是店家不给退，就打算二手出掉。
+之前是考试周，所以基本没用过。
+500大洋，面交。
+*** Twitter
+[出售][魔都] HHKB Lite 2 for Mac
+99成新，淘宝上买的，试了一下不喜欢这个手感。
+本来以为7天无条件退款，但是店家不给退，就打算二手出掉。
+之前是考试周，所以基本没用过。
+500大洋，面交。
+求扩散～
+* Tech
+** Amelie
+*** DONE Emacs Theme
+CLOSED: [2012-06-22 Fri 15:56]
+- State "DONE"       from ""           [2012-06-22 Fri 15:56]
+**** DONE slim-lang.com theme
+CLOSED: [2012-06-17 Sun 11:16]
+- State "DONE"       from ""           [2012-06-17 Sun 11:16]
+http://slim-lang.com/
+这个配色真是漂亮。
+*** Markdown CSS
+*** 发到 GuruDigger
+** Emacs
+*** snippets
+**** Ruby snippets
+**** Rails snippets
+*** eproject + anything
+*** emacs-nav
+*** Dired++ sucks
+** Rails
+*** Rspec
+** Books
+*** 图灵的秘密 The Annotated Turing
+*** The Organization of information
+Arlene G. Taylor
+G203/59
+** Movies
+The Dictator 2012
+** Places
+*** tekapo
+New Zealand
+* Work
+** 青盟网站
+*** DONE 域名
+CLOSED: [2012-06-16 Sat 15:45]
+- State "DONE"       from ""           [2012-06-16 Sat 15:45]
+jinyunrui:jinyunrui123@http://www.xunway.com/
+*** DONE VPS
+CLOSED: [2012-06-22 Fri 16:00]
+- State "DONE"       from ""           [2012-06-22 Fri 16:00]
+https://www.photonvps.com/
+472408245@qq.com
+nana1003!!
+**** SSH
+74.117.62.237
+root@foryeo.com
+foryeo@2012
+**** Control Panel
+http://208.87.243.236:5353
+Username-vmuser16493 /
+password - Hxl5XAZFi0
+*** 报酬
