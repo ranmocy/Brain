@@ -38,7 +38,9 @@ http://slim-lang.com/
 **** Rails snippets
 *** eproject + anything
 *** emacs-nav
-*** Dired++ sucks
+*** DONE Dired++ sucks
+CLOSED: [2012-06-28 Thu 09:47]
+- State "DONE"       from ""           [2012-06-28 Thu 09:47]
 ** Rails
 *** Rspec
 ** Books
@@ -72,3 +74,48 @@ http://208.87.243.236:5353
 Username-vmuser16493 /
 password - Hxl5XAZFi0
 *** 报酬
+* 背单词
+1． 初记单词时需要记忆的内容：
+　　a）单词外观，b） 单词的中文释义，c） 单词的记忆法
+2． 每个list的具体背诵过程（每个list按12页，每页10个单词计）：
+　　a) 背完一页（大约5分钟），立即返回该页第一个单词开始复习（大约几十秒）
+　　b) 按上面方法背完1～6页（大约在30分钟），回到第1页开始复习（两三分钟）
+　　c) 按上面同样方法背完7～12页，一个list结束
+　　d) 相当于每个list被分为12个小的单元，每个小的单元自成一个复习系统；每6个小单元组成一个大单元，2个大单元各自成为一个复习系统。背一个list总共需要一小时左右的时间。
+3． 复习过程：
+　　a) 复习方法：遮住中文释义，尽力回忆该单词的意思，几遍下来都记不住的单词可以做记号重点记忆。
+　　b) 复习一个list所需的时间为20分钟以内
+　　c) 当天的list最好在中午之前背完，大约12小时之后（最好睡觉前）复习当天所背的list
+　　d) 在其后的1，2，4，7，15天后分别复习当日所背的list
+
+30秒 1分钟 5分钟 30分钟 1小时 8小时 1天 2天 6天 31天
+
+** [ ] 1  list1-2 || list1-2
+** [ ] 2  list3-4 || list1-2 list3-4
+** [ ] 3  list5-6 || list3-4 list5-6
+** [ ] 4  list7-8 || list1-2 list5-6 list7-8
+** [ ] 5  list9-10 || list3-4 list7-8 list9-10
+** [ ] 6  list11-12 || list5-6 list9-10 list11-12
+** [ ] 7  list13-14 || list7-8 list11-12 list13-14
+** [ ] 8  list15-16 || list1-2 list9-10 list13-14 list15-16
+** [ ] 9  list17-18 || list3-4 list11-12 list15-16 list17-18
+** [ ]10  list19-20 || list5-6 list13-14 list17-18 list19-20
+** [ ]11  list21-22 || list7-8 list15-16 list19-20 list21-22
+** [ ]12  list23-24 || list9-10 list17-18 list21-22 list23-24
+** [ ]13  list25-26 || list11-12 list19-20 list23-24 list25-26
+** [ ]14  list27-28 || list13-14 list21-22 list25-26 list27-28
+** [ ]15  list29-30 || list1-2 list15-16 list23-24 list27-28
+** [ ]16  || list3-4 list17-18 list25-26 list29-30
+** [ ]17  || list5-6 list19-20 list27-28
+** [ ]18  || list7-8 list21-22 list29-30
+** [ ]19  || list9-10 list23-24
+** [ ]20  || list11-12 list25-26
+** [ ]21  || list13-14 list27-28
+** [ ]22  || list15-16 list29-30
+** [ ]23  || list17-18
+** [ ]24  || list19-20
+** [ ]25  || list21-22
+** [ ]26  || list23-24
+** [ ]27  || list25-26
+** [ ]28  || list27-28
+** [ ]29  || list29-30
