@@ -54,7 +54,9 @@ The Dictator 2012
 *** tekapo
 New Zealand
 * Work
-** 青盟网站
+** CANCELLED 青盟网站
+CLOSED: [2012-08-26 Sun 11:35]
+- State "CANCELLED"  from ""           [2012-08-26 Sun 11:35]
 *** DONE 域名
 CLOSED: [2012-06-16 Sat 15:45]
 - State "DONE"       from ""           [2012-06-16 Sat 15:45]
