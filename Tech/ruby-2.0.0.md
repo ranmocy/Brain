@@ -22,7 +22,7 @@ Here is the tranditional compile:
 
 ## If you are using RVM:
 
-    $ rvm install ruby-2.0.0-rc1
+    $ CC=clang rvm install 2.0.0 -C --enable-shared, --with-openssl-dir=/usr/local
     $ rvm use ruby-2.0.0-rc1
 
 ## If you are using Rbenv:
