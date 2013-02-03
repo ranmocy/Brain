@@ -22,12 +22,12 @@ Here is the tranditional compile:
 
 ## If you are using RVM:
 
-    $ CC=clang rvm install 2.0.0 -C --enable-shared, --with-openssl-dir=/usr/local
+    $ CC=clang rvm install 2.0.0 -C --enable-shared, --with-openssl-dir=`brew --prefix openssl`, --with-readline-dir=`brew --prefix readline`
     $ rvm use ruby-2.0.0-rc1
 
 ## If you are using Rbenv:
 
-    $ CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl`" rbenv install 2.0.0-rc1
+    $ CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline`" rbenv install 2.0.0-rc1
 
 ## Or you want to compile directly:
 
