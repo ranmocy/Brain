@@ -3,33 +3,36 @@
 RVM, Rbenv, ruby-build has already support Ruby 2.0.0.
 You can build it by them.
 
-Here is the tranditional compile:
-
 ## Install YAML lib
 
     $ brew install libyaml
     $ brew link libyaml
+
+## If you are using RVM:
+
+    $ rvm pkg install openssl
+    $ rvm install 2.0.0 --with-openssl-dir=$HOME/.rvm/usr
+    $ rvm use 2.0.0
+
+Done.
+
+Otherwise, you need install openssl manually:
 
 ## Install OpenSSL
 
     $ brew install openssl
     $ brew link openssl
 
-## Install Readline
+## Install Readline(Optional)
 
     $ brew install readline
     $ brew link readline
-
-## If you are using RVM:
-
-    $ CC=clang rvm install 2.0.0 -C --enable-shared, --with-openssl-dir=`brew --prefix openssl`, --with-readline-dir=`brew --prefix readline`
-    $ rvm use ruby-2.0.0-rc1
 
 ## If you are using Rbenv:
 
     $ CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline`" rbenv install 2.0.0-rc1
 
-## Or you want to compile directly:
+## Here is the tranditional compile:
 
 Although configure warnings `configure: WARNING: unrecognized options: --with-openssl-dir, --with-readline-dir`, 
 but it truly works.
