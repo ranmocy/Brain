@@ -1,0 +1,38 @@
+@import variables
+@import components
+
+@import sidebar
+@import header
+@import category_list
+@import article
+
+.index_page
+  padding: 10%
+  p
+    text-align: center
+
+maintain, sidebar
+  float: right
+  padding: 10px
+
+/* Body */
+body
+  margin: 0px
+  padding: 1%
+
+  background: $bg
+  color: $fr
+  text-shadow: 1px 1px 0px $bg_sh
+
+  font-family: 'Microsoft YaHei', 'STHeiti', 'Arial', Sans
+  font-size: $normal
+  line-height: 1.8em
+
+/* Maintain */
+maintain
+  width: 50%
+  .comments
+    margin: 40px 10px
+    text-align: right
+    #commentator_body
+      width: 70%

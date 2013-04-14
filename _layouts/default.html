@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+      * Author:  Ranmocy
+      * Contact: ranmocy@gmail.com
+      * Theme:   Ranmocy
+    -->
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Jekyll" />
+  <meta name="author" content="{{ site.author.name }}" />
+  <meta name="description" content="{{ site.description }}" />
+
+  <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="{{ site.feed }}" rel="alternate" type="application/atom+xml" title="{{ site.title }}" />
+  <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css" />
+  {% stylesheet default %}
+  {% javascript jquery-1.9.1.min %}
+
+  <!--[if lt IE 9]> {% javascript html5 %} <![endif]-->
+  <!--[if IE]> {% stylesheet ie %} <![endif]-->
+</head>
+<body>
+  <sidebar>
+    {% include sidebar.html %}
+  </sidebar>
+  <maintain>
+    <header>
+      <h1 class="header logo">
+        <a href="{{ base.url }}/">"这不是Ranmocy的真实!"</a>
+      </h1>
+      <p class="header motto">
+        永远不要指望从网络上能够真的了解一个人，那顶多是他诸多人格中微小的一个片面。
+      </p>
+      {% include categories.html %}
+    </header>
+    <section>
+      {% if page.index %}
+        {{ content }}
+      {% else %}
+        {% include article.html %}
+      {% endif %}
+    </section>
+  </maintain>
+  <footer class="clear">
+  </footer>
+  {% include analysis.html %}
+</body>
+</html>

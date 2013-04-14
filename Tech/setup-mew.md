@@ -1,3 +1,14 @@
+---
+category: Diary
+tags: [Jekyll, Workflow]
+sharing: true
+comments: true
+robots: index,follow
+date: 22 January 2013
+published: true
+layout: default
+---
+
 # Howto setup-mew-in-emacs #
 
 Homepage of Mew. http://www.Mew.org/

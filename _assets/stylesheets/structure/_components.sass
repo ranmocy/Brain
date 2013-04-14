@@ -1,0 +1,38 @@
+@import "compass/css3/images"
+
+/* Component */
+em
+  color: $em
+strong
+  color: $strong
+a
+  color: $a
+
+/* Typesetting */
+.clear
+  clear: both
+.separater
+  height: 1px
+  +background-image(linear-gradient(right, $fr_sh, $fr_sh 60%, $bg))
+.date
+  color: $date
+
+/*Logo*/
+.logo, .label
+  color: $header
+  font-family: 'Raleway', serif
+  font-weight: bold
+  text-shadow: 1px 1px 15px $fr_sh
+  a
+    color: $header
+    text-decoration: none
+
+/* category Color */
+.category_1
+  color: hsl(0,80%,60%) !important
+.category_2
+  color: hsl(100,80%,60%) !important
+.category_3
+  color: hsl(200,80%,60%) !important
+.category_4
+  color: hsl(0,100%,100%) !important

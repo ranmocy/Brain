@@ -1,0 +1,130 @@
+title: "Ranmocy's Garden"
+tagline: "My Brain, My Treasure"
+author:
+  name:    Ranmocy
+  email:   Ranmocy@gmail.com
+  twitter: twitter.com/ranmocy
+description: "My Brain, My Treasure."
+
+feed: atom.xml
+paginate: 8
+motto:
+  Diary: 一个欲望灼烧者艰难写下的自白。
+  Idea: 思维碎片，漂浮在名叫头脑的海洋。
+  Tech: 技术宅拯救世界。
+  Philosophy: 我在教导你们世界运行的原动力。 你们听之，想之，就忘之吧。
+copyright:
+  - Design by <a href="http://ranmocy.info" rel="author" title="Ranmocy">Ranmocy</a> Powered by <a href="http://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a>
+  - "&copy; Copyright 2009-2013, All Rights Reserved."
+
+
+# Default options
+safe:        false
+auto:        true
+server:      true
+server_port: 4000
+baseurl:    /
+url: http://ranmocy.info
+
+source:      .
+destination: ./_site
+plugins:     ./_plugins
+include:     Tech/
+
+future:      true
+lsi:         false
+pygments:    true
+markdown:    maruku
+permalink:   /:categories/:year/:month/:day/:title
+
+maruku:
+  use_tex:    false
+  use_divs:   false
+  png_engine: blahtex
+  png_dir:    images/latex
+  png_url:    /images/latex
+
+rdiscount:
+  extensions: []
+
+redcarpet:
+  extensions: []
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+  
+  coderay:
+    coderay_wrap: div
+    coderay_line_numbers: inline
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: style
+
+
+# Plugin: jekyll-assets
+#
+assets:
+  #
+  # Pathname of the destination of generated (bundled) assets relative
+  # to the destination of the root.
+  #
+  dirname: assets
+  #
+  # Base URL of assets paths.
+  #
+  baseurl: /assets/
+  #
+  # Pathnames where to find assets relative to the root of the site.
+  #
+  sources:
+    - _assets/javascripts
+    - _assets/stylesheets
+    - _assets/images
+  #
+  # Sets compressors for the specific types of file: `js`, or `css`.
+  # No compression by default.
+  #
+  # Possible variants:
+  #
+  #     css  => 'yui', 'sass', nil
+  #     js   => 'yui', 'uglifier', nil
+  #
+  compress:
+    js:   ~
+    css:  ~
+  #
+  # Sets cachebusting policy for generated assets.
+  #
+  # Possible variants:
+  #
+  #   none - disables cachebusting
+  #
+  #     source file:  _assets/javascripts/app.css
+  #     output file:  _site/assets/javascriptis/app.css
+  #     output URL:   /assets/javascripts/app.css
+  #
+  #   soft - leave filenames as-is, but `?cb=<md5>` suffix for URLs generated
+  #          with `asset_path`, `javascript` and `stylesheet`:
+  #
+  #     source file:  _assets/javascripts/app.css
+  #     output file:  _site/assets/javascriptis/app.css
+  #     output URL:   /assets/javascripts/app.css?cb=4f41243847da693a4f356c0486114bc6
+  #
+  #   hard - (default) injects cachebusting checksum into processed filename:
+  #
+  #     source file:  _assets/javascripts/app.css
+  #     output file:  _site/assets/javascriptis/app-4f41243847da693a4f356c0486114bc6.css
+  #     output URL:   /assets/javascripts/app-4f41243847da693a4f356c0486114bc6.css
+  #
+  cachebust: hard
+  #
+  # Specifies list of MIME types that needs to have gzipped versions.
+  # You can set it to `false` to disable gzipping. Only javascripts and
+  # stylesheets are gzipped by default.
+  #
+  gzip: [ text/css, application/javascript ]

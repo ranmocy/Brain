@@ -1,0 +1,63 @@
+@import "compass/css3/images"
+@import "compass/css3/text-shadow"
+@import "compass/css3/box-shadow"
+
+$front-top-color: #765ea1
+$front-bottom-color: darken($front-top-color, 15%)
+
+$ribbon-width: 2em
+$ribbon-fold-size: 1em
+$ribbon-end-long: 2em
+$ribbon-fold-color: darken($front-bottom-color, 20%)
+$ribbon-end-color: darken($front-bottom-color, 10%)
+
+.ribbon
+  width: 50%
+  position: absolute
+  text-align: center
+  font-family: 'Helvetica Neue',Helvetica, sans-serif
+  +background-image(linear-gradient($front-top-color, $front-bottom-color))
+  +box-shadow(rgba(black,0.3) 0px 1px 1px)
+  &:before, &:after
+    content: ''
+    position: absolute
+    display: block
+    bottom: -$ribbon-fold-size
+    border: $ribbon-fold-size solid $ribbon-end-color
+    z-index: -1
+  &:before
+    left: -$ribbon-end-long
+    border-right-width: $ribbon-width
+    border-left-color: transparent
+    +box-shadow(rgba(black,0.4) 1px 1px 1px)
+  &:after
+    right: -$ribbon-end-long
+    border-left-width: $ribbon-width
+    border-right-color: transparent
+    +box-shadow(rgba(black,0.4) -1px 1px 1px)
+  .ribbon-content
+    &:before, &:after
+      border-color: $ribbon-fold-color transparent transparent transparent
+      position: absolute
+      display: block
+      border-style: solid
+      bottom: -$ribbon-fold-size
+      content: ''
+    &:before
+      left: 0
+      border-width: $ribbon-fold-size 0 0 $ribbon-fold-size
+    &:after
+      right: 0
+      border-width: $ribbon-fold-size $ribbon-fold-size 0 0
+
+.ribbon-stitches-top
+  margin-top: 2px
+  margin-bottom: 5px
+  border-top: 1px dashed rgba(0, 0, 0, 0.2)
+  +box-shadow(rgba(white,0.5) 0px 0px 2px)
+  
+.ribbon-stitches-bottom
+  margin-bottom: 2px
+  margin-top: 5px
+  border-top: 1px dashed rgba(0, 0, 0, 0.2)
+  +box-shadow(rgba(white,0.3) 0px 0px 2px)

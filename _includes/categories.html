@@ -1,0 +1,25 @@
+<div id="category_list">
+  <div class="ribbon">
+    <div class="ribbon-stitches-top"></div>
+    <strong class="ribbon-content">
+      <div class="category_list">
+        {% for category in site.categories  %}
+        <span class="category_item">
+          <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}">
+            {{ category[0] }}
+          </a>
+        </span>
+        {% endfor %}
+      </div>
+    </strong>
+    <div class="ribbon-stitches-bottom">
+    </div>
+  </div>
+</div>
+<p class="category motto">
+  {% for motto in site.motto %}
+    {% if page.categories[0] == motto[0] %}
+      {{ motto[1] }}
+    {% endif %}
+  {% endfor %}
+</p>
