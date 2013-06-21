@@ -20,20 +20,16 @@ copyright:
 
 # Default options
 safe:        false
-auto:        true
-server:      true
-server_port: 4000
 baseurl:    /
 url: http://ranmocy.info
 
 source:      .
 destination: ./_site
 plugins:     ./_plugins
-include:     Tech/
+# include:     Tech/
 
 future:      true
 lsi:         false
-pygments:    true
 markdown:    maruku
 permalink:   /:categories/:year/:month/:day/:title
 

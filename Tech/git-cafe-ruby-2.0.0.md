@@ -10,15 +10,15 @@
 ## Time
 
 基础运算 Benchmark 的结果：
-10**8 次加减乘除运算：
-2.0.0-p0:
+10^8 次加减乘除运算：
+`2.0.0-p0`:
 
     加法：6.754013
     减法：7.637299
     乘法：8.675309
     除法：6.787901
 
-1.9.3-p327 falcon 补丁：
+`1.9.3-p327` falcon 补丁：
 
     加法： 6.717663
     减法： 6.86062
@@ -26,12 +26,12 @@
     除法： 20.266194
 
 启动速度：
-2.0.0-p0：
+`2.0.0-p0`：
 
     $ time rails s --daemon -P tmp/pids/daemon.pid -p 6000
     4.93s user 1.60s system 83% cpu 7.816 total
 
-1.9.3-327 falcon：
+`1.9.3-327` falcon：
 
     $ time rails s --daemon -P tmp/pids/daemon.pid -p 6000
     5.95s user 2.21s system 83% cpu 9.828 total
