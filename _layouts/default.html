@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--
-      * Author:  Ranmocy
-      * Contact: ranmocy@gmail.com
-      * Theme:   Ranmocy
-    -->
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta charset="utf-8" />
-  <meta name="generator" content="Jekyll" />
-  <meta name="author" content="{{ site.author.name }}" />
+  <meta name="author" content="Ranmocy" />
   <meta name="description" content="{{ site.description }}" />
+  <meta name="generator" content="Jekyll" />
 
   <link href="/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-  <link href="{{ site.feed }}" rel="alternate" type="application/atom+xml" title="{{ site.title }}" />
+  <link href="atom.xml" rel="alternate" type="application/atom+xml" title="{{ site.title }}" />
   <link href="http://fonts.googleapis.com/css?family=Raleway:100" rel="stylesheet" type="text/css" />
   {% stylesheet default %}
   {% javascript jquery-1.9.1.min %}
-
   <!--[if lt IE 9]> {% javascript html5 %} <![endif]-->
   <!--[if IE]> {% stylesheet ie %} <![endif]-->
 </head>
@@ -28,24 +22,24 @@
   </aside>
 
   <header>
-    <h1 class="header logo">
-      <a href="{{ base.url }}/">Fragments in Ranmocy's Brain!</a>
+    <h1>
+      <a href="{{ base.url }}/">{{ site.title }}</a>
+      <span>{{ site.description }}</span>
     </h1>
-    <p class="header motto">
+    <p>
       我努力将诸多人格中各种微小的片面在这里拼合。
       我拨开我的大脑，只为博君一笑。
     </p>
-    <div class="separater"> </div>
+    <div class="separater"></div>
   </header>
 
-  <article class="post">
+  <section>
     {% if page.index %}
       {{ content }}
     {% else %}
       {% include article.html %}
-      <div class="separater"> </div>
     {% endif %}
-  </article>
+  </section>
 
   <footer class="clear"></footer>
 

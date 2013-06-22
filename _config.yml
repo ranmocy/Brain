@@ -1,12 +1,6 @@
-title: "Ranmocy's Garden"
-tagline: "My Brain, My Treasure"
-author:
-  name:    Ranmocy
-  email:   Ranmocy@gmail.com
-  twitter: twitter.com/ranmocy
+title: "Ranmocy's Fragments"
 description: "My Brain, My Treasure."
 
-feed: atom.xml
 paginate: 8
 motto:
   Diary: 一个欲望灼烧者艰难写下的自白。

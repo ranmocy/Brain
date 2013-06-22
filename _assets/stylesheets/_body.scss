@@ -4,7 +4,20 @@ body {
   font-size: $normal;
 }
 
-body > header, body > article {
+body > header, body > section {
   width: 60%;
   margin: 0px auto;
+}
+
+body > header {
+  color: lighten($fr, 30%);
+  h1 > span, p {
+    color: lighten($fr, 60%);
+    font-size: $tiny;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

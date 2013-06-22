@@ -5,23 +5,19 @@ aside, footer {
 }
 
 aside {
+  color: lighten($fr, 50%);
   font-size: $tiny;
-  ul {
-    list-style-type: hebrew;
-  }
   ol {
-    list-style-type: upper-greek;
-  }
-  a {
     font-size: $normal;
+    list-style-type: hebrew;
+    // list-style-type: upper-greek;
   }
-  footer {
-    text-align: center;
-    a {
-      margin: 0;
-    }
+
+  a:hover {
+    color: lighten($fr, 10%);
   }
-  .passing_list {
-    display: none;
+
+  footer > a {
+    font-size: 120%;
   }
 }
