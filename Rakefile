@@ -31,17 +31,19 @@ namespace :site do
     FileUtils.mkdir(POSTS_DIR)
   end
 
-  desc "Generate _posts"
+  desc "Generate _posts by files end with md"
   task :prepare => [:cleanup] do
     Dir["[^_]*/*.md"].each do |file|
       ord_file = ROOT_DIR.join(file)
-      filename = ord_file.basename.to_s.gsub(/\s+/, '-')
       category = ord_file.dirname.basename
-      new_file = POSTS_DIR.join("1991-05-11-#{filename}")
 
       fronter  = parse_fronter(ord_file.to_s)
       date = Time.new(fronter["created-at"]).to_date
 
+      filename = ord_file.basename.to_s.gsub(/\s+/, '-') # escape
+      new_file = POSTS_DIR.join("#{date.to_s}-#{filename}")
+
+      # Fixup Fronter
       begin
         org_f    = File.open(ord_file, "r")
         target_f = File.open(new_file, "w")
