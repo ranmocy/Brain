@@ -30,13 +30,11 @@
     <hr/>
   </header>
 
-  <section>
-    {% if page.index %}
-      {{ content }}
-    {% else %}
-      {% include article.html %}
-    {% endif %}
-  </section>
+  {% if page.index %}
+    {{ content }}
+  {% else %}
+    {% include article.html %}
+  {% endif %}
 
   {% include analysis.html %}
 </body>

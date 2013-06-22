@@ -13,7 +13,6 @@ layout: default
 published: true
 date: 11 May 1991
 category: %s
-tags: [%s]
 ---
 
 FRONT
@@ -33,11 +32,11 @@ namespace :site do
       ord_file = ROOT_DIR.join(file)
       filename = ord_file.basename.to_s.gsub(/\s+/, '-')
       category = ord_file.dirname.basename
-      new_file = POSTS_DIR.join("2013-04-13-#{filename}")
+      new_file = POSTS_DIR.join("1991-05-11-#{filename}")
 
       # FileUtils.cp(ord_file, new_file)
       File.open(new_file, "w") { |file|
-        file.puts (YAMLFrontMatter % [category, category])
+        file.puts (YAMLFrontMatter % [category])
         file.puts File.open(ord_file, "r").read
       }
     end
