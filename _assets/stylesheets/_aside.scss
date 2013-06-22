@@ -1,0 +1,27 @@
+aside, footer {
+  position: fixed;
+  left: 0px;
+  width: 20%;
+}
+
+aside {
+  font-size: $tiny;
+  ul {
+    list-style-type: hebrew;
+  }
+  ol {
+    list-style-type: upper-greek;
+  }
+  a {
+    font-size: $normal;
+  }
+  footer {
+    text-align: center;
+    a {
+      margin: 0;
+    }
+  }
+  .passing_list {
+    display: none;
+  }
+}

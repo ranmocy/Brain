@@ -1,13 +1,13 @@
 $tiny: 12px;
-$normal: 16px;
-$large: 22px;
+$normal: 18px;
+$large: 24px;
 $huge: 48px;
 
 $grey: #888888;
 
 $bg_sh: white;
 $fr_sh: black;
-$bg: darken($bg_sh, 10%);
+$bg: darken($bg_sh, 0%);
 $fr: lighten($fr_sh, 10%);
 
 $em: #dddd88;
@@ -22,4 +22,4 @@ $header: $fr_sh;
 $declare: lighten($fr, 20%);
 $motto: darken($bg, 25%);
 
-$shadow: true;
+$shadow: false;

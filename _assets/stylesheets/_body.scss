@@ -1,0 +1,10 @@
+body {
+  color: $fr;
+  background: $bg;
+  font-size: $normal;
+}
+
+body > header, body > article {
+  width: 60%;
+  margin: 0px auto;
+}

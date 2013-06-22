@@ -16,6 +16,12 @@
     background: black;
     @include border-radius(5px);
   }
+  ul {
+    list-style-type: hebrew;
+  }
+  ol {
+    list-style-type: hiragana-iroha;
+  }
 }
 
 .category.motto {

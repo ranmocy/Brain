@@ -1,17 +1,21 @@
 <div class="inner">
-  <!-- <div id="google_translate_element"></div>
-   -->
-  <div class="declare">
-    <a href="https://profiles.google.com/Ranmocy">Google</a>
-    <a href="https://www.facebook.com/ranmocy">Facebook</a>
-    <a href="https://twitter.com/#!/ranmocy">Twitter</a>
-    <a href="mailto:ranmocy@gmail.com">Email</a>
-  </div>
   <div class="passing">
     <h2 class="label">Passing Memories</h2>
+    <ol id="category_list">
     {% for category in site.categories  %}
-      <span>{{ category | first }} {{ category | last | size }} </span>
-      <ol class="passing_list">
+      <li class="category_item">
+        <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}">
+          {{ category | first }} {{ category | last | size }}
+        </a>
+        <p class="category motto">
+          {% for motto in site.motto %}
+            {% if page.categories[0] == motto[0] %}
+              {{ motto[1] }}
+            {% endif %}
+          {% endfor %}
+        </p>
+      </li>
+<!--       <ol class="passing_list">
         {% for article in category[1]  %}
         <li class="passing_item">
           <a href="{{ article.url }}" title="{{ article.title }}" rel="bookmark">[{{ category[0] }}] {{ article.title }}</a>
@@ -19,16 +23,12 @@
           <span class="date">{{ article.date | date_to_string }}</span>
         </li>
         {% endfor %}
-      </ol>
+      </ol> -->
     {% endfor %}
+    </ol>
   </div>
-  <!-- <div class="passing">
-    <h2 class="label">Say to ME</h2>
-    = render 'comment_form'
-  </div> -->
+
   <footer>
-    {% for line in site.copyright %}
-      <p>{{ line }}</p>
-    {% endfor %}
+    Design by <a href="http://ranmocy.info" rel="author" title="Ranmocy">Ranmocy</a> Powered by <a href="http://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a> &copy; Copyright 2009-2013, All Rights Reserved.
   </footer>
 </div>
