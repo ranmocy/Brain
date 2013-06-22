@@ -1,0 +1,23 @@
+aside {
+  width: 200px;
+  position: fixed;
+  left: 0px;
+  padding: 0 5px;
+
+  color: lighten($fr, 50%);
+  font-size: $tiny;
+
+  ol {
+    font-size: $normal;
+    list-style-type: hebrew;
+    // list-style-type: upper-greek;
+  }
+
+  a:hover {
+    color: lighten($fr, 10%);
+  }
+
+  footer > a {
+    font-size: 120%;
+  }
+}

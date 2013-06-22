@@ -1,14 +1,13 @@
-<article class="post">
+<article>
   <header>
-    <h1 class="title"><a href="{{ page.url }}">{{ page.title }}</a></h1>
-    <p class="meta">
+    <h1><a href="{{ page.url }}">{{ page.title }}</a></h1>
+    <dd>
       本文已然祸害了 不知道多少 个人
-      <span class="date">
-        {% if page.date %} {{ page.date | date_to_string }} {% endif %}
-      </span>
-    </p>
+      <span> Since {% if page.date %} {{ page.date | date_to_string }} {% endif %}</span>
+    </dd>
   </header>
-  <section class="content">
+
+  <section>
     {{ content }}
   </section>
-<div class="separater"> </div>
+</article>

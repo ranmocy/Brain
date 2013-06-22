@@ -1,5 +1,3 @@
-# Howto setup-mew-in-emacs #
-
 Homepage of Mew. http://www.Mew.org/
 
 0. Setup stunnel

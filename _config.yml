@@ -1,37 +1,46 @@
-title: "Ranmocy's Garden"
-tagline: "My Brain, My Treasure"
-author:
-  name:    Ranmocy
-  email:   Ranmocy@gmail.com
-  twitter: twitter.com/ranmocy
+title: "Ranmocy's Fragments"
 description: "My Brain, My Treasure."
 
-feed: atom.xml
 paginate: 8
 motto:
   Diary: 一个欲望灼烧者艰难写下的自白。
   Idea: 思维碎片，漂浮在名叫头脑的海洋。
   Tech: 技术宅拯救世界。
   Philosophy: 我在教导你们世界运行的原动力。 你们听之，想之，就忘之吧。
-copyright:
-  - Design by <a href="http://ranmocy.info" rel="author" title="Ranmocy">Ranmocy</a> Powered by <a href="http://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a>
-  - "&copy; Copyright 2009-2013, All Rights Reserved."
 
 
 # Default options
-safe:        false
-baseurl:    /
-url: http://ranmocy.info
-
 source:      .
 destination: ./_site
 plugins:     ./_plugins
-# include:     Tech/
+layouts:     ./_layouts
+include:     ['.htaccess', "about.html"]
+exclude:     []
+keep_files:  ['.git','.svn']
+timezone:    nil
 
 future:      true
+show_drafts: nil
+limit_posts: 0
+pygments:    true
+
+relative_permalinks: true
+
+permalink:     pretty
+paginate_path: 'page:num'
+
+markdown:      maruku
+markdown_ext:  markdown,mkd,mkdn,md
+textile_ext:   textile
+
+excerpt_separator: "\n\n"
+
+safe:        false
+host:        0.0.0.0
+port:        4000
+baseurl:     /
+url:         http://ranmocy.info
 lsi:         false
-markdown:    maruku
-permalink:   /:categories/:year/:month/:day/:title
 
 maruku:
   use_tex:    false
@@ -51,8 +60,9 @@ kramdown:
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: false
-  
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  use_coderay: true
+
   coderay:
     coderay_wrap: div
     coderay_line_numbers: inline
@@ -61,6 +71,8 @@ kramdown:
     coderay_bold_every: 10
     coderay_css: style
 
+redcloth:
+  hard_breaks: true
 
 # Plugin: jekyll-assets
 #

@@ -1,6 +1,4 @@
-# Enable HiDPI in MacOS 10.8 Mountain Lion
-
-## HiDPI is try to use 2x2 pixel to present 1x1 pixel
+HiDPI is try to use 2x2 pixel to present 1x1 pixel
 
 The traditional way to enable it is to use Quartz Debug.
 But actually you can use `defaults` to do so.

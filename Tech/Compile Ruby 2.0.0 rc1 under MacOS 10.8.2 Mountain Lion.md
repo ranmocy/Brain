@@ -1,5 +1,3 @@
-# Compile Ruby 2.0.0 rc1 under MacOS 10.8.2 Mountain Lion
-
 RVM, Rbenv, ruby-build has already support Ruby 2.0.0.
 You can build it by them.
 

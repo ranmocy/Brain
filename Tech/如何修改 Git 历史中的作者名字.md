@@ -1,5 +1,3 @@
-# 如何修改 Git 历史中的作者名字
-
     git filter-branch --commit-filter '
     if [ "$GIT_COMMITTER_NAME" = "riku" ]; then export GIT_COMMITTER_NAME="Riku"; fi;
     if [ "$GIT_COMMITTER_NAME" = "ranmocy" ]; then export GIT_COMMITTER_NAME="Ranmocy Sheng"; fi;

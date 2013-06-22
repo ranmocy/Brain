@@ -1,6 +1,0 @@
-* Day1 [1/2]
-- [X] list1
-- [ ] *list1
-* Day2 [0/2]
-- [ ] *list1
-- [ ] list2
