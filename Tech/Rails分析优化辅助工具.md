@@ -1,5 +1,3 @@
-# Rails 分析优化辅助工具
-
 * [Brakeman](https://github.com/presidentbeef/brakeman)
 * [Rails Best Practise](https://github.com/railsbp/rails_best_practices)
 * [SimpleCov](https://github.com/colszowka/simplecov)
