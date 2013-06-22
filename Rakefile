@@ -7,16 +7,6 @@ ROOT_DIR  = Pathname.new('.').expand_path
 POSTS_DIR = Pathname.new("_posts").expand_path
 SITE_DIR = Pathname.new("_site").expand_path
 
-YAMLFrontMatter =<<FRONT
----
-layout: default
-published: true
-date: 11 May 1991
-category: %s
----
-
-FRONT
-
 
 namespace :site do
   desc "Cleanup"
@@ -28,17 +18,26 @@ namespace :site do
 
   desc "Generate _posts"
   task :prepare => [:cleanup] do
-    Dir["[^_]*/*.*"].each do |file|
+    Dir["[^_]*/*.md"].each do |file|
       ord_file = ROOT_DIR.join(file)
       filename = ord_file.basename.to_s.gsub(/\s+/, '-')
       category = ord_file.dirname.basename
       new_file = POSTS_DIR.join("1991-05-11-#{filename}")
 
+      fronter  = YAML.load_file(ord_file)
+
       # FileUtils.cp(ord_file, new_file)
-      File.open(new_file, "w") { |file|
-        file.puts (YAMLFrontMatter % [category])
-        file.puts File.open(ord_file, "r").read
-      }
+      begin
+        org_f    = File.open(ord_file, "r")
+        target_f = File.open(new_file, "w")
+
+        target_f.write org_f.readline
+        target_f.write "layout: default\ndate: #{fronter["updated-at"].try(:to_date) || Date.today}\n"
+        target_f.write org_f.read
+      ensure
+        org_f.close
+        target_f.close
+      end
     end
   end
 

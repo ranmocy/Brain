@@ -1,3 +1,10 @@
+---
+title: Howto setup Mew in Emacs
+create-at: 2012-06-27 22:38:20 +0800
+updated-at: 2013-04-14 10:41:17 +0800
+category: Tech
+---
+
 Homepage of Mew. http://www.Mew.org/
 
 0. Setup stunnel

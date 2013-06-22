@@ -1,10 +1,9 @@
-# 修复PG的id序列 #
-
-<catalog-id type="integer">3</catalog-id>
-<created-at type="datetime">2012-02-24T12:40:50+08:00</created-at>
-<id type="integer">17</id>
-<updated-at type="datetime">2012-02-24T12:40:50+08:00</updated-at>
-<visited type="integer">8</visited>
+---
+title: 修复PG的id序列
+create-at: 2012-02-24T12:40:50.00+08:00
+updated-at: 2012-02-24T12:40:50.00+08:00
+category: Tech
+---
 
 突然发现我博客发不了文章了，`heroku logs` 中显示： 
 

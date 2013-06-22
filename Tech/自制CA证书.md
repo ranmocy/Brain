@@ -1,3 +1,10 @@
+---
+title: 自制CA证书
+create-at: 2013-06-22 07:50:39 +0800
+updated-at: 2013-06-22 07:50:39 +0800
+category: Tech
+---
+
 生成秘钥和CA证书：
 
     cd /etc/ssl/

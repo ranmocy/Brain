@@ -1,3 +1,10 @@
+---
+title: Enable HiDPI in MacOS 10.8 Mountain Lion
+create-at: 2013-03-11 15:47:53 +0800
+updated-at: 2013-03-11 15:47:53 +0800
+category: Tech
+---
+
 HiDPI is try to use 2x2 pixel to present 1x1 pixel
 
 The traditional way to enable it is to use Quartz Debug.

@@ -1,3 +1,10 @@
+---
+title: GitCafe升级Ruby-2.0.0
+create-at: 2013-04-13 10:07:17 +0800
+updated-at: 2013-06-22 07:55:07 +0800
+category: Tech
+---
+
 整理了这次升级 GitCafe 的记录，
 正好接下来会进行一轮性能优化，同样需要 Benchmark，
 希望能给大家做一个参考，算是回报社区吧。

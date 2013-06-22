@@ -1,3 +1,10 @@
+---
+title: Install GCC on MacOS
+create-at: 2013-06-12 10:42:01 +0800
+updated-at: 2013-06-22 22:42:33 +0800
+category: Tech
+---
+
 XCode includes the gcc customized for MacOS, but it is incompatible with a lot of wonderful softwares.
 
 Run `brew doctor` will return:

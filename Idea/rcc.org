@@ -42,7 +42,7 @@
 
 
 
-* TODO Affairs 
+* TODO Affairs
 ** Speech Pre
 ** Logo Design
 ** Record

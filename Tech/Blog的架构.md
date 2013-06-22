@@ -1,10 +1,9 @@
-# Blog 的架构 #
-
-<catalog-id type="integer">3</catalog-id>
-<created-at type="datetime">2012-01-29T17:50:00+08:00</created-at>
-<id type="integer">14</id>
-<updated-at type="datetime">2012-01-29T17:50:00+08:00</updated-at>
-<visited type="integer">23</visited>
+---
+title: Blog 的架构
+create-at: 2012-01-29T17:50:00.00+08:00
+updated-at: 2012-01-29T17:50:00.00+08:00
+category: Tech
+---
 
 这个博客系统是基于 `Ruby on Rails 3.2rc2` 构建的。参加 [GitCafe](http://www.gitcafe.com/) 的开发后学习到了很多关于 Rails 的东西，于是使用了如下 `Gem` 包重构了博客：
 

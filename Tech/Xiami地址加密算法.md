@@ -1,3 +1,10 @@
+---
+title: Xiami地址加密算法
+create-at: 2013-04-13 10:07:17 +0800
+updated-at: 2013-04-13 10:07:17 +0800
+category: Tech
+---
+
 # Xiami 地址加密的算法
 
     remain_str = "hFaF4%52pt%m155E43t2i14E39pF.75261%fn68_1931e88121A.t%%779%x%2274.2i2FF%_m"

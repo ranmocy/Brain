@@ -1,3 +1,10 @@
+---
+title: elisp 修饰符
+create-at: 2012-06-27 22:38:20 +0800
+updated-at: 2012-06-27 22:38:20 +0800
+category: Tech
+---
+
 Quote
 -----
 

@@ -1,3 +1,10 @@
+---
+title: 在 Bundler 里面运行 Bundler
+create-at: 2013-04-13 10:07:17 +0800
+updated-at: 2013-04-13 10:07:17 +0800
+category: Tech
+---
+
 当 Bundler 被加载两遍但却不是同一个位置的包，
 运行会报错，一般是某个包文件没有找到。
 

@@ -1,4 +1,9 @@
-# My Staffs
+---
+title: My Staffs
+create-at: 2012-07-25 20:52:39 +0800
+updated-at: 2012-08-16 08:36:53 +0800
+category: Idea
+---
 
 ## Hardwares
 1. Macbook Air 2011 4,2
