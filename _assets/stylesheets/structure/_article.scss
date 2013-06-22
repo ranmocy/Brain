@@ -1,0 +1,14 @@
+article {
+  margin-top: $huge * 0.2;
+  margin-bottom: $huge;
+  .title {
+    color: $title;
+    text-shadow: 5px 5px 1px $bg_sh;
+  }
+  .meta {
+    color: $meta;
+    .date {
+      margin-left: 10px;
+    }
+  }
+}

@@ -1,11 +1,3 @@
-<!-- <div id="google_translate_element"></div>
- -->
-<div class="declare">
-  <a href="https://profiles.google.com/Ranmocy">Google</a>
-  <a href="https://www.facebook.com/ranmocy">Facebook</a>
-  <a href="https://twitter.com/#!/ranmocy">Twitter</a>
-  <a href="mailto:ranmocy@gmail.com">Email</a>
-</div>
 <div class="declare">
   <span class="ranmocy logo">Ranmocy</span>
   , the ONLY Author.
@@ -34,27 +26,3 @@
     推荐在夜深人静时候阅读，可以静下心来。尤其网速较快。<br/>  1min登陆本站，均属网络正常，不要哭爹喊娘，奈何人品有伤。
   </p>
 </div>
-<div class="passing">
-  <h2 class="label">Passing Memories</h2>
-  {% for category in site.categories  %}
-    <span>{{ category | first }} {{ category | last | size }} </span>
-    <ol class="passing_list">
-      {% for article in category[1]  %}
-      <li class="passing_item">
-        <a href="{{ article.url }}" title="{{ article.title }}" rel="bookmark">[{{ category[0] }}] {{ article.title }}</a>
-        &raquo;
-        <span class="date">{{ article.date | date_to_string }}</span>
-      </li>
-      {% endfor %}
-    </ol>
-  {% endfor %}
-</div>
-<!-- <div class="passing">
-  <h2 class="label">Say to ME</h2>
-  = render 'comment_form'
-</div> -->
-<footer>
-  {% for line in site.copyright %}
-    <p>{{ line }}</p>
-  {% endfor %}
-</footer>

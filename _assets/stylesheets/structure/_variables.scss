@@ -1,0 +1,25 @@
+$tiny: 12px;
+$normal: 16px;
+$large: 22px;
+$huge: 48px;
+
+$grey: #888888;
+
+$bg_sh: white;
+$fr_sh: black;
+$bg: darken($bg_sh, 10%);
+$fr: lighten($fr_sh, 10%);
+
+$em: #dddd88;
+$strong: #ee6666;
+$a: tomato;
+
+$title: #fed401;
+$meta: #60ac53;
+$date: #71719e;
+
+$header: $fr_sh;
+$declare: lighten($fr, 20%);
+$motto: darken($bg, 25%);
+
+$shadow: true;

@@ -23,29 +23,31 @@
   <!--[if IE]> {% stylesheet ie %} <![endif]-->
 </head>
 <body>
-  <sidebar>
-    {% include sidebar.html %}
-  </sidebar>
-  <maintain>
-    <header>
-      <h1 class="header logo">
-        <a href="{{ base.url }}/">"这不是Ranmocy的真实!"</a>
-      </h1>
-      <p class="header motto">
-        永远不要指望从网络上能够真的了解一个人，那顶多是他诸多人格中微小的一个片面。
-      </p>
-      {% include categories.html %}
-    </header>
-    <section>
-      {% if page.index %}
-        {{ content }}
-      {% else %}
-        {% include article.html %}
-      {% endif %}
-    </section>
-  </maintain>
-  <footer class="clear">
-  </footer>
+  <aside>
+    {% include aside.html %}
+    {% include categories.html %}
+  </aside>
+
+  <header>
+    <h1 class="header logo">
+      <a href="{{ base.url }}/">Fragments in Ranmocy's Brain!</a>
+    </h1>
+    <p class="header motto">
+      我努力将诸多人格中各种微小的片面在这里拼合。
+    </p>
+  </header>
+
+  <article class="post">
+    {% if page.index %}
+      {{ content }}
+    {% else %}
+      {% include article.html %}
+      <div class="separater"> </div>
+    {% endif %}
+  </article>
+
+  <footer class="clear"></footer>
+
   {% include analysis.html %}
 </body>
 </html>

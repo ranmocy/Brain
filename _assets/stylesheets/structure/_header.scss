@@ -1,0 +1,17 @@
+@import "compass/css3/border-radius";
+
+header {
+  margin: 0 0px;
+  text-align: right;
+  .header.logo {
+    margin: 1% 0;
+    font-size: $huge;
+  }
+  .header.motto {
+    color: $motto;
+    font-size: $tiny;
+  }
+  .title {
+    font-size: $large;
+  }
+}

@@ -1,14 +1,19 @@
-<article class="post">
-  <header>
-    <h1 class="title"><a href="{{ page.url }}">{{ page.title }}</a></h1>
-    <p class="meta">
-      本文已然祸害了 不知道多少 个人
-      <span class="date">
-        {% if page.date %} {{ page.date | date_to_string }} {% endif %}
-      </span>
-    </p>
-  </header>
-  <section class="content">
-    {{ content }}
-  </section>
-<div class="separater"> </div>
+<header>
+  <h1 class="title"><a href="{{ page.url }}">{{ page.title }}</a></h1>
+  <p class="meta">
+    <div class="ribbon">
+      <div class="ribbon-stitches-top"></div>
+      <strong class="ribbon-content">
+        本文已然祸害了 不知道多少 个人
+        <span class="date">
+          {% if page.date %} {{ page.date | date_to_string }} {% endif %}
+        </span>
+      </strong>
+      <div class="ribbon-stitches-bottom"></div>
+    </div>
+  </p>
+</header>
+
+<section class="content">
+  {{ content }}
+</section>
