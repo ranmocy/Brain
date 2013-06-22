@@ -1,6 +1,6 @@
 ---
 title: 黑洞
-create-at: 2012-06-25 20:25:36 +0800
+created-at: 2012-06-25 20:25:36 +0800
 updated-at: 2012-06-25 20:25:36 +0800
 category: Idea
 ---

@@ -1,6 +1,6 @@
 ---
 title: 修复PG的id序列
-create-at: 2012-02-24T12:40:50.00+08:00
+created-at: 2012-02-24T12:40:50.00+08:00
 updated-at: 2012-02-24T12:40:50.00+08:00
 category: Tech
 ---

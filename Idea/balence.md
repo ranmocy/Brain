@@ -1,6 +1,6 @@
 ---
 title: 平衡
-create-at: 2012-07-25 20:52:39 +0800
+created-at: 2012-07-25 20:52:39 +0800
 updated-at: 2012-07-25 20:52:39 +0800
 category: Idea
 ---

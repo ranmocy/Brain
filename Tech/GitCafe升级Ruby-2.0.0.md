@@ -1,6 +1,6 @@
 ---
 title: GitCafe升级Ruby-2.0.0
-create-at: 2013-04-13 10:07:17 +0800
+created-at: 2013-04-13 10:07:17 +0800
 updated-at: 2013-06-22 07:55:07 +0800
 category: Tech
 ---

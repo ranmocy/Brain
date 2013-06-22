@@ -1,6 +1,6 @@
 ---
 title: Compile Ruby 2.0.0 rc1 under MacOS 10.8.2 Mountain Lion
-create-at: 2013-02-01 16:58:53 +0800
+created-at: 2013-02-01 16:58:53 +0800
 updated-at: 2013-04-13 10:07:17 +0800
 category: Tech
 ---
