@@ -5,13 +5,14 @@ body {
 }
 
 body > header, body > section {
-  width: 60%;
-  margin: 0px auto;
+  width: 70%;
+  margin: 0px;
+  margin-left: 20%;
 }
 
 body > header {
   color: lighten($fr, 30%);
-  h1 > span, p {
+  h1 > span, dd {
     color: lighten($fr, 60%);
     font-size: $tiny;
   }

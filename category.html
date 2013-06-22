@@ -6,19 +6,19 @@ index:  true
 {% for category in site.categories %}
   {% if page.category_name == category[0] %}
     {% for article in category[1] %}
-      <article class="post">
+      <article>
         <header>
-          <h1 class="title"><a href="{{ article.url }}">{{ article.title }}</a></h1>
-          <p class="date">{{ article.date | date_to_string }}</p>
+          <h1><a href="{{ article.url }}">{{ article.title }}</a></h1>
+          <dd>
+            本文已然祸害了 不知道多少 个人
+            <span> Since {% if article.date %} {{ article.date | date_to_string }} {% endif %}</span>
+          </dd>
         </header>
-        <section class="content">
+        <section>
           {{ article.content | truncate:140 }}
         </section>
-        <div class="more">
-          <a href="{{ article.url }}">解释解释什么tmd叫read on</a>
-        </div>
       </article>
-      <div class="separater"> </div>
+      <hr/>
     {% endfor %}
   {% endif %}
 {% endfor %}

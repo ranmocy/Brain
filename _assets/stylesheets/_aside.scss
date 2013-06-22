@@ -1,12 +1,12 @@
-aside, footer {
+aside {
+  width: 20%;
   position: fixed;
   left: 0px;
-  width: 20%;
-}
+  padding: 0 5px;
 
-aside {
   color: lighten($fr, 50%);
   font-size: $tiny;
+
   ol {
     font-size: $normal;
     list-style-type: hebrew;

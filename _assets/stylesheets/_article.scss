@@ -1,6 +1,15 @@
 // Markdown
 article {
+  header dd {
+    color: lighten($fr, 30%);
+    font-size: $tiny;
+  }
+
   ul, ol, pre {
     margin-left: 2em;
+  }
+
+  pre {
+    white-space: pre-wrap;
   }
 }
