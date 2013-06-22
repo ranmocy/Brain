@@ -1,7 +1,7 @@
 ---
 title: Cache in Rails
-created-at: 2013-05-05 22:35:17 +0800
-updated-at: 2013-05-05 22:35:17 +0800
+created-at: 2013-05-05T22:35:17+08:00
+updated-at: 2013-05-05T22:35:17+08:00
 category: Tech
 ---
 

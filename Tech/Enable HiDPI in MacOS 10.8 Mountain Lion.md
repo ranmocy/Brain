@@ -1,7 +1,7 @@
 ---
 title: Enable HiDPI in MacOS 10.8 Mountain Lion
-created-at: 2013-03-11 15:47:53 +0800
-updated-at: 2013-03-11 15:47:53 +0800
+created-at: 2013-03-11T15:47:53+08:00
+updated-at: 2013-03-11T15:47:53+08:00
 category: Tech
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Install GCC on MacOS
-created-at: 2013-06-12 10:42:01 +0800
-updated-at: 2013-06-22 22:42:33 +0800
+created-at: 2013-06-12T10:42:01+08:00
+updated-at: 2013-06-22T22:42:33+08:00
 category: Tech
 ---
 

@@ -1,3 +1,4 @@
+require 'yaml'
 require 'pathname'
 require 'fileutils'
 require 'jekyll'
@@ -7,6 +8,20 @@ ROOT_DIR  = Pathname.new('.').expand_path
 POSTS_DIR = Pathname.new("_posts").expand_path
 SITE_DIR = Pathname.new("_site").expand_path
 
+def parse_fronter(path)
+  raw    = File.read(path)
+  chunks = raw.split(/^(-{5}|-{3})\s*$/, 3)
+
+  if (chunks.length == 5)
+    meta     = YAML.safe_load(chunks[2].strip)
+    contents = chunks[4].strip
+  else
+    meta     = {}
+    contents = raw
+  end
+
+  meta
+end
 
 namespace :site do
   desc "Cleanup"
@@ -24,15 +39,16 @@ namespace :site do
       category = ord_file.dirname.basename
       new_file = POSTS_DIR.join("1991-05-11-#{filename}")
 
-      fronter  = YAML.load_file(ord_file)
+      fronter  = parse_fronter(ord_file.to_s)
+      date = Time.new(fronter["created-at"]).to_date
 
-      # FileUtils.cp(ord_file, new_file)
       begin
         org_f    = File.open(ord_file, "r")
         target_f = File.open(new_file, "w")
 
         target_f.write org_f.readline
-        target_f.write "layout: default\ndate: #{fronter["updated-at"].try(:to_date) || Date.today}\n"
+        target_f.write "layout: default\n"
+        target_f.write "date: #{date}\n"
         target_f.write org_f.read
       ensure
         org_f.close
