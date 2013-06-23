@@ -4,26 +4,10 @@
     <ol id="category_list">
     {% for category in site.sorted_categories %}
       <li class="category_item">
-        <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}">
-          {{ category | first }}({{ category | last | size }})
+        <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}" title="{{ category[3] }}">
+          {{ category[0] | capitalize }}({{ category[2] }})
         </a>
-<!--         <p class="category motto">
-          {% for motto in site.motto %}
-            {% if page.categories[0] == motto[0] %}
-              {{ motto[1] }}
-            {% endif %}
-          {% endfor %}
-        </p> -->
       </li>
-      <!--  <ol class="passing_list">
-        {% for article in category[1]  %}
-        <li class="passing_item">
-          <a href="{{ article.url }}" title="{{ article.title }}" rel="bookmark">[{{ category[0] }}] {{ article.title }}</a>
-          &raquo;
-          <span class="date">{{ article.date | date_to_string }}</span>
-        </li>
-        {% endfor %}
-      </ol> -->
     {% endfor %}
     </ol>
   </div>

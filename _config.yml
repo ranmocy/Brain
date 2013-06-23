@@ -3,10 +3,14 @@ description: "My Brain, My Treasure."
 
 paginate: 8
 motto:
-  Diary: 一个欲望灼烧者艰难写下的自白。
-  Idea: 思维碎片，漂浮在名叫头脑的海洋。
-  Tech: 技术宅拯救世界。
-  Philosophy: 我在教导你们世界运行的原动力。 你们听之，想之，就忘之吧。
+  blog: 旅行日志
+  diary: 一个欲望灼烧者艰难写下的自白。
+  dream: 最真实总是梦境
+  idea: 思维碎片，漂浮在名叫头脑的海洋。
+  philosophy: 我在教导你们世界运行的原动力。 你们听之，想之，就忘之吧。
+  poem: 用诗歌来拯救自我
+  remark: 从这个世界剥离出的抽象
+  tech: 技术宅拯救世界。
 
 
 # Default options
