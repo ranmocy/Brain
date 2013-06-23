@@ -4,8 +4,12 @@ aside {
   left: 0px;
   padding: 0 5px;
 
-  color: lighten($fr, 50%);
+  color: lighten($fr, 80%);
   font-size: $tiny;
+
+  h2 {
+    color: lighten($fr, 50%);
+  }
 
   ol {
     font-size: $normal;
@@ -15,6 +19,10 @@ aside {
 
   a:hover {
     color: lighten($fr, 10%);
+  }
+
+  a.active {
+    color: $fr;
   }
 
   footer > a {

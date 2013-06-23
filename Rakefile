@@ -1,4 +1,4 @@
-require 'yaml'
+require 'time'
 require 'pathname'
 require 'fileutils'
 require 'jekyll'
@@ -38,7 +38,7 @@ namespace :site do
       category = ord_file.dirname.basename
 
       fronter  = parse_fronter(ord_file.to_s)
-      date = Time.new(fronter["created-at"]).to_date
+      date = Time.parse(fronter["created-at"]).to_date
 
       filename = ord_file.basename.to_s.gsub(/\s+/, '-') # escape
       new_file = POSTS_DIR.join("#{date.to_s}-#{filename}")

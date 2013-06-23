@@ -4,7 +4,7 @@ index:  true
 ---
 
 {% for category in site.categories %}
-  {% if page.category_name == category[0] %}
+  {% if page.categories[0] == category[0] %}
     {% for article in category[1] %}
       <article>
         <header>
