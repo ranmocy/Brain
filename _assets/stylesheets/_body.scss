@@ -21,6 +21,9 @@ body > header {
 a {
   color: inherit;
   text-decoration: none;
+  &:hover, &.active {
+    color: $fr;
+  }
 }
 
 .label {

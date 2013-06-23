@@ -1,0 +1,10 @@
+---
+layout: default
+index:  true
+---
+
+{% for article in site.posts %}
+  {% if article.title %}
+    {% include article_trancate.html %}
+  {% endif %}
+{% endfor %}

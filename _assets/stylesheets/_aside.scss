@@ -17,14 +17,6 @@ aside {
     // list-style-type: upper-greek;
   }
 
-  a:hover {
-    color: lighten($fr, 10%);
-  }
-
-  a.active {
-    color: $fr;
-  }
-
   footer > a {
     font-size: 120%;
   }
