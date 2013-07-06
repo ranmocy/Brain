@@ -2,6 +2,18 @@ title: "Ranmocy's Fragments"
 description: "My Brain, My Treasure."
 
 paginate: 8
+categories_group:
+  life:
+    - blog
+    - diary
+    - dream
+    - poem
+  idea:
+    - idea
+    - remark
+    - philosophy
+  work:
+    - tech
 motto:
   blog: 旅行日志
   diary: 一个欲望灼烧者艰难写下的自白。

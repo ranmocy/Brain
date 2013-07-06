@@ -11,13 +11,23 @@ aside {
     color: lighten($fr, 50%);
   }
 
+  fieldset {
+    border: none;
+    border-top: 2px solid lighten($fr, 80%);
+    legend {
+      color: lighten($fr, 50%);
+      font-size: $normal;
+    }
+  }
+
   ol {
     font-size: $normal;
     list-style-type: hebrew;
     // list-style-type: upper-greek;
   }
 
-  footer > a {
+  section a, footer a {
+    color: lighten($fr, 60%);
     font-size: 120%;
   }
 }

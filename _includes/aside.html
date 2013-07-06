@@ -1,21 +1,29 @@
 <div class="inner">
+  <section>
+    <p>Designer and Author: <a href="/about" rel="author" title="Ranmocy">Ranmocy</a></p>
+  </section>
+
   <div class="passing">
     <h2 class="label"><a href="/pages">Passing Memories</a></h2>
-    <ol id="category_list">
-    {% for category in site.sorted_categories %}
-      <li class="category_item">
-        <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}" title="{{ category[3] }}">
-          {{ category[0] | capitalize }}({{ category[2] }})
-        </a>
-      </li>
+    {% for categrories_group in site.grouped_categories %}
+      <fieldset>
+        <legend>{{ categrories_group | first | capitalize }}</legend>
+        <ol id="category_list">
+          {% for category in categrories_group[1] %}
+          <li class="category_item">
+            <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}" title="{{ category[3] }}">
+              {{ category[0] | capitalize }}({{ category[2] }})
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+      </fieldset>
     {% endfor %}
-    </ol>
   </div>
 
   <footer>
-    <a href="/about">About Me: Designer and Author.</a>
-    Design by <a href="http://ranmocy.info" rel="author" title="Ranmocy">Ranmocy</a>
-    Powered by <a href="http://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a>
-    &copy;Copyright 2009-2013, All Rights Reserved.
+    <p>Powered by <a href="https://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a></p>
+    <p>Hosted by <a href="https://gitcafe.com/" rel="friend" title="GitCafe" target="_blank">GitCafe</a></p>
+    <p>&copy;Copyright 2009-2013, All Rights Reserved.</p>
   </footer>
 </div>
