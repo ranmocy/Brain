@@ -6,9 +6,9 @@
   <div class="passing">
     <h2 class="label"><a href="/pages">Passing Memories</a></h2>
     {% for categrories_group in site.grouped_categories %}
-      <fieldset>
+      <fieldset class="group_{{ categrories_group | first }}">
         <legend>{{ categrories_group | first | capitalize }}</legend>
-        <ol id="category_list">
+        <ol class="category_list">
           {% for category in categrories_group[1] %}
           <li class="category_item">
             <a href="/{{ category[0] }}" class="category_{{ category[0] }}{% if page.categories[0] == category[0] %} active{% endif %}" title="{{ category[3] }}">

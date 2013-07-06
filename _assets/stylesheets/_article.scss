@@ -1,7 +1,7 @@
 // Markdown
 article {
   header dd {
-    color: lighten($fr, 30%);
+    color: $title_color;
     font-size: $tiny;
   }
 

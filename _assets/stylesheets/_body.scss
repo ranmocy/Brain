@@ -1,6 +1,6 @@
 body {
-  color: $fr;
-  background: $bg;
+  color: $fr_color;
+  background: $bg_color;
   font-size: $normal;
 }
 
@@ -11,9 +11,9 @@ body > header, body > article {
 }
 
 body > header {
-  color: lighten($fr, 30%);
-  h1 > span, dd {
-    color: lighten($fr, 60%);
+  color: $title_color;
+  dd {
+    color: $info_color;
     font-size: $tiny;
   }
 }
@@ -22,7 +22,7 @@ a {
   color: inherit;
   text-decoration: none;
   &:hover, &.active {
-    color: $fr;
+    color: $active_color;
   }
 }
 

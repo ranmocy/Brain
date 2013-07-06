@@ -4,30 +4,31 @@ aside {
   left: 0px;
   padding: 0 5px;
 
-  color: lighten($fr, 80%);
+  color: $side_color;
   font-size: $tiny;
 
   h2 {
-    color: lighten($fr, 50%);
+    color: $side_title_color;
   }
 
   fieldset {
     border: none;
-    border-top: 2px solid lighten($fr, 80%);
+    border-top: 2px solid $side_color;
     legend {
-      color: lighten($fr, 50%);
+      color: $side_title_color;
       font-size: $normal;
     }
   }
 
   ol {
     font-size: $normal;
-    list-style-type: hebrew;
-    // list-style-type: upper-greek;
   }
+  .group_life ol { list-style-type: lower-greek; }
+  .group_idea ol { list-style-type: armenian; }
+  .group_work ol { list-style-type: decimal-leading-zero; }
 
   section a, footer a {
-    color: lighten($fr, 60%);
+    color: $info_color;
     font-size: 120%;
   }
 }
