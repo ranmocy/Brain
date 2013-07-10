@@ -77,7 +77,7 @@ namespace :site do
       system "git add ."
       message = "Site updated at #{Time.now.utc}"
       system "git commit -m #{message.shellescape}"
-      system "git remote add origin git@gitcafe.com:#{REPONAME}.git"
+      system "git remote add origin https://gitcafe.com/#{REPONAME}.git"
       system "git push origin master:gitcafe-pages --force"
     end
   end
