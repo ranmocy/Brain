@@ -1,5 +1,7 @@
 title: "Ranmocy's Fragments"
 description: "My Brain, My Treasure."
+author: Ranmocy
+email: Ranmocy@gmail.com
 
 paginate: 8
 categories_group:
@@ -42,7 +44,7 @@ pygments:    true
 
 relative_permalinks: true
 
-permalink:     pretty
+permalink:     /:categories/:title
 paginate_path: 'page:num'
 
 markdown:      maruku

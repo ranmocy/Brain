@@ -39,6 +39,7 @@ namespace :site do
 
       fronter  = parse_fronter(ord_file.to_s)
       date = Time.parse(fronter["created-at"]).to_date
+      date_updated = Time.parse(fronter["updated-at"]).to_date
 
       filename = ord_file.basename.to_s.gsub(/\s+/, '-') # escape
       new_file = POSTS_DIR.join("#{date.to_s}-#{filename}")
@@ -51,6 +52,8 @@ namespace :site do
         target_f.write org_f.readline
         target_f.write "layout: default\n"
         target_f.write "date: #{date}\n"
+        target_f.write "date_updated: #{date_updated}\n"
+        target_f.write "uuid: ranmocy.info/#{date}/#{fronter["title"]}\n"
         target_f.write org_f.read
       ensure
         org_f.close
