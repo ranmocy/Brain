@@ -3,7 +3,7 @@ description: "My Brain, My Treasure."
 author: Ranmocy
 email: Ranmocy@gmail.com
 
-paginate: 8
+# paginate: 8
 categories_group:
   life:
     - blog
