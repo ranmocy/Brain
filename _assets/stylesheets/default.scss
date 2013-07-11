@@ -1,3 +1,15 @@
+$tiny: 12px;
+$normal: 16px;
+$large: 24px;
+$huge: 48px;
+
+$fr_color: lighten(black, 10%);
+$bg_color: white;
+
+$title_color: lighten($fr_color, 30%);
+$info_color: lighten($fr_color, 60%);
+$active_color: black;
+
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
@@ -6,7 +18,89 @@
 }
 @import 'typo';
 
-@import 'variables';
-@import "body";
-@import 'article';
-@import 'aside';
+
+// Base Color and Font
+body {
+  color: $fr_color;
+  background: $bg_color;
+  font-size: $normal;
+  // -webkit-font-smoothing: antialiased;
+}
+aside {
+  color: $info_color;
+  font-size: $tiny;
+}
+
+// Main Frame
+body > header, body > article {
+  width: 70%;
+  margin: 0px;
+  margin-left: 20%;
+}
+aside {
+  width: 200px;
+  position: fixed;
+  left: 0px;
+  padding: 5px;
+}
+
+// Links
+a {
+  color: inherit;
+  &:hover, &.active {
+    text-decoration: none;
+    color: $active_color;
+  }
+}
+
+// Labels
+.label {
+  font-family: 'Raleway','sans-serif';
+}
+
+// Info
+body > header dd, article header dd {
+  color: $info_color;
+  font-size: $tiny;
+}
+
+// Header
+body > header, aside > h2 {
+  color: $title_color;
+}
+body > header {
+  dd {
+    margin-left: 2em
+  }
+}
+
+// Aside
+aside {
+  fieldset {
+    border: none;
+    border-top: 2px solid $info_color;
+    legend {
+      color: $title_color;
+      font-size: $normal;
+    }
+  }
+
+  ol {
+    font-size: $normal;
+  }
+  .group_life ol { list-style-type: lower-greek; }
+  .group_idea ol { list-style-type: armenian; }
+  .group_work ol { list-style-type: decimal-leading-zero; }
+
+  section a, footer a {
+    color: $info_color;
+    font-size: 120%;
+  }
+}
+
+// Article
+article section {
+  columns: 200px 3;
+  -webkit-columns: 200px 3;
+  -moz-columns: 200px 3;
+}
