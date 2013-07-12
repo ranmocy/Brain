@@ -26,10 +26,6 @@ body {
   font-size: $normal;
   // -webkit-font-smoothing: antialiased;
 }
-aside {
-  color: $info_color;
-  font-size: $tiny;
-}
 
 // Main Frame
 body > header, body > article {
@@ -59,19 +55,17 @@ a {
 }
 
 // Info
-body > header dd, article header dd {
+aside, body > header dd, article header dd {
   color: $info_color;
   font-size: $tiny;
 }
 
 // Header
-body > header, aside > h2 {
+body > header, aside > h2, fieldset legend {
   color: $title_color;
 }
-body > header {
-  dd {
-    margin-left: 2em
-  }
+body > header dd {
+  margin-left: 2em
 }
 
 // Aside
@@ -80,8 +74,7 @@ aside {
     border: none;
     border-top: 2px solid $info_color;
     legend {
-      color: $title_color;
-      font-size: $normal;
+      font-size: $tiny;
     }
   }
 
@@ -93,7 +86,6 @@ aside {
   .group_work ol { list-style-type: decimal-leading-zero; }
 
   section a, footer a {
-    color: $info_color;
     font-size: 120%;
   }
 }
