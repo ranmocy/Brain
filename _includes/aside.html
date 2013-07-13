@@ -1,13 +1,13 @@
 <div class="inner">
   <header>
-    <h2 class="label"><a href="{{ base.url }}/">{{ site.title }}</a></h2>
-    <dd class="label">{{ site.description }}</dd>
+    <h2><a href="{{ base.url }}/">{{ site.title }}</a></h2>
+    <dd>{{ site.description }}</dd>
     <dd>我努力将诸多人格中微小的片面拼合。</dd>
     <dd>我拨开我的大脑，只为博君一笑。</dd>
   </header>
 
   <section>
-    <h2 class="label"><a href="/pages">Passing Memories</a></h2>
+    <h2><a href="/pages">Passing Memories</a></h2>
     {% for categrories_group in site.grouped_categories %}
     <fieldset class="group_{{ categrories_group | first }}">
       <legend>{{ categrories_group | first | capitalize }}</legend>
@@ -25,7 +25,7 @@
   </section>
 
   <footer>
-    <h2 class="label"><a href="/about">Information Bucket</a></h2>
+    <h2><a href="/about">Information Bucket</a></h2>
     <dd>Designed by: <a href="/about" rel="author" title="Ranmocy">Ranmocy</a></dd>
     <dd>Powered by <a href="https://github.com/mojombo/jekyll/" rel="friend" title="Jekyll" target="_blank">Jekyll</a></dd>
     <dd>Hosted by <a href="https://gitcafe.com/" rel="friend" title="GitCafe" target="_blank">GitCafe</a></dd>
