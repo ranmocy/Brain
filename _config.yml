@@ -16,6 +16,7 @@ categories_group:
     - philosophy
   work:
     - tech
+    - piece
 motto:
   blog: 旅行日志
   diary: 一个欲望灼烧者艰难写下的自白。
@@ -25,6 +26,7 @@ motto:
   poem: 用诗歌来拯救自我
   remark: 从这个世界剥离出的抽象
   tech: 技术宅拯救世界。
+  piece: What I did define what I am.
 
 
 # Default options
