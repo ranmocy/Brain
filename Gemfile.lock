@@ -19,6 +19,7 @@ GEM
     directory_watcher (1.4.1)
     fast-stemmer (1.0.2)
     fssm (0.2.10)
+    hashie (2.0.3)
     highline (1.6.19)
     hike (1.2.3)
     jekyll (1.0.3)
@@ -61,5 +62,6 @@ PLATFORMS
 DEPENDENCIES
   byebug
   compass
+  hashie
   jekyll
   jekyll-assets

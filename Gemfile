@@ -3,5 +3,6 @@ ruby "2.0.0"
 
 gem 'jekyll'
 gem 'jekyll-assets'
+gem 'hashie'
 gem 'compass'
 gem 'byebug'
