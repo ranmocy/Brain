@@ -12,6 +12,7 @@
 }
 @import 'typo';
 
+
 // Base Color and Font
 body {
   color: black;
@@ -34,7 +35,7 @@ aside, article header span {
 $aside_width: 240px;
 aside {
   width: $aside_width;
-  position: fixed;
+  position: absolute;
   padding: 5px;
 }
 body > article, body > header {
