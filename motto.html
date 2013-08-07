@@ -2,7 +2,7 @@
 layout: default
 index:  true
 permalink: motto/index.html
-category: Motto
+category: motto
 ---
 
 <style type="text/css">
@@ -10,6 +10,11 @@ category: Motto
     border-bottom: 1px black dashed;
   }
 </style>
+
+<header style="border-bottom: dotted 2px black">
+  <h2><a href="/{{ page.category }}">{{ page.category | capitalize }}</a></h2>
+  <dd>{{ page.category | get_motto }}</dd>
+</header>
 
 <article style="text-align:center">
   <ol>
