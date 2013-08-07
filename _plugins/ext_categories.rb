@@ -7,17 +7,29 @@ module Jekyll
     priority :highest
 
     def generate(site)
-      site.config['ext_categories'] = {}
+      # Hack for motto as a category
+      motto_page = site.pages.select { |p| p.name == "motto.html" }.first
+      site.config['ext_categories'] = {
+        "motto" => Hashie::Mash.new(
+          name: "Motto",
+          posts: [motto_page],
+          size: motto_page.content.scan('<li>').count,
+          motto: site.config['motto']['motto'].to_s,
+        )
+      }
+
+      # Extend categories
       site.categories.each { |category_name, posts|
         site.config['ext_categories'][category_name] =
           Hashie::Mash.new(
             name: category_name,
             posts: posts,
             size: posts.size,
-            motto: site.config['motto'][category_name].to_s
+            motto: site.config['motto'][category_name].to_s,
           )
       }
 
+      # Grouped categories
       site.config['grouped_categories'] = site.config['categories_group'].collect { |group|
         Hashie::Mash.new(
           name: group.first,
@@ -30,20 +42,24 @@ module Jekyll
 
   end
 
-  class RenderExtCategories < Liquid::Tag
+end
 
-    def initialize(tag_name, text, tokens)
-      super
-      @text = text
-    end
+# module Jekyll
+#   class RenderExtCategories < Liquid::Tag
+#     def initialize(tag_name, text, tokens)
+#       super
+#       @text = text
+#     end
+#     def render(context)
+#       category = context.registers[:site].config['ext_categories'][@text.to_s]
+#       category && category.motto
+#     end
+#   end
+# end
+# Liquid::Template.register_tag('ext_categories', Jekyll::RenderExtCategories)
 
-    def render(context)
-      category = context.registers[:site].config['ext_categories'][@text.to_s]
-      category && category.motto
-    end
-
-  end
-
+# ext filter get_motto
+module Jekyll
   module Motto
     def get_motto(category_name)
       category = @context.registers[:site].config['ext_categories'][category_name.to_s]
@@ -51,6 +67,4 @@ module Jekyll
     end
   end
 end
-
-# Liquid::Template.register_tag('ext_categories', Jekyll::RenderExtCategories)
 Liquid::Template.register_filter(Jekyll::Motto)

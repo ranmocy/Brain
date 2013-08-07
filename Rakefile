@@ -35,7 +35,7 @@ end
 
 desc "Generate _posts by files end with md"
 task :prepare => [:cleanup] do
-  Dir["[^_]*/*.md"].each do |file|
+  Dir["[^_]*/*.{md,txt}"].each do |file|
     ord_file = ROOT_DIR.join(file)
     category = ord_file.dirname.basename
 
@@ -55,7 +55,7 @@ task :prepare => [:cleanup] do
       target_f.write "layout: default\n"
       target_f.write "date: #{date}\n"
       target_f.write "date_updated: #{date_updated}\n"
-      target_f.write "uuid: ranmocy.info/#{date}/#{fronter["title"]}\n"
+      target_f.write "uuid: ranmocy.info/#{date}/#{fronter["title"].gsub(/\s/,'-')}\n"
       target_f.write org_f.read
     ensure
       org_f.close
