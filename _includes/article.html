@@ -9,7 +9,7 @@
     </h1>
   </header>
 
-  <section>
+  <section class="{% unless page.category == 'Piece' or page.category == 'Tech' %}columns{% endunless %}">
     {{ content }}
   </section>
 </article>
