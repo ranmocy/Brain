@@ -4,6 +4,7 @@ require 'fileutils'
 require 'jekyll'
 
 REPONAME = "ranmocy/ranmocy"
+BRANCH = "gitcafe-pages"
 ROOT_DIR  = Pathname.new('.').expand_path
 POSTS_DIR = Pathname.new("_posts").expand_path
 SITE_DIR = Pathname.new("_site").expand_path
@@ -25,10 +26,7 @@ end
 
 desc "Cleanup"
 task :cleanup do
-  # @todo cleanup site dir without remove .git dir
   # FileUtils.rm_r(SITE_DIR) if SITE_DIR.exist?
-  # system "git init"
-  # system "git remote add origin https://gitcafe.com/#{REPONAME}.git"
   FileUtils.rm_r(POSTS_DIR) if POSTS_DIR.exist?
   FileUtils.mkdir(POSTS_DIR)
 end
@@ -73,23 +71,17 @@ task :generate => [:prepare] do
 end
 
 
-desc "Generate and publish blog to gitcafe-pages"
+desc "Generate and publish blog to #{BRANCH}"
 task :publish => [:generate] do
+  system "git push origin"
+  system "git push gitcafe"
   Dir.chdir "_site/" do
+    system "git init"
     system "git add --all"
+    system "git checkout -b #{BRANCH}"
     message = "Site updated at #{Time.now.utc}"
     system "git commit -m #{message.shellescape}"
-    system "git pull origin gitcafe-pages --rebase"
-    system "git push origin master:gitcafe-pages --force"
+    system "git remote add origin https://gitcafe.com/#{REPONAME}.git"
+    system "git push origin gitcafe-pages --force"
   end
-  # Dir.mktmpdir do |tmp|
-  #   cp_r "_site/.", tmp
-  #   Dir.chdir tmp
-  #   system "git init"
-  #   system "git add ."
-  #   message = "Site updated at #{Time.now.utc}"
-  #   system "git commit -m #{message.shellescape}"
-  #   system "git remote add origin https://gitcafe.com/#{REPONAME}.git"
-  #   system "git push origin master:gitcafe-pages --force"
-  # end
 end
