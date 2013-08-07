@@ -8,14 +8,14 @@
 
   <section>
     <h2><a href="/pages">Passing Memories</a></h2>
-    {% for categrories_group in site.grouped_categories %}
-    <fieldset class="group_{{ categrories_group | first }}">
-      <legend>{{ categrories_group | first | capitalize }}</legend>
+    {% for group in site.grouped_categories %}
+    <fieldset class="group_{{ group.name }}">
+      <legend>{{ group.name | capitalize }}</legend>
       <ol>
-        {% for category in categrories_group[1] %}
+        {% for category in group.categories %}
         <li>
-          <a href="/{{ category[0] }}" class="{% if page.categories[0] == category[0] %} active{% endif %}" title="{{ category[3] }}">
-            {{ category[0] | capitalize }}({{ category[2] }})
+          <a href="/{{ category.name }}" class="{% if page.categories[0] == category.name %} active{% endif %}" title="{{ category.motto }}">
+            {{ category.name | capitalize }}({{ category.size }})
           </a>
         </li>
         {% endfor %}
