@@ -37,7 +37,7 @@ aside {
   position: fixed;
   padding: 5px;
 }
-body > article {
+body > article, body > header {
   width: 70%;
   min-width: $aside_width * 2.2;
   margin-left: $aside_width;
