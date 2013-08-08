@@ -11,7 +11,7 @@ module Jekyll
       motto_page = site.pages.select { |p| p.name == "motto.html" }.first
       site.config['ext_categories'] = {
         "motto" => Hashie::Mash.new(
-          name: "Motto",
+          name: "motto",
           posts: [motto_page],
           size: motto_page.content.scan('<li>').count,
           motto: site.config['motto']['motto'].to_s,

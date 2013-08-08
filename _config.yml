@@ -37,7 +37,7 @@ destination: ./_site
 plugins:     ./_plugins
 layouts:     ./_layouts
 include:     ['.htaccess']
-exclude:     ['*.sublime-project', '*.sublime-workspace', 'Gemfile*', 'Rakefile']
+exclude:     ['*.sublime*', 'README.md', 'Gemfile*', 'Rakefile', '[^_]*/*']
 keep_files:  []
 timezone:    nil
 
