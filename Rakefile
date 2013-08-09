@@ -7,6 +7,7 @@ BRANCH = "gitcafe-pages"
 ROOT_DIR  = Pathname.new('.').expand_path
 POSTS_DIR = Pathname.new("_posts").expand_path
 SITE_DIR = Pathname.new("_site").expand_path
+SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
 
 def parse_fronter(path)
   raw    = File.read(path)
@@ -72,16 +73,16 @@ end
 
 desc "Generate and publish blog to #{BRANCH}"
 task :publish => [:generate] do
-  system("git push origin master:source") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
-  system("git push gitcafe") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
+  system("git push origin master:source #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
+  system("git push gitcafe #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
   Dir.chdir "_site/" do
-    system("git init")
-    system("git add --all")
+    system("git init #{SILENT}")
+    system("git add --all #{SILENT}")
     message = "Site updated at #{Time.now.utc}"
-    system("git commit -m #{message.shellescape} -q") && puts("Commited.")
-    system("git remote add gitcafe https://gitcafe.com/ranmocy/ranmocy.git")
-    system("git push gitcafe master:#{BRANCH} --force") ? puts("Published to GitCafe.") : puts("Failed to GitCafe.")
-    system("git remote add origin https://github.com/ranmocy/ranmocy.github.io")
-    system("git push origin master:master --force") ? puts("Published to Github.") : puts("Failed to Github.")
+    system("git commit -m #{message.shellescape} #{SILENT}") && puts("Commited.")
+    system("git remote add gitcafe https://gitcafe.com/ranmocy/ranmocy.git #{SILENT}")
+    system("git push gitcafe master:#{BRANCH} --force #{SILENT}") ? puts("Published to GitCafe.") : puts("Failed publishing to GitCafe.")
+    system("git remote add origin https://github.com/ranmocy/ranmocy.github.io #{SILENT}")
+    system("git push origin master:master --force #{SILENT}") ? puts("Published to Github.") : puts("Failed publishing to Github.")
   end
 end
