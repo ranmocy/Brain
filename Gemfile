@@ -8,3 +8,7 @@ gem "middleman-livereload"
 gem "builder", "~> 3.0.0"
 
 gem "slim"
+
+gem 'byebug'
+gem 'pry'
+gem 'irbtools'

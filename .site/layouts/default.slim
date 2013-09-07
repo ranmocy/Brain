@@ -1,0 +1,19 @@
+doctype html
+html
+head
+  title = current_page.data.title || settings.title
+  meta charset="utf-8"
+  meta name="author" content=settings.author
+  meta name="description" content=settings.description
+  meta name="generator" content="Middleman"
+  link href="/favicon.ico" rel="icon" type="image/x-icon"
+  link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
+  link href="atom.xml" rel="alternate" type="application/atom+xml" title=settings.description
+  /[if lt IE 9] = javascript_include_tag html5
+  = stylesheet_link_tag "default"
+  = javascript_include_tag  "all"
+body class="typo"
+  aside
+    = partial "aside"
+  == yield
+  = partial "analysis"
