@@ -1,14 +1,15 @@
 /.built
+/_built
 /.sass-cache
 
-.site/Blog
-.site/Diary
-.site/Dream
-.site/Idea
-.site/Org
-.site/Philosophy
-.site/Piece
-.site/Poem
-.site/Remark
-.site/Tech
-.site/Young
+_site/Blog
+_site/Diary
+_site/Dream
+_site/Idea
+_site/Org
+_site/Philosophy
+_site/Piece
+_site/Poem
+_site/Remark
+_site/Tech
+_site/Young
