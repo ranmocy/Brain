@@ -1,8 +1,8 @@
-source 'http://ruby.taobao.org'
-ruby "2.0.0"
+source 'https://rubygems.org/'
 
-gem 'jekyll'
-gem 'jekyll-assets'
-gem 'hashie'
-gem 'compass'
-gem 'byebug'
+gem "middleman", "~> 3.1.4"
+gem "middleman-livereload"
+gem "middleman-blog", "~> 3.2.0"
+
+# For feed.xml.builder
+gem "builder", "~> 3.0.0"
