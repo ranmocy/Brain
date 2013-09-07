@@ -4,28 +4,28 @@
 
 # Time.zone = "Pacific Time (US & Canada)"
 
-activate :blog do |blog|
-  # blog.prefix = "blog"
-  # blog.permalink = ":year/:month/:day/:title.html"
-  # blog.sources = ":year-:month-:day-:title.html"
-  # blog.taglink = "tags/:tag.html"
-  # blog.layout = "layout"
-  # blog.summary_separator = /(READMORE)/
-  # blog.summary_length = 250
-  # blog.year_link = ":year.html"
-  # blog.month_link = ":year/:month.html"
-  # blog.day_link = ":year/:month/:day.html"
-  blog.default_extension = [".markdown", ".md"]
+# activate :blog do |blog|
+#   # blog.prefix = "blog"
+#   # blog.permalink = ":year/:month/:day/:title.html"
+#   # blog.sources = ":year-:month-:day-:title.html"
+#   # blog.taglink = "tags/:tag.html"
+#   # blog.layout = "layout"
+#   # blog.summary_separator = /(READMORE)/
+#   # blog.summary_length = 250
+#   # blog.year_link = ":year.html"
+#   # blog.month_link = ":year/:month.html"
+#   # blog.day_link = ":year/:month/:day.html"
+#   blog.default_extension = [".markdown", ".md"]
 
-  blog.tag_template = "tag.html"
-  blog.calendar_template = "calendar.html"
+#   blog.tag_template = "tag.html"
+#   blog.calendar_template = "calendar.html"
 
-  # blog.paginate = true
-  # blog.per_page = 10
-  # blog.page_link = "page/:num"
-end
+#   # blog.paginate = true
+#   # blog.per_page = 10
+#   # blog.page_link = "page/:num"
+# end
 
-page "/feed.xml", :layout => false
+# page "/feed.xml", :layout => false
 
 ###
 # Compass
@@ -76,9 +76,21 @@ page "/feed.xml", :layout => false
 #   end
 # end
 
-set :source, "_site"
-set :build_dir, '_built'
-set :partials_dir, '_templates'
+set :ignored_sitemap_matchers, {
+  # :root_dotfiles => proc { |file| file.start_with?('.') },
+  # :source_dotfiles => proc { |file|
+  #   file =~ %r{/\.} && file !~ %r{/\.(htaccess|htpasswd|nojekyll)}
+  # },
+  :partials => proc { |file| file =~ %r{/_[^_]} },
+  :layout => proc { |file, app|
+    file.start_with?(File.join(app.config[:source], 'layout.')) ||
+    file.start_with?(File.join(app.config[:source], 'layouts/'))
+  },
+}
+
+set :source, ".site"
+set :build_dir, '.built'
+set :partials_dir, '_partials'
 set :css_dir, 'assets/stylesheets'
 set :js_dir, 'assets/javascripts'
 set :images_dir, 'assets/images'

@@ -1,0 +1,25 @@
+doctype html
+html
+head
+  title=current_page.data.title || "Ranmocy's Fragments"
+  meta charset="utf-8"
+  meta name="author" content="Ranmocy"
+  meta name="description" content="My Brain, My Treasure."
+  meta name="generator" content="Middleman"
+  link href="/favicon.ico" rel="icon" type="image/x-icon"
+  link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
+  link href="atom.xml" rel="alternate" type="application/atom+xml" title="Ranmocy's Fragments"
+  /[if lt IE 9]= javascript html5
+  = stylesheet_link_tag "default"
+  = javascript_include_tag  "all"
+body class="typo"
+  aside
+    / = render aside.html
+
+  == yield
+  / - if page.index
+
+  / - else
+  /   = render article.html
+
+  / = render analysis.html
