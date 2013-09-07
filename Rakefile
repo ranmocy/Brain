@@ -86,3 +86,20 @@ task :publish => [:generate] do
     system("git push origin master:master --force #{SILENT}") ? puts("Published to Github.") : puts("Failed publishing to Github.")
   end
 end
+
+desc "Link everything to .site/"
+task :link do
+  Dir.chdir('.site/') do
+    system("ln -s ../Blog")
+    system("ln -s ../Diary")
+    system("ln -s ../Dream")
+    system("ln -s ../Idea")
+    system("ln -s ../Org")
+    system("ln -s ../Philosophy")
+    system("ln -s ../Piece")
+    system("ln -s ../Poem")
+    system("ln -s ../Remark")
+    system("ln -s ../Tech")
+    system("ln -s ../Young")
+  end
+end
