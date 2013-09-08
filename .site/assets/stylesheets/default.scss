@@ -1,88 +1,91 @@
 @font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Raleway'), url(/Raleway.woff) format('woff');
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), url(/Raleway.woff) format('woff');
 }
 @font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Raleway Bold'), local('Raleway-Bold'), url(/Raleway-bold.woff) format('woff');
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Raleway Bold'), local('Raleway-Bold'), url(/Raleway-bold.woff) format('woff');
 }
 @import 'typo';
 
 
 // Base Color and Font
+html {
+    background-color: #fdf6e3;
+}
 body {
-  color: black;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
+    color: black;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
 }
 
 // Defines
 fieldset, dd {
-  margin-left: 2em
+    margin-left: 2em
 }
 
 // Info
 aside, article header span {
-  color: lighten(black, 60%);
-  font-size: 12px;
+    color: lighten(black, 60%);
+    font-size: 12px;
 }
 
 // Main Frame
 $aside_width: 240px;
 aside {
-  width: $aside_width;
-  position: absolute;
-  padding: 5px;
+    width: $aside_width;
+    position: absolute;
+    padding: 5px;
 }
 body > article, body > header {
-  width: 70%;
-  min-width: $aside_width * 2.2;
-  margin-left: $aside_width;
-  padding: 10px 15px;
+    width: 70%;
+    min-width: $aside_width * 2.2;
+    margin-left: $aside_width;
+    padding: 10px 15px;
 }
 
 // Links
 a {
-  color: inherit;
-  &:hover, &.active {
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-  }
+    color: #dc322f;
+    &:hover, &.active {
+        color: black;
+        font-weight: bold 16px/1.4;
+        text-decoration: none;
+    }
 }
 
 // Header
 aside {
-  h2, legend {
-    font: 1.6em 'Raleway','sans-serif';
-    color: lighten(black, 30%);
-  }
+    h2, legend {
+        font: 1.6em 'Raleway','sans-serif';
+        color: lighten(black, 30%);
+    }
 }
 
 // Category_groups
 aside fieldset {
-  ol {
-    font-size: 1.2em;
-  }
-  border: none {
-    top: 1px solid lighten(black, 60%);
-  }
+    ol {
+        font-size: 1.2em;
+    }
+    border: none {
+        top: 1px solid lighten(black, 60%);
+    }
 }
 
 // Categories
 aside {
-  .group_life ol { list-style-type: lower-greek; }
-  .group_idea ol { list-style-type: armenian; }
-  .group_work ol { list-style-type: decimal-leading-zero; }
+    .group_life ol { list-style-type: lower-greek; }
+    .group_idea ol { list-style-type: armenian; }
+    .group_work ol { list-style-type: decimal-leading-zero; }
 }
 
 // Article
 article section.columns {
-  columns: 200px 2;
-  -webkit-columns: 200px 2;
-  -moz-columns: 200px 2;
+    columns: 200px 2;
+    -webkit-columns: 200px 2;
+    -moz-columns: 200px 2;
 }
