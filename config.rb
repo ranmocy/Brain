@@ -108,14 +108,17 @@ end
 
 # Categories index
 ready do
+  sorted_res = sitemap.resources.select{|r| not r.data['title'].blank? }.sort_by{ |r| r.data['created-at'].to_time }.reverse
+
   proxy "/Memories/index.html", "/templates/pages.html", ignore: true,
-  layout:  "default", locals: {pages: sitemap.resources}
+  layout: "default", locals: {pages: sorted_res}
+
   proxy "/Motto/index.html", "/Motto.html", ignore: true,
   layout: "default", locals: {category: 'Motto'}
 
   sizes = {}
 
-  sitemap.resources.group_by {|p| p.data["category"] }.each do |category, pages|
+  sorted_res.group_by {|p| p.data["category"] }.each do |category, pages|
     category = category || 'Unknown'
     sizes[category.downcase.to_sym] = pages.size
     proxy "/#{category}/index.html", "/templates/category.html", ignore: true,
