@@ -1,0 +1,6 @@
+- wrap_layout :default do
+  article
+    header
+      = partial 'header', locals: {article: current_page}
+    section
+      = yield

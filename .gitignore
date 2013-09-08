@@ -1,3 +1,14 @@
 .sass-cache
-_site
-_posts
+.built
+
+.site/Blog
+.site/Diary
+.site/Dream
+.site/Idea
+.site/Org
+.site/Philosophy
+.site/Piece
+.site/Poem
+.site/Remark
+.site/Tech
+.site/Young
