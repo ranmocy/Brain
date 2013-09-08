@@ -30,7 +30,7 @@ task :link, [:lang] do |t, args|
 
   Dir.chdir(SITE_DIR) do
     puts "Clean old symlinks: #{Dir['*'].map{ |d| Pathname.new(d) }.select(&:symlink?).map(&:unlink).size}"
-    puts "Add new symlinks: #{Dir["../#{lang}/*"].each{ |category| system("ln -s ../#{lang}/#{category}") }.size}"
+    puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s ../#{lang}/#{category}") }.size}"
   end
 end
 
@@ -40,7 +40,7 @@ task :generate, [:lang] do |t, args|
   lang = args[:lang]
   Rake::Task["link"].reenable
   Rake::Task["link"].invoke(lang)
-  puts system("middleman build 2>/dev/null") ? 'Successfully built' : 'Failed built.'
+  puts system("middleman build 2>/dev/null") ? "Successfully built #{lang}" : "Failed built #{lang}"
 end
 
 desc "Update sources"
@@ -63,8 +63,17 @@ task :publish, [:lang] => [:upload] do |t, args|
       system("git add --all #{SILENT}")
       message = "Site updated at #{Time.now.utc}"
       system("git commit -m #{message.shellescape} #{SILENT}") && puts("Commited.")
-      system("git push #{GITHUB_REPO} master:#{GITHUB_BRANCH} --force #{SILENT}") ? puts("Published to Github.") : puts("Failed publishing to Github.")
-      system("git push #{GITCAFE_REPO} master:#{GITCAFE_BRANCH} --force #{SILENT}") ? puts("Published to GitCafe.") : puts("Failed publishing to GitCafe.")
+
+      res = false
+      case lang
+      when 'en'
+        res = system("git push #{GITHUB_REPO} master:#{GITHUB_BRANCH} --force #{SILENT}")
+      when 'zh'
+        res = system("git push #{GITCAFE_REPO} master:#{GITCAFE_BRANCH} --force #{SILENT}")
+      else
+        warn "No idea of how to pubilsh #{lang}"
+      end
+      res ? puts("Successfully published #{lang}") : warn("Failed published #{lang}")
     end
   end
 end
