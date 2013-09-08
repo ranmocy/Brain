@@ -129,6 +129,7 @@ ready do
   set :sizes, sizes
 end
 
+
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment
@@ -142,6 +143,8 @@ configure :build do
 
   # Use relative URLs
   activate :relative_assets
+
+  activate :asset_hash
 
   # Compress PNGs after build
   # First: gem install middleman-smusher
