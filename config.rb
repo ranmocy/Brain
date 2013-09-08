@@ -4,6 +4,7 @@ set :title, "Ranmocy's Fragments"
 set :description, "My Brain, My Treasure."
 set :author, "Ranmocy"
 set :email, "Ranmocy@gmail.com"
+set :host, "http://ranmocy.info/"
 
 set :categories_group, {
   life: [
@@ -36,14 +37,6 @@ set :motto, {
   tech: "技术宅拯救世界。",
   piece: "What I did define what I am.",
 }
-
-#   # blog.summary_separator = /(READMORE)/
-#   # blog.summary_length = 250
-
-
-###
-# Compass
-###
 
 # Susy grids in Compass
 # First: gem install susy
@@ -109,6 +102,7 @@ end
 # Categories index
 ready do
   sorted_res = sitemap.resources.select{|r| not r.data['title'].blank? }.sort_by{ |r| r.data['created-at'].to_time }.reverse
+  set :sorted_res, sorted_res
 
   proxy "/Memories/index.html", "/templates/pages.html", ignore: true,
   layout: "default", locals: {pages: sorted_res}

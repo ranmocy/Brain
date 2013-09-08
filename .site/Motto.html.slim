@@ -10,8 +10,8 @@ css:
   }
 
 header style="border-bottom: dotted 2px black"
-  h2 = link_to category.capitalize
-  dd = settings.motto[category.downcase.to_sym]
+  h2 = link_to 'Motto', '/Motto/'
+  dd = settings.motto[:motto]
 
 article style="text-align:center"
   ol
