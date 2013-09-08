@@ -105,15 +105,25 @@ helpers do
   end
 end
 
+
 # Categories index
 ready do
+  proxy "/Memories/index.html", "/templates/pages.html", ignore: true,
+  layout:  "default", locals: {pages: sitemap.resources}
+  proxy "/Motto/index.html", "/Motto.html", ignore: true,
+  layout: "default", locals: {category: 'Motto'}
+
+  sizes = {}
+
   sitemap.resources.group_by {|p| p.data["category"] }.each do |category, pages|
     category = category || 'Unknown'
+    sizes[category.downcase.to_sym] = pages.size
     proxy "/#{category}/index.html", "/templates/category.html", ignore: true,
-    layout: "default", category: category.to_s, locals: {category: category, pages: pages} do
-      @category = category
-    end
+    layout: "default", locals: {category: category, pages: pages}
   end
+
+  sizes[:motto] = sitemap.where(:title.include => "Motto").first.render(layout: false).scan('<li>').count
+  set :sizes, sizes
 end
 
 # Build-specific configuration
