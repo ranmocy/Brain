@@ -2,4 +2,4 @@ h1
   = link_to article.data.title, article.url
   '
   span
-    |本文已然祸害了 无数 个人 &raquo; Since #{article.data["created-at"]}
+    |本文已然祸害了 无数 个人 &raquo; Since #{article.data["created-at"].to_time.strftime('%b %d %Y')}
