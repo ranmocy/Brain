@@ -1,105 +1,45 @@
-require 'time'
 require 'pathname'
 require 'fileutils'
-require 'jekyll'
 
-BRANCH = "gitcafe-pages"
+GITHUB_REPO = "git@github.com:ranmocy/ranmocy.github.io.git"
+GITHUB_BRANCH = "master"
+GITCAFE_REPO = "git@gitcafe.com:ranmocy/ranmocy.git"
+GITCAFE_BRANCH = "gitcafe-pages"
+
 ROOT_DIR  = Pathname.new('.').expand_path
-POSTS_DIR = Pathname.new("_posts").expand_path
-SITE_DIR = Pathname.new("_site").expand_path
+SITE_DIR = Pathname.new(".built").expand_path
 SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
 
-def parse_fronter(path)
-  raw    = File.read(path)
-  chunks = raw.split(/^(-{5}|-{3})\s*$/, 3)
 
-  if (chunks.length == 5)
-    meta     = YAML.safe_load(chunks[2].strip)
-    contents = chunks[4].strip
-  else
-    meta     = {}
-    contents = raw
-  end
-
-  meta
-end
-
-desc "Cleanup"
-task :cleanup do
-  # FileUtils.rm_r(SITE_DIR) if SITE_DIR.exist?
-  FileUtils.rm_r(POSTS_DIR) if POSTS_DIR.exist?
-  FileUtils.mkdir(POSTS_DIR)
-end
-
-desc "Generate _posts by files end with md"
-task :prepare => [:cleanup] do
-  Dir["[^_]*/*.{md,txt}"].each do |file|
-    ord_file = ROOT_DIR.join(file)
-    category = ord_file.dirname.basename
-
-    fronter  = parse_fronter(ord_file.to_s)
-    date = Time.parse(fronter["created-at"]).to_date
-    date_updated = Time.parse(fronter["updated-at"]).to_date
-
-    filename = ord_file.basename.to_s.gsub(/\s+/, '-') # escape
-    new_file = POSTS_DIR.join("#{date.to_s}-#{filename}")
-
-    # Fixup Fronter
-    begin
-      org_f    = File.open(ord_file, "r")
-      target_f = File.open(new_file, "w")
-
-      target_f.write org_f.readline
-      target_f.write "layout: default\n"
-      target_f.write "date: #{date}\n"
-      target_f.write "date_updated: #{date_updated}\n"
-      target_f.write "uuid: ranmocy.info/#{date}/#{fronter["title"].gsub(/\s/,'-')}\n"
-      target_f.write org_f.read
-    ensure
-      org_f.close
-      target_f.close
+desc "Link everything to .site/"
+task :link do
+  Dir.chdir('.site/') do
+    categories = ["Blog", "Diary", "Dream", "Idea", "Org", "Philosophy", "Piece", "Poem", "Remark", "Tech", "Young"]
+    categories.each do |category|
+      system("ln -s ../#{category}")
     end
   end
 end
 
 desc "Generate blog files"
-task :generate => [:prepare] do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => ".",
-    "destination" => "_site"
-  })).process
+task :generate do
+  system("middleman build 2>/dev/null")
 end
 
+desc "Update sources"
+task :upload do
+  system("git push github master:source #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
+  system("git push gitcafe master:master #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
+end
 
-desc "Generate and publish blog to #{BRANCH}"
-task :publish => [:generate] do
-  system("git push origin master:source #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
-  system("git push gitcafe #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
-  Dir.chdir "_site/" do
+desc "Generate and publish blog to Github and GitCafe"
+task :publish => [:generate, :upload] do
+  Dir.chdir SITE_DIR do
     system("git init #{SILENT}")
     system("git add --all #{SILENT}")
     message = "Site updated at #{Time.now.utc}"
     system("git commit -m #{message.shellescape} #{SILENT}") && puts("Commited.")
-    system("git remote add gitcafe https://gitcafe.com/ranmocy/ranmocy.git #{SILENT}")
-    system("git push gitcafe master:#{BRANCH} --force #{SILENT}") ? puts("Published to GitCafe.") : puts("Failed publishing to GitCafe.")
-    system("git remote add origin https://github.com/ranmocy/ranmocy.github.io #{SILENT}")
-    system("git push origin master:master --force #{SILENT}") ? puts("Published to Github.") : puts("Failed publishing to Github.")
-  end
-end
-
-desc "Link everything to .site/"
-task :link do
-  Dir.chdir('.site/') do
-    system("ln -s ../Blog")
-    system("ln -s ../Diary")
-    system("ln -s ../Dream")
-    system("ln -s ../Idea")
-    system("ln -s ../Org")
-    system("ln -s ../Philosophy")
-    system("ln -s ../Piece")
-    system("ln -s ../Poem")
-    system("ln -s ../Remark")
-    system("ln -s ../Tech")
-    system("ln -s ../Young")
+    system("git push #{GITHUB_REPO} master:#{GITHUB_BRANCH} --force #{SILENT}") ? puts("Published to Github.") : puts("Failed publishing to Github.")
+    system("git push #{GITCAFE_REPO} master:#{GITCAFE_BRANCH} --force #{SILENT}") ? puts("Published to GitCafe.") : puts("Failed publishing to GitCafe.")
   end
 end

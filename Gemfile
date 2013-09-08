@@ -2,7 +2,6 @@ source 'https://rubygems.org/'
 
 gem "middleman", git: "git@github.com:middleman/middleman.git"
 gem "middleman-livereload"
-gem "middleman-deploy"
 # gem "middleman-blog", "~> 3.2.0"
 
 # For feed.xml.builder
