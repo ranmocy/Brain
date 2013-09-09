@@ -107,9 +107,6 @@ ready do
   proxy "/Memories/index.html", "/templates/pages.html", ignore: true,
   layout: "default", locals: {pages: sorted_res}
 
-  proxy "/Motto/index.html", "/Motto.html", ignore: true,
-  layout: "default", locals: {category: 'Motto'}
-
   sizes = {}
 
   sorted_res.group_by {|p| p.data["category"] }.each do |category, pages|
