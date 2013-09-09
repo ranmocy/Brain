@@ -25,12 +25,11 @@ end
 
 desc "Link everything to .site/, base on lang"
 task :link, [:lang] do |t, args|
-  args.with_defaults(lang: 'zh')
-  lang = args[:lang]
+  lang = args[:lang] || ARGV.size>1 ? ARGV.last : nil || 'zh'
 
   Dir.chdir(SITE_DIR) do
     puts "Clean old symlinks: #{Dir['*'].map{ |d| Pathname.new(d) }.select(&:symlink?).map(&:unlink).size}"
-    puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s ../#{lang}/#{category}") }.size}"
+    puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s #{category}") }.size}"
   end
 end
 
