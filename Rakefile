@@ -51,7 +51,8 @@ task :generate, [:lang] do |t, args|
   lang = args[:lang]
   Rake::Task["link"].reenable
   Rake::Task["link"].invoke(lang)
-  puts system("middleman build 2>/dev/null") ? "Successfully built #{lang}" : "Failed built #{lang}"
+  puts system("rm -rf #{BUILT_DIR}") ? "Cleanup built dir" : "Cleanup failed"
+  puts system("middleman build --clean 2>/dev/null") ? "Successfully built #{lang}" : "Failed built #{lang}"
 end
 
 desc "Update sources"
