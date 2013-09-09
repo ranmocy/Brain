@@ -1,5 +1,5 @@
 ---
-title: 如何修改 Git 历史中的作者名字
+title: Howto Modify Author Name in Git History
 created-at: 2013-05-05T22:35:17+08:00
 updated-at: 2013-05-05T22:35:17+08:00
 category: Tech

@@ -1,5 +1,5 @@
 ---
-title: Install GCC on MacOS
+title: Howto Install GCC on MacOS
 created-at: 2013-06-12T10:42:01+08:00
 updated-at: 2013-06-22T22:42:33+08:00
 category: Tech
@@ -10,7 +10,7 @@ XCode includes the gcc customized for MacOS, but it is incompatible with a lot o
 Run `brew doctor` will return:
 
     Versions of XCode newer than 4.2 don't include gcc 4.2.x.
-   
+
 If you have `homebrew`, you can easily run a third-party customized script:
 
     brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb

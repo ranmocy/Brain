@@ -1,5 +1,5 @@
 ---
-title: Rails分析优化辅助工具
+title: Note of Rails Performance Analysis Tools
 created-at: 2013-05-08T10:46:06+08:00
 updated-at: 2013-05-08T10:46:06+08:00
 category: Tech

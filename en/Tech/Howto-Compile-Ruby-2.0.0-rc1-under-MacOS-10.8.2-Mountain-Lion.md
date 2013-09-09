@@ -1,5 +1,5 @@
 ---
-title: Compile Ruby 2.0.0 rc1 under MacOS 10.8.2 Mountain Lion
+title: Howto Compile Ruby 2.0.0 rc1 under MacOS 10.8.2 Mountain Lion
 created-at: 2013-02-01T16:58:53+08:00
 updated-at: 2013-04-13T10:07:17+08:00
 category: Tech
@@ -39,7 +39,7 @@ Otherwise, you need install openssl manually:
 
 ## Here is the tranditional compile:
 
-Although configure warnings `configure: WARNING: unrecognized options: --with-openssl-dir, --with-readline-dir`, 
+Although configure warnings `configure: WARNING: unrecognized options: --with-openssl-dir, --with-readline-dir`,
 but it truly works.
 
 Otherwire, openssl will be broken when `make`, which will tell you.

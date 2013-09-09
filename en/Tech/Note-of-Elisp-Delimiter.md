@@ -1,5 +1,5 @@
 ---
-title: elisp 修饰符
+title: Note of Elisp Delimiter
 created-at: 2012-06-27T22:38:20+08:00
 updated-at: 2012-06-27T22:38:20+08:00
 category: Tech
@@ -8,7 +8,7 @@ category: Tech
 Quote
 -----
 
-引用，表示不进行运算，返回本身。
+This is quote. There is no computing. Just return itself.
 
     '(list a b)
     =>(list a b)
@@ -16,7 +16,8 @@ Quote
 Backquote + Comma
 -----------------
 
-引用，但是可以用`,`选择性求值。
+This is a backquote to return itself,
+but you can use `,` to computing inside.
 
     `(list ,(car (list 'a 'b)) b)
     =>(list a b)
@@ -24,7 +25,8 @@ Backquote + Comma
 Comma + At
 ----------
 
-将表达式展开为参数表。
+The expression will be expanded in place.
+Useful for dynamic arguments.
 
     (setq a (list a b))
     `(list ,@a)
