@@ -28,8 +28,13 @@ fieldset, dd {
     margin-left: 2em
 }
 
+// Languages
+.languages {
+    float: right;
+    margin-right: 1em;
+}
 // Info
-aside, article header span {
+aside, article header span, .languages {
     color: lighten(black, 60%);
     font-size: 12px;
 }

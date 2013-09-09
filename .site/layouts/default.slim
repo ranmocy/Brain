@@ -13,6 +13,10 @@ html
     = stylesheet_link_tag "default"
     = javascript_include_tag  "default"
   body class="typo"
+    .languages
+      = link_to "English", "//en.ranmocy.info/"
+      '  |
+      = link_to "Chinese", "//zh.ranmocy.info/"
     aside
       = partial "aside"
     == yield
