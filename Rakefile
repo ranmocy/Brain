@@ -25,12 +25,24 @@ end
 
 desc "Link everything to .site/, base on lang"
 task :link, [:lang] do |t, args|
-  lang = args[:lang] || ARGV.size>1 ? ARGV.last : nil || 'zh'
+  lang = args[:lang] || 'zh'
 
   Dir.chdir(SITE_DIR) do
     puts "Clean old symlinks: #{Dir['*'].map{ |d| Pathname.new(d) }.select(&:symlink?).map(&:unlink).size}"
     puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s #{category}") }.size}"
   end
+end
+
+desc "Link for languages"
+task :link_en do
+  Rake::Task["link"].reenable
+  Rake::Task["link"].invoke('en')
+end
+
+desc "Link for languages"
+task :link_zh do
+  Rake::Task["link"].reenable
+  Rake::Task["link"].invoke('zh')
 end
 
 desc "Generate blog files"
