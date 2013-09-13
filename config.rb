@@ -83,7 +83,7 @@ activate :directory_indexes
 
 # Blog layouts
 categories = ["Blog", "Diary", "Dream", "Idea", "Org", "Philosophy",
-              "Piece", "Poem", "Remark", "Tech", "Young"]
+              "Piece", "Poem", "Remark", "Tech", "Translation", "Young"]
 categories.each do |category|
   page "/#{category}/*", layout: "article"
 end
