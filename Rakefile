@@ -29,7 +29,7 @@ task :link, [:lang] do |t, args|
 
   Dir.chdir(SITE_DIR) do
     puts "Clean old symlinks: #{Dir['*'].map{ |d| Pathname.new(d) }.select(&:symlink?).map(&:unlink).size}"
-    puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s #{category}") }.size}"
+    puts "Add new symlinks of #{lang}: #{Dir["../#{lang}/*"].each{ |category| system("ln -s #{category} #{category.split('/').last.downcase}") }.size}"
   end
 end
 

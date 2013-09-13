@@ -82,15 +82,15 @@ activate :directory_indexes
 #page "/atom.xml", :layout => false
 
 # Blog layouts
-categories = ["Blog", "Diary", "Dream", "Idea", "Org", "Philosophy",
-              "Piece", "Poem", "Remark", "Tech", "Translation", "Young"]
+categories = ["blog", "diary", "dream", "idea", "org", "philosophy",
+              "piece", "poem", "remark", "tech", "translation", "young"]
 categories.each do |category|
   page "/#{category}/*", layout: "article"
 end
 with_layout :piece do
-  page "/Piece/*"
-  page "/Poem/*"
-  page "/Tech/*"
+  page "/piece/*"
+  page "/poem/*"
+  page "/tech/*"
 end
 
 # Methods defined in the helpers block are available in templates
@@ -106,7 +106,7 @@ ready do
   sorted_res = sitemap.resources.select{|r| not r.data['title'].blank? }.sort_by{ |r| r.data['created-at'].to_time }.reverse
   set :sorted_res, sorted_res
 
-  proxy "/Memories/index.html", "/templates/pages.html", ignore: true,
+  proxy "/memories/index.html", "/templates/pages.html", ignore: true,
   layout: "default", locals: {pages: sorted_res}
 
   sizes = {}
@@ -114,7 +114,7 @@ ready do
   sorted_res.group_by {|p| p.data["category"] }.each do |category, pages|
     category = category || 'Unknown'
     sizes[category.downcase.to_sym] = pages.size
-    proxy "/#{category}/index.html", "/templates/category.html", ignore: true,
+    proxy "/#{category.downcase}/index.html", "/templates/category.html", ignore: true,
     layout: "default", locals: {category: category, pages: pages}
   end
 

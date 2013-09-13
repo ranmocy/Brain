@@ -6,13 +6,13 @@
     dd 我拨开我的大脑，只为博君一笑。
 
   section
-    h2 = link_to "Passing Memories", "/Memories"
+    h2 = link_to "Passing Memories", "/memories"
     - settings.categories_group.each do |group, categories|
       fieldset class="group_#{group}"
         legend = group.to_s.capitalize
         ol
           - categories.each do |category|
-            li = link_to "#{category.capitalize}(#{settings.sizes[category.downcase.to_sym]})", '/'+category.capitalize, class: "#{active?(category)}", title: settings.motto[category.downcase]
+            li = link_to "#{category.capitalize}(#{settings.sizes[category.downcase.to_sym]})", '/'+category.downcase, class: "#{active?(category)}", title: settings.motto[category.downcase]
 
   footer
     h2 = link_to "Information Bucket", "/about"
