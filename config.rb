@@ -22,6 +22,7 @@ set :categories_group, {
   work: [
     "tech",
     "piece",
+    "translation"
   ],
 }
 
@@ -36,6 +37,7 @@ set :motto, {
   philosophy: "我在教导你们世界运行的原动力。你们听之，想之，就忘之吧。",
   tech: "技术宅拯救世界。",
   piece: "What I did define what I am.",
+  translation: "Words worth spreading widely.",
 }
 
 # Susy grids in Compass
