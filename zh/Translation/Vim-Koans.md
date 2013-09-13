@@ -7,6 +7,7 @@ Tag: Tech
 ---
 
 英文原文：[Tom Ryder - Vim Koans](http://blog.sanctum.geek.nz/vim-koans/)
+本翻译已获得原作者 Tom Ryder 的许可。
 
 
 ## Wq 大师和 Windows 开发者
