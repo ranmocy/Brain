@@ -103,21 +103,21 @@ end
 
 # Categories index
 ready do
+  # for Passing Memories
   sorted_res = sitemap.resources.select{|r| not r.data['title'].blank? }.sort_by{ |r| r.data['created-at'].to_time }.reverse
   set :sorted_res, sorted_res
-
-  proxy "/memories/index.html", "/templates/pages.html", ignore: true,
-  layout: "default", locals: {pages: sorted_res}
+  proxy "/memories/index.html", "/templates/pages.html", ignore: true, layout: "default", locals: {pages: sorted_res}
 
   sizes = {}
 
+  # Category lists
   sorted_res.group_by {|p| p.data["category"] }.each do |category, pages|
     category = category || 'Unknown'
     sizes[category.downcase.to_sym] = pages.size
-    proxy "/#{category.downcase}/index.html", "/templates/category.html", ignore: true,
-    layout: "default", locals: {category: category, pages: pages}
+    proxy "/#{category.downcase}/index.html", "/templates/category.html", ignore: true, layout: "default", locals: {category: category, pages: pages}
   end
 
+  # Sizes of categories
   sizes[:motto] = sitemap.where(:title.include => "Motto").first.render(layout: false).scan('<li>').count
   set :sizes, sizes
 end
