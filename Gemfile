@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-gem "middleman", git: "git@github.com:middleman/middleman.git"
+gem "middleman"
 gem "middleman-livereload"
 # gem "middleman-blog", "~> 3.2.0"
 
