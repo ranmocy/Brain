@@ -68,7 +68,7 @@ set :ignored_sitemap_matchers, {
 set :layout, 'default'
 
 set :source, ".site"
-set :build_dir, '.built'
+set :build_dir, '/tmp/brain'
 set :layouts_dir, 'layouts'
 set :partials_dir, 'layouts'
 set :css_dir, 'assets/stylesheets'

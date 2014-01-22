@@ -1,5 +1,6 @@
 require 'pathname'
 require 'fileutils'
+require 'middleman'
 
 GITHUB_REPO = "git@github.com:ranmocy/ranmocy.github.io.git"
 GITHUB_BRANCH = "master"
@@ -8,7 +9,7 @@ GITCAFE_BRANCH = "gitcafe-pages"
 
 ROOT_DIR  = Pathname.new('.').expand_path
 SITE_DIR = Pathname.new(".site").expand_path
-BUILT_DIR = Pathname.new(".built").expand_path
+BUILT_DIR = Pathname.new("/tmp/brain/")
 SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
 
 
@@ -52,13 +53,13 @@ task :generate, [:lang] do |t, args|
   Rake::Task["link"].reenable
   Rake::Task["link"].invoke(lang)
   puts system("rm -rf #{BUILT_DIR}") ? "Cleanup built dir" : "Cleanup failed"
-  puts system("middleman build --clean 2>/dev/null") ? "Successfully built #{lang}" : "Failed built #{lang}"
+  puts system("middleman build --clean #{SILENT}") ? "Successfully built #{lang}" : "Failed built #{lang}"
 end
 
 desc "Update sources"
-task :upload do
-  system("git push github master:source #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
-  system("git push gitcafe master:master #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
+task :upload, [:force] do |t, args|
+  system("git push github master:source #{args[:force] ? '-f' : ''} #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
+  system("git push gitcafe master:master #{args[:force] ? '-f' : ''} #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
 end
 
 desc "Generate and publish blog to Github and GitCafe"
