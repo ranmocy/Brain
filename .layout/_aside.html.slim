@@ -1,0 +1,31 @@
+.inner
+  header
+    h2 == link_to settings.title, '/'
+    dd = settings.description
+    dd 我努力将诸多人格中微小的片面拼合。
+    dd 我拨开我的大脑，只为博君一笑。
+
+  section
+    h2 == link_to "Passing Memories", "/memories"
+    - groups.each do |group, c_list|
+      fieldset class="group_#{group}"
+        legend = group.to_s.capitalize
+        ol
+          - c_list.each do |c_name|
+            li == link_to "#{c_name.capitalize}(#{categories[c_name].size})", "/#{c_name}/", class: "#{active?(c_name)}", title: motto[c_name]
+
+  footer
+    h2 == link_to "Information Bucket", "/about"
+    dd
+      = "Designed by: "
+      == link_to "Ranmocy", "/about",  rel: "author", title: "Ranmocy"
+    dd
+      = "Powered by: "
+      == link_to "Middleman", "http://middlemanapp.com/", rel: "friend", title: "Middleman", target: "_blank"
+    dd
+      = "Hosted by: "
+      == link_to "Github", "https://github.com/", rel: "friend", title: "Github", target: "_blank"
+      |/
+      == link_to "GitCafe", "https://gitcafe.com/", rel: "friend", title: "GitCafe", target: "_blank"
+    dd &copy;Copyright 2009-2014.
+    dd All Rights Reserved.

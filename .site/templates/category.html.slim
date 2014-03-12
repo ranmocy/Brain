@@ -1,6 +1,0 @@
-header style="border-bottom: dotted 2px black"
-  h2 = link_to category.capitalize, category.downcase
-  dd = settings.motto[category.downcase.to_sym]
-
-- pages.each do |article|
-  = partial 'article_trancate', locals: {article: article}

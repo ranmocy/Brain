@@ -1,9 +1,9 @@
-- wrap_layout :default do
+== include "default" do
   article
     header
-      = partial 'header', locals: {article: current_page}
+      == partial 'header'
     section.columns
-      = yield
+      == yield
     #disqus_thread
     javascript:
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
