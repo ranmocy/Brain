@@ -39,82 +39,63 @@ class Scanner
     File.join(File.dirname(file), File.basename(file, File.extname(file)) + ext)
   end
 
-  def scan_file(path, file_path) # path for url
+  def scan_file(file_path, root: File.expand_path('.')) # path for url
     file          = Hashie::Mash.new
     file.ext      = File.extname(file_path)
     file.src_path = file_path
-    file.url      = file_path[path.length..-1]
     file.content  = File.read(file_path)
 
     # read yaml header if possible
     begin
-      header       = file.content.match /\A---\n(.*)\n---\n\n(.*)\Z/m
+      header       = file.content.match(/\A---\n(.*)\n---\n\n(.*)\Z/m)
       file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
       file.content = header[2] if header # remove the header
-    rescue ArgumentError => e # images are not UTF-8
+    rescue ArgumentError # images are not UTF-8
       file.meta = Hashie::Mash.new
     end
-    file.meta.category = (file.meta.category || "default").downcase
 
     # url
+    file.url = file_path[root.length..-1].downcase
     case file.ext
-    when ".slim", ".scss"
+    when ".slim",".scss"
       file.url = remove_ext(file.url)
-    when ".md"
-      file.url = replace_ext(file.url, ".html")
-    end
-    # move file.html to file/index.html for url
-    if (File.extname(file.url) == '.html') && File.basename(file.url) != 'index.html'
-      file.url = replace_ext(file.url, '/')
+      file.dest_path = File.join(BUILD_PATH, file.url)
+      # slim has a pretty url
+      if File.extname(file.url) == ".html" && File.basename(file.url) != "index.html"
+        file.url = replace_ext(file.url, '')
+        file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
+      end
+    when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
+      file.url = "/#{file.meta.category}/#{file.meta.title}".downcase
       file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
     else
       file.dest_path = File.join(BUILD_PATH, file.url)
     end
-    file.url.downcase!
 
     file
   end
 
-  def scan(dir_path, root: nil)
-    Dir.glob("#{dir_path}/**/*").reject { |path| File.directory?(path) }
-    .collect { |file_path| scan_file(root || dir_path, file_path) }
-  end
-
-  def self.files
-    @@files
-  end
-
-  def self.layouts
-    @@layouts
-  end
-
-  def self.articles
-    @@articles
-  end
-
-  def self.articles_by_category
-    @@articles_by_category
-  end
-
-  def self.categories
-    @@categories
+  def scan(dir_path)
+    Dir.glob("#{dir_path}/**/*").select { |path| File.file?(path) }
+    .map { |file_path| scan_file(file_path, root: dir_path) }
   end
 
   def call(guard_class, event, *args)
     @@files    = scan(SITE_PATH)
+    # Layouts are `layout_name => layout_file`
     @@layouts  = scan(LAYOUT_PATH).inject({}) do |layouts, file|
       layouts[File.basename(file.src_path, ".html.slim")] = file
       layouts
     end
     @@articles = (Dir.glob('*').select { |d| File.directory?(d) } - ["draft", "en"]).map { |category|
-      scan(File.expand_path(category), root: File.expand_path('.')).each { |file| file.category = category }
+      scan(File.expand_path(category)).each { |file| file.category = category }
     }.flatten
-    .sort { |a,b| [a.meta['created-at'], a.meta['updated-at']] <=> [b.meta['created-at'], b.meta['updated-at']] }
+    .sort { |a,b| [a.created_at, a.updated_at] <=> [b.created_at, b.updated_at] }
     .reverse
 
-    h = Hash.new([])
-    h["memories"] = @@articles
-    @@articles_by_category = @@articles.inject(h) { |h, article|
+    hash = Hash.new([])
+    hash["memories"] = @@articles
+    @@articles_by_category = @@articles.inject(hash) { |h, article|
       h[article.meta.category] += [article]; h
     }
 
@@ -134,6 +115,10 @@ class Scanner
 
     # FIXME: motto is on _aside but not a category
     @@articles_by_category["motto"] = File.read(File.join(SITE_PATH, 'motto.html.slim')).scan(/^ +li .*$/)
+  end
+
+  def self.method_missing(meth, *args, &blk)
+    class_variable_defined?("@@#{meth}") ? class_variable_get("@@#{meth}") : super
   end
 
 end
