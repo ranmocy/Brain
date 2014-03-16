@@ -1,7 +1,7 @@
 ---
 title: Blog 的架构
-created-at: 2012-01-29T17:50:00+08:00
-updated-at: 2012-01-29T17:50:00+08:00
+created_at: 2012-01-29T17:50:00+08:00
+updated_at: 2012-01-29T17:50:00+08:00
 category: Tech
 ---
 

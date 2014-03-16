@@ -1,7 +1,7 @@
 ---
 title: 平衡
-created-at: 2012-07-25T20:52:39+08:00
-updated-at: 2012-07-25T20:52:39+08:00
+created_at: 2012-07-25T20:52:39+08:00
+updated_at: 2012-07-25T20:52:39+08:00
 category: Idea
 ---
 

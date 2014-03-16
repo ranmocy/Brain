@@ -1,7 +1,7 @@
 ---
 title: Note of Rails Performance Analysis Tools
-created-at: 2013-05-08T10:46:06+08:00
-updated-at: 2013-05-08T10:46:06+08:00
+created_at: 2013-05-08T10:46:06+08:00
+updated_at: 2013-05-08T10:46:06+08:00
 category: Tech
 ---
 

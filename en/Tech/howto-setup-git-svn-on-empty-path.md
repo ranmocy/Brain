@@ -1,7 +1,7 @@
 ---
 title: Howto Setup Git-svn on Empty Path
-created-at: 2014-01-28T15:35:40-08:00
-updated-at: 2014-01-28T16:44:18-08:00
+created_at: 2014-01-28T15:35:40-08:00
+updated_at: 2014-01-28T16:44:18-08:00
 category: Tech
 ---
 

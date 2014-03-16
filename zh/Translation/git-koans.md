@@ -1,7 +1,7 @@
 ---
 title: Git 公案
-created-at: 2013-09-29T13:29:09-07:00
-updated-at: 2013-09-29T13:29:09-07:00
+created_at: 2013-09-29T13:29:09-07:00
+updated_at: 2013-09-29T13:29:09-07:00
 category: Translation
 Tag: Tech
 ---

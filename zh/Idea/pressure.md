@@ -1,7 +1,7 @@
 ---
 title: 压力
-created-at: 2010-05-12T14:08:00+08:00
-updated-at: 2010-05-12T14:08:00+08:00
+created_at: 2010-05-12T14:08:00+08:00
+updated_at: 2010-05-12T14:08:00+08:00
 category: Idea
 ---
 

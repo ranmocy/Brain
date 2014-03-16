@@ -1,7 +1,7 @@
 ---
 title: 天敌
-created-at: 2012-07-25T20:52:39+08:00
-updated-at: 2012-08-16T08:36:53+08:00
+created_at: 2012-07-25T20:52:39+08:00
+updated_at: 2012-08-16T08:36:53+08:00
 category: Idea
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Howto Install GCC on MacOS
-created-at: 2013-06-12T10:42:01+08:00
-updated-at: 2013-06-22T22:42:33+08:00
+created_at: 2013-06-12T10:42:01+08:00
+updated_at: 2013-06-22T22:42:33+08:00
 category: Tech
 ---
 

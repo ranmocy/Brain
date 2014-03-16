@@ -1,7 +1,7 @@
 ---
 title: 自制CA证书
-created-at: 2013-06-22T07:50:39+08:00
-updated-at: 2013-06-22T07:50:39+08:00
+created_at: 2013-06-22T07:50:39+08:00
+updated_at: 2013-06-22T07:50:39+08:00
 category: Tech
 ---
 

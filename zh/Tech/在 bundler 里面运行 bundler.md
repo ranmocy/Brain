@@ -1,7 +1,7 @@
 ---
 title: 在 Bundler 里面运行 Bundler
-created-at: 2013-04-13T10:07:17+08:00
-updated-at: 2013-04-13T10:07:17+08:00
+created_at: 2013-04-13T10:07:17+08:00
+updated_at: 2013-04-13T10:07:17+08:00
 category: Tech
 ---
 

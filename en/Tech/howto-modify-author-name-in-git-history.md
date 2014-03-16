@@ -1,7 +1,7 @@
 ---
 title: Howto Modify Author Name in Git History
-created-at: 2013-05-05T22:35:17+08:00
-updated-at: 2013-05-05T22:35:17+08:00
+created_at: 2013-05-05T22:35:17+08:00
+updated_at: 2013-05-05T22:35:17+08:00
 category: Tech
 ---
 

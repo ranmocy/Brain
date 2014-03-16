@@ -1,7 +1,7 @@
 ---
 title: Note of Elisp Delimiter
-created-at: 2012-06-27T22:38:20+08:00
-updated-at: 2012-06-27T22:38:20+08:00
+created_at: 2012-06-27T22:38:20+08:00
+updated_at: 2012-06-27T22:38:20+08:00
 category: Tech
 ---
 

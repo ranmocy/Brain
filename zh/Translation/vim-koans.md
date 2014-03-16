@@ -1,7 +1,7 @@
 ---
 title: Vim 公案
-created-at: 2013-09-12T18:14:55-07:00
-updated-at: 2013-09-12T18:34:04-07:00
+created_at: 2013-09-12T18:14:55-07:00
+updated_at: 2013-09-12T18:34:04-07:00
 category: Translation
 Tag: Tech
 ---

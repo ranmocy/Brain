@@ -1,7 +1,7 @@
 ---
 title: 黑洞
-created-at: 2012-06-25T20:25:36+08:00
-updated-at: 2012-06-25T20:25:36+08:00
+created_at: 2012-06-25T20:25:36+08:00
+updated_at: 2012-06-25T20:25:36+08:00
 category: Idea
 ---
 

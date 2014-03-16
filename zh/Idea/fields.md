@@ -1,7 +1,7 @@
 ---
 title: 领域
-created-at: 2012-06-27T22:38:20+08:00
-updated-at: 2013-10-15T11:48:10-07:00
+created_at: 2012-06-27T22:38:20+08:00
+updated_at: 2013-10-15T11:48:10-07:00
 category: Idea
 ---
 
