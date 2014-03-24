@@ -1,0 +1,127 @@
+// @font-face {
+//   font-family: 'Raleway';
+//   font-style: normal;
+//   font-weight: 400;
+//   src: local('Raleway'), url(/Raleway.woff) format('woff');
+// }
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+@import 'typo.css';
+
+
+$red: #dc322f;
+// Base Color and Font
+html {
+    background-color: #FEFEFE;
+}
+body {
+    @media screen and (min-width : 1280px) {
+        width: 50%;
+    }
+    @media screen and (min-width: 640px) and (max-width: 1280px) {
+        width: 80%;
+    }
+    @media screen and (max-width: 640px) {
+        width: 100%;
+    }
+    margin: 1em auto 10em auto;
+    color: black;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Nav
+nav {
+    margin: 2em 1em;
+    border: none {
+        bottom: 1px solid lighten(black, 60%);
+    }
+}
+
+// Info
+span.title {
+    font: 1.5em 'Raleway','sans-serif';
+    color: lighten(black, 30%);
+}
+span.date {
+    margin: 0 0.5em;
+}
+span.link {
+    float: right;
+    font-size: 0.8em;
+    a {
+        margin-left: 1em;
+    }
+}
+header span.title {
+    font-size: 1em;
+}
+footer {
+    color: lighten(black, 50%);
+    font-size: 12px;
+    margin: 2em 10%;
+    border-top: double;
+    .piece {
+        text-align: center;
+        span {
+            margin: 0 1em;
+            display: inline-block;
+        }
+    }
+}
+
+// Categories
+fieldset.lists {
+    border: none {
+        top: 1px solid lighten(black, 60%);
+    }
+    legend {
+        font: 1.6em 'Raleway','sans-serif';
+        margin: 0 auto;
+    }
+}
+
+// Lists
+.lists {
+    color: lighten(black, 30%);
+    margin: 2em auto;
+    .item {
+        text-align: center;
+        margin-bottom: 1em;
+        a {
+            color: black;
+            font: normal 23px/32px serif;
+            &:hover, &.active {
+                color: $red;
+            }
+        }
+    }
+}
+
+// Links
+a {
+    color: $red;
+    &:hover, &.active {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+// Lists
+ul li {
+    list-style-type: none;
+    // margin: 1em;
+    text-align: center;
+}
+
+// Article
+article {
+    width: 80%;
+    margin: 0 auto;
+
+    // Columns
+    .columns {
+        columns: 300px 2;
+        -webkit-columns: 300px 2;
+        -moz-columns: 300px 2;
+    }
+}
