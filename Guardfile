@@ -1,7 +1,6 @@
 require 'colorize'
 require 'pry'
 
-# HOST          = "http://ranmocy.info"
 HOST          = ""
 SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
