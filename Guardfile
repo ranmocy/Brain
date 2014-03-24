@@ -1,11 +1,26 @@
 require 'colorize'
 require 'pry'
 
-HOST          = "http://ranmocy.info/"
+# HOST          = "http://ranmocy.info"
+HOST          = ""
 SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
 LAYOUT_PATH   = File.expand_path('./.layout') # need to be absolute
 CATEGORIES    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
+MOTTO         = {
+      "blog" => "旅行日志",
+      "diary" => "一个欲望灼烧者艰难写下的自白。",
+      "dream" => "最真实总是梦境",
+      "poem" => "用诗歌来拯救自我",
+      "motto" => "一句话评点世界",
+      "idea" => "思维碎片，漂浮在名叫头脑的海洋。",
+      "remark" => "从这个世界剥离出的抽象",
+      "philosophy" => "我在教导你们世界运行的原动力。你们听之，想之，就忘之吧。",
+      "tech" => "技术宅拯救世界。",
+      "piece" => "What I did define what I am.",
+      "translation" => "Words worth spreading widely.",
+      "memories" => "三千竹水，不生不灭",
+    }
 
 class Server
   require "webrick"
@@ -50,12 +65,13 @@ class Scanner
       header       = file.content.match(/\A---\n(.*)\n---\n\n(.*)\Z/m)
       file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
       file.content = header[2] if header # remove the header
+      file.meta.category.downcase! if file.meta.category
     rescue ArgumentError # images are not UTF-8
       file.meta = Hashie::Mash.new
     end
 
     # url
-    file.url = file_path[root.length..-1].downcase
+    file.url = file_path[root.length..-1]
     case file.ext
     when ".slim",".scss"
       file.url = remove_ext(file.url)
@@ -87,14 +103,14 @@ class Scanner
       layouts[File.basename(file.src_path, ".html.slim")] = file
       layouts
     end
-    @@articles = (Dir.glob('*').select { |d| File.directory?(d) } - ["draft", "en"]).map { |category|
-      scan(File.expand_path(category)).each { |file| file.category = category }
+    @@articles = CATEGORIES.map { |category|
+      scan(File.expand_path(category))#.each { |file| file.category ||= category }
     }.flatten
-    .sort { |a,b| [a.created_at, a.updated_at] <=> [b.created_at, b.updated_at] }
+    .sort_by { |a| [a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0)] }
     .reverse
 
     hash = Hash.new([])
-    hash["memories"] = @@articles
+    # hash["memories"] = @@articles
     @@articles_by_category = @@articles.inject(hash) { |h, article|
       h[article.meta.category] += [article]; h
     }
@@ -107,14 +123,13 @@ class Scanner
         src_path: name,
         dest_path: File.join(BUILD_PATH, "/#{name}/index.html"),
         meta: Hashie::Mash.new({
-          category: name.downcase,
+          title: name.capitalize,
+          category: name,
+          motto: MOTTO[name],
           articles: articles,
           }),
         })
     end
-
-    # FIXME: motto is on _aside but not a category
-    @@articles_by_category["motto"] = File.read(File.join(SITE_PATH, 'motto.html.slim')).scan(/^ +li .*$/)
   end
 
   def self.method_missing(meth, *args, &blk)
@@ -128,18 +143,6 @@ class SlimEnv
   def initialize(file=nil)
     metaclass = class << self; self; end
     metaclass.send(:define_method, :current_page) { file }
-    @settings = Hashie::Mash.new({
-      title: "Ranmocy's Fragments",
-      description: "My Brain, My Treasure.",
-      author: "Ranmocy",
-      email: "Ranmocy@gmail.com",
-      host: "http://ranmocy.info/",
-      categories: CATEGORIES,
-      })
-  end
-
-  def settings
-    @settings
   end
 
   def include(name, options = {}, &block)
@@ -155,7 +158,7 @@ class SlimEnv
   end
 
   def link_to name, url, options = {}
-    "<a href='#{url}' #{options_str(options)}>#{name}</a>"
+    "<a href='#{HOST}#{url}' #{options_str(options)}>#{name}</a>"
   end
 
   def image_tag name, options = {}
@@ -163,11 +166,11 @@ class SlimEnv
   end
 
   def stylesheet_link_tag name
-    "<link href=\"/assets/stylesheets/#{name}.css\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">"
+    "<link href='/assets/stylesheets/#{name}.css' media='screen' rel='stylesheet' type='text/css'>"
   end
 
   def javascript_include_tag name
-    "<script src=\"/assets/javascripts/#{name}.js\" type=\"text/javascript\"></script>"
+    "<script src='/assets/javascripts/#{name}.js' type='text/javascript'></script>"
   end
 
   def categories
@@ -175,38 +178,17 @@ class SlimEnv
   end
 
   def groups
-    h = {life: ["blog", "diary", "dream", "poem", ],
+    {life: ["blog", "diary", "dream", "poem", ],
       idea: ["motto", "idea", "remark", "philosophy", ],
       work: ["tech", "piece", "translation"], }
   end
 
   def motto
-    Hashie::Mash.new({
-      blog: "旅行日志",
-      diary: "一个欲望灼烧者艰难写下的自白。",
-      dream: "最真实总是梦境",
-      poem: "用诗歌来拯救自我",
-      motto: "一句话评点世界",
-      idea: "思维碎片，漂浮在名叫头脑的海洋。",
-      remark: "从这个世界剥离出的抽象",
-      philosophy: "我在教导你们世界运行的原动力。你们听之，想之，就忘之吧。",
-      tech: "技术宅拯救世界。",
-      piece: "What I did define what I am.",
-      translation: "Words worth spreading widely.",
-      memories: "三千竹水，不生不灭",
-    })
-  end
-
-  def active? category
-    category == current_page.meta.category ? "active" : nil
+    Hashie::Mash.new(MOTTO)
   end
 
   def method_missing(meth, *args, &blk)
-    if current_page && current_page.meta.include?(meth.to_s)
-      current_page.meta[meth.to_s]
-    else
-      super
-    end
+    current_page.meta.send(meth.to_s) # return nil if no method
   end
 
 end
@@ -231,15 +213,11 @@ class Generator
     File.open(dest_path, "w") { |f| f.write(content) }
   end
 
-  # cache of layouts
-  def layout(name)
-    Slim::Template.new { Scanner.layouts[name.to_s].content }
-  end
-
   def apply_layout(file, helper, content, default_layout: "default")
     layout_name = file.meta["layout"] || default_layout
     puts "render layout #{layout_name} for #{file.url}".yellow
-    res = layout(layout_name).render(helper) { content }
+    layout = Slim::Template.new { Scanner.layouts[layout_name].content }
+    res = layout.render(helper) { content }
     write_file(file.dest_path, res)
   end
 
@@ -255,15 +233,14 @@ class Generator
     puts res.red unless $?.success?
   end
 
-  def generate_markdown(file)
-    # TODO: generate by category
+  def generate_md(file)
     apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, default_layout: "article"
   end
 
   def call(guard_class, event, *args)
     cleanup
 
-    Scanner.files.each do |file|
+    (Scanner.files + Scanner.articles).each do |file|
       cmd = "generate_#{file.ext[1..-1]}"
       if respond_to? cmd
         puts "#{file.ext[1..-1].upcase}: #{file.src_path}"
@@ -272,10 +249,6 @@ class Generator
         puts "copying #{file.url} to #{file.dest_path}".green
         copy_file(file.src_path, file.dest_path)
       end
-    end
-
-    Scanner.articles.each do |article|
-      generate_markdown(article)
     end
 
     Scanner.categories.each do |file|
@@ -287,9 +260,8 @@ class Generator
 end
 
 guard :shell do
-  # watch(/(.*)/) {|m| n "=> #{m[1]} ", "Brain", :success; m[1]} # TODO: setup livereload
+  watch(/(.*\.(slim|scss|md))$/) {|m| n "=> #{m[1]} ", "Brain", :success; m[1]}
   callback(Server.new, [:start_end, :stop_end])
   callback(Scanner.new, [:start_begin, :run_all_begin, :run_on_modifications_begin])
   callback(Generator.new, [:start_end, :run_all_end, :run_on_modifications_end])
-  # callback([:start_begin, :run_on_modifications_begin]) { SlimEnv.reset }
 end

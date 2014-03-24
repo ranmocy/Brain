@@ -1,13 +1,6 @@
-header style="border-bottom: dotted 2px black"
-  h2 == link_to category.capitalize, "/#{category.downcase}/"
-  dd = motto[category.downcase.to_sym]
-
-- articles.each do |article|
-  article
-    header
-      h1
-        == link_to article.meta.title, article.url
-        '
-        span
-          |本文已然祸害了 无数 个人 &raquo; Since #{article.meta["created-at"].strftime('%b %d %Y')}
+.lists
+  - articles.each do |article|
+    .item
+      == link_to article.meta.title, article.url
+      .motto = article.meta.created_at && article.meta.created_at.strftime('%b %d %Y')
     hr/
