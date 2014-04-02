@@ -91,7 +91,7 @@ class Scanner
   end
 
   def scan(dir_path)
-    Dir.glob("#{dir_path}/**/*").select { |path| File.file?(path) }
+    Dir.glob("#{dir_path}/**/*", File::FNM_DOTMATCH).select { |path| File.file?(path) }
     .map { |file_path| scan_file(file_path, root: dir_path) }
   end
 
