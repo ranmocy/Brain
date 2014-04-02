@@ -1,6 +1,7 @@
 .lists
+  .div = "⌄"
   - articles.each do |article|
     .item
       == link_to article.meta.title, article.url
       .motto = article.meta.created_at && article.meta.created_at.strftime('%b %d %Y')
-    hr/
+      .div = "⌄"
