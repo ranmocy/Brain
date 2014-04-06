@@ -5,7 +5,7 @@ gem "rdiscount"   # markdown generator
 gem "slim"        # html generator
 gem "compass"     # assets generator
 gem 'webrick'     # web server
-gem 'guard', git: "git://github.com/guard/guard", branch: "fix-540" # wating for >= 2.5.2
+gem 'guard'
 gem 'guard-shell' # monitor the file changes
 gem 'terminal-notifier-guard'
 
