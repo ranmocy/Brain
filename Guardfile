@@ -211,12 +211,14 @@ class Generator
     File.open(dest_path, "w") { |f| f.write(content) }
   end
 
-  def apply_layout(file, helper, content, default_layout: "default")
-    layout_name = file.meta["layout"] || default_layout
+  def apply_layout(file, helper, content, layout: "default")
+    layout_name = file.meta["layout"] || layout
     puts "render layout #{layout_name} for #{file.url}".yellow
-    layout = Slim::Template.new { Scanner.layouts[layout_name].content }
-    res = layout.render(helper) { content }
-    write_file(file.dest_path, res)
+    if Scanner.layouts[layout_name]
+      template = Slim::Template.new { Scanner.layouts[layout_name].content }
+      content = template.render(helper) { content }
+    end
+    write_file(file.dest_path, content)
   end
 
   def generate_slim(file)
@@ -232,7 +234,7 @@ class Generator
   end
 
   def generate_md(file)
-    apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, default_layout: "article"
+    apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, layout: "article"
   end
 
   def call(guard_class, event, *args)
