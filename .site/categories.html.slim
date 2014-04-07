@@ -1,0 +1,7 @@
+- groups.each do |group, c_list|
+  fieldset.lists
+    legend = group.to_s.capitalize
+    - c_list.each do |c_name|
+      .item
+        == link_to "#{c_name.capitalize}(#{articles_by_category[c_name].size})", "/#{c_name}/", title: motto[c_name]
+        .motto = motto[c_name]

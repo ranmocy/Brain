@@ -13,9 +13,10 @@ html
   body class="typo"
     nav
       span.title == link_to title || "Ranmocy's Garden", "/"
-      span.date = created_at && created_at.strftime('%b %d %Y')
+      span.date = datestr(created_at)
       span.date = current_page.meta.motto
       span.link
+        == link_to "Categories", "/categories"
         == link_to "Memories", "/memories"
         == link_to "About", "/about"
     article

@@ -1,7 +1,12 @@
-- groups.each do |group, c_list|
+- articles.group_by {|a| a.meta.created_at.strftime("%Y")}.each do |y, articles|
   fieldset.lists
-    legend = group.to_s.capitalize
-    - c_list.each do |c_name|
-      .item
-        == link_to "#{c_name.capitalize}(#{categories[c_name].size})", "/#{c_name}/", title: motto[c_name]
-        .motto = motto[c_name]
+    legend = y
+    - articles.group_by {|a| a.meta.created_at.strftime("%b")}.each do |m, articles|
+      fieldset.lists
+        legend = m
+        .div = "⌄"
+        - articles.each do |article|
+          .item
+            == link_to article.meta.title, article.url
+            .motto = "[#{article.meta.category.capitalize}] #{datestr(article.meta.created_at)}"
+            .div = "⌄"

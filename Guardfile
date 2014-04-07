@@ -103,13 +103,12 @@ class Scanner
       layouts
     end
     @@articles = CATEGORIES.map { |category|
-      scan(File.expand_path(category))#.each { |file| file.category ||= category }
+      scan(File.expand_path(category)).each { |file| file.category ||= category }
     }.flatten
     .sort_by { |a| [a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0)] }
     .reverse
 
     hash = Hash.new([])
-    # hash["memories"] = @@articles
     @@articles_by_category = @@articles.inject(hash) { |h, article|
       h[article.meta.category] += [article]; h
     }
@@ -132,7 +131,7 @@ class Scanner
   end
 
   def self.method_missing(meth, *args, &blk)
-    class_variable_defined?("@@#{meth}") ? class_variable_get("@@#{meth}") : super
+    class_variable_defined?("@@#{meth}") ? class_variable_get("@@#{meth}") : nil
   end
 
 end
@@ -172,8 +171,8 @@ class SlimEnv
     "<script src='/assets/javascripts/#{name}.js' type='text/javascript'></script>"
   end
 
-  def categories
-    Scanner.articles_by_category
+  def datestr(time)
+    time && time.strftime('%b %d %Y')
   end
 
   def groups
@@ -187,7 +186,7 @@ class SlimEnv
   end
 
   def method_missing(meth, *args, &blk)
-    current_page.meta.send(meth.to_s) # return nil if no method
+    current_page.meta.send(meth.to_s) || Scanner.send(meth) # return nil if no method
   end
 
 end
