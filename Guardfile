@@ -175,6 +175,10 @@ class SlimEnv
     time && time.strftime('%b %d %Y')
   end
 
+  def article_class
+    ["poem"].include?(category.downcase) ? category.downcase : "columns"
+  end
+
   def groups
     {life: ["blog", "diary", "dream", "poem", ],
       idea: ["motto", "idea", "remark", "philosophy", ],
