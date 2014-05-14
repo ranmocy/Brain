@@ -122,16 +122,15 @@ ul li {
 // Article
 article {
     width: 80%;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 1em auto;
 
-    // Columns
-    .columns {
-        columns: 300px 2;
-        -webkit-columns: 300px 2;
-        -moz-columns: 300px 2;
+    img {
+        width: 100%;
     }
+
     .poem {
         max-width: 300px;
-        margin: auto;
+        margin: 1em auto;
     }
 }

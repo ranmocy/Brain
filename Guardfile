@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'colorize'
 require 'pry'
 
@@ -176,7 +178,7 @@ class SlimEnv
   end
 
   def article_class
-    ["poem"].include?(category.downcase) ? category.downcase : "columns"
+    ["poem"].include?(category.downcase) ? category.downcase : "articles"
   end
 
   def groups
