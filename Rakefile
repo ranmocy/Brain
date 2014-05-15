@@ -1,4 +1,4 @@
-PUBLISH = true
+PUBLISH = true # except `draft` dir
 begin
   require 'pathname'
   require 'fileutils'
