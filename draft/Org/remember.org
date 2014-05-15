@@ -1,4 +1,0 @@
-* New Ideas
-** 去移动营业厅买卡
-  
-  [[file:~/.emacs.d/customizations/application/set-org.el::(global-set-key%20(kbd%20"H-r")%20'org-remember)][file:~/.emacs.d/customizations/application/set-org.el::(global-set-key (kbd "H-r") 'org-remember)]]

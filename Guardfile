@@ -8,6 +8,7 @@ SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
 LAYOUT_PATH   = File.expand_path('./.layout') # need to be absolute
 CATEGORIES    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
+CATEGORIES   += ['draft'] unless defined?(PUBLISH) && PUBLISH
 MOTTO         = {
       "blog" => "旅行日志",
       "diary" => "一个欲望灼烧者艰难写下的自白。",
@@ -66,7 +67,7 @@ class Scanner
       header       = file.content.match(/\A---\n(.*)\n---\n\n(.*)\Z/m)
       file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
       file.content = header[2] if header # remove the header
-      file.meta.category.downcase! if file.meta.category
+      file.meta.category.downcase! rescue nil
     rescue ArgumentError # images are not UTF-8
       file.meta = Hashie::Mash.new
     end
@@ -107,6 +108,7 @@ class Scanner
     @@articles = CATEGORIES.map { |category|
       scan(File.expand_path(category)).each { |file| file.category ||= category }
     }.flatten
+    .select { |a| a.ext == ".md" }
     .sort_by { |a| [a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0)] }
     .reverse
 

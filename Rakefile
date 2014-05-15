@@ -1,3 +1,4 @@
+PUBLISH = true
 begin
   require 'pathname'
   require 'fileutils'
