@@ -246,9 +246,20 @@ class Generator
   end
 
   def call(guard_class, event, *args)
-    cleanup
+    case event
+    when :run_on_modifications
+      path = args.first
+      dir = path.split('/')[0]
+      if dir == File.basename(SITE_PATH)
+        root = SITE_PATH
+      elsif dir == File.basename(LAYOUT_PATH)
+        root = LAYOUT_PATH
+      else
+        root = File.expand_path('.')
+      end
+      path = File.expand_path(path)
+      file = Scanner.new.scan_file(path, root: root)
 
-    (Scanner.files + Scanner.articles).each do |file|
       cmd = "generate_#{file.ext[1..-1]}"
       if respond_to? cmd
         puts "#{file.ext[1..-1].upcase}: #{file.src_path}"
@@ -257,19 +268,35 @@ class Generator
         puts "copying #{file.url} to #{file.dest_path}".green
         copy_file(file.src_path, file.dest_path)
       end
-    end
+    else
+      cleanup
 
-    Scanner.categories.each do |file|
-      helper = SlimEnv.new(file)
-      apply_layout file, helper, Slim::Template.new { file.content }.render(helper)
+      (Scanner.files + Scanner.articles).each do |file|
+        cmd = "generate_#{file.ext[1..-1]}"
+        if respond_to? cmd
+          puts "#{file.ext[1..-1].upcase}: #{file.src_path}"
+          self.send cmd, file
+        else
+          puts "copying #{file.url} to #{file.dest_path}".green
+          copy_file(file.src_path, file.dest_path)
+        end
+      end
+
+      Scanner.categories.each do |file|
+        helper = SlimEnv.new(file)
+        apply_layout file, helper, Slim::Template.new { file.content }.render(helper)
+      end
     end
   end
 
 end
 
 guard :shell do
-  watch(/(.*\.(slim|scss|md))$/) {|m| n "=> #{m[1]} ", "Brain", :success; m[1]}
+  watch(/(.*\.(slim|scss|md))$/) { |m|
+    Generator.new.call(self, :run_on_modifications, m[1])
+    n "=> #{m[1]} ", "Brain", :success; m[1]
+  }
   callback(Server.new, [:start_end, :stop_end])
   callback(Scanner.new, [:start_begin, :run_all_begin, :run_on_modifications_begin])
-  callback(Generator.new, [:start_end, :run_all_end, :run_on_modifications_end])
+  callback(Generator.new, [:start_end, :run_all_end])
 end
