@@ -5,9 +5,9 @@ HOST          = ""
 SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
 LAYOUT_PATH   = File.expand_path('./.layout')  # need to be absolute
-CATEGORIES    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
-CATEGORIES   += ['draft'] unless defined?(PUBLISH) && PUBLISH
 MOTTO         = YAML.load_file('motto.yml')
+categories    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
+CATEGORIES    = (defined?(PUBLISH) && PUBLISH) ? categories : categories + ['draft']
 
 class Server
   require "webrick"
