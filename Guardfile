@@ -1,28 +1,13 @@
-# encoding: utf-8
-
 require 'colorize'
 require 'pry'
 
 HOST          = ""
 SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
-LAYOUT_PATH   = File.expand_path('./.layout') # need to be absolute
+LAYOUT_PATH   = File.expand_path('./.layout')  # need to be absolute
 CATEGORIES    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
 CATEGORIES   += ['draft'] unless defined?(PUBLISH) && PUBLISH
-MOTTO         = {
-      "blog" => "旅行日志",
-      "diary" => "一个欲望灼烧者艰难写下的自白。",
-      "dream" => "最真实总是梦境",
-      "poem" => "用诗歌来拯救自我",
-      "motto" => "一句话评点世界",
-      "idea" => "思维碎片，漂浮在名叫头脑的海洋。",
-      "remark" => "从这个世界剥离出的抽象",
-      "philosophy" => "我在教导你们世界运行的原动力。你们听之，想之，就忘之吧。",
-      "tech" => "技术宅拯救世界。",
-      "piece" => "What I did define what I am.",
-      "translation" => "Words worth spreading widely.",
-      "memories" => "三千竹水，不生不灭",
-    }
+MOTTO         = YAML.load_file('motto.yml')
 
 class Server
   require "webrick"
