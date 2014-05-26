@@ -49,7 +49,7 @@ class Scanner
 
     # read yaml header if possible
     begin
-      header       = file.content.match(/\A---\n(.*)\n---\n\n(.*)\Z/m)
+      header       = file.content.match(/\A---\n(.*?)\n---\n\n(.*)\Z/m)
       file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
       file.content = header[2] if header # remove the header
       file.meta.category.downcase! rescue nil
