@@ -1,8 +1,8 @@
 ---
 title: 现代 Space Cadet
 created_at: 2014-05-13T02:34:51-0800
-updated_at: 2014-05-26T18:49:57-0800
-category: draft
+updated_at: 2014-05-27T06:56:58-0800
+category: Translation
 ---
 
 > 英文原文：[Steve Losh - A Modern Space Cadet](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/)<br/>
