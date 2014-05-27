@@ -1,11 +1,7 @@
 PUBLISH = true # except `draft` dir
-begin
-  require 'pathname'
-  require 'fileutils'
-  load 'Guardfile'
-rescue
-  nil
-end
+require 'pathname'
+require 'fileutils'
+load 'config.rb'
 
 # HOST           = "http://ranmocy.info"
 GITHUB_REPO    = "git@github.com:ranmocy/ranmocy.github.io.git"
@@ -17,8 +13,8 @@ SILENT         = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
 
 desc "Generate blog files"
 task :generate do
-  Scanner.new.call(self, :start_begin)
-  Generator.new.call(self, :start_begin)
+  Brain::Scanner.new.call(self, :start_begin)
+  Brain::Generator.new.call(self, :start_begin)
 end
 
 desc "Update sources"
