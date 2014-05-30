@@ -130,6 +130,10 @@ module Brain
     def initialize(file=nil)
       metaclass = class << self; self; end
       metaclass.send(:define_method, :current_page) { file }
+      metaclass.send(:define_method, :current_description) {
+        content = file.content.gsub("\n", "")
+        (content.length <= 100) ? content : "#{content[0...97]}..."
+      }
     end
 
     def include(name, options = {}, &block)
