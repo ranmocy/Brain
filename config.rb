@@ -71,6 +71,9 @@ module Brain
       when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
         file.url = "/#{file.meta.category}/#{file.meta.title}".downcase
         file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
+      when ".txt"
+        file.url = File.join("/#{file.meta.category}", file.url)
+        file.dest_path = File.join(BUILD_PATH, file.url)
       else
         file.dest_path = File.join(BUILD_PATH, file.url)
       end
@@ -93,7 +96,7 @@ module Brain
       @@articles = CATEGORIES.map { |category|
         scan(File.expand_path(category)).each { |file| file.category ||= category }
       }.flatten
-      .select { |a| a.ext == ".md" }
+      .select { |a| [".md", ".txt"].include? a.ext }
       .sort_by { |a| [a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0)] }
       .reverse
 
