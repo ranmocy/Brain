@@ -157,4 +157,12 @@ article {
         max-width: 300px;
         margin: 1em auto;
     }
+
+    .inline {
+        display: inline-block;
+    }
+
+    .no-shaddow {
+        box-shadow: none;
+    }
 }
