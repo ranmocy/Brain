@@ -201,11 +201,6 @@ module Brain
       FileUtils.mkdir_p(BUILD_PATH)
     end
 
-    def copy_file(src_path, dest_path)
-      FileUtils.mkdir_p File.dirname(dest_path)
-      FileUtils.cp src_path, dest_path
-    end
-
     def write_file(dest_path, content)
       FileUtils.mkdir_p File.dirname(dest_path)
       File.open(dest_path, "w") { |f| f.write(content) }
@@ -258,7 +253,7 @@ module Brain
           self.send cmd, file
         else
           puts "copying #{file.url} to #{file.dest_path}".green
-          copy_file(file.src_path, file.dest_path)
+          write_file(file.dest_path, file.content)
         end
       else
         cleanup
@@ -270,7 +265,7 @@ module Brain
             self.send cmd, file
           else
             puts "copying #{file.url} to #{file.dest_path}".green
-            copy_file(file.src_path, file.dest_path)
+            write_file(file.dest_path, file.content)
           end
         end
 
