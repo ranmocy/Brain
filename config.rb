@@ -19,7 +19,7 @@ module Brain
       when :start_end
         log_file = File.open('/tmp/brain.log', 'a+')
         @server = HTTPServer.new(DocumentRoot: BUILD_PATH,
-                                 Port: 8080,
+                                 Port: 33333,
                                  AccessLog: [[log_file, AccessLog::COMBINED_LOG_FORMAT]],
                                  Logger: Log.new(log_file))
         Thread.new { @server.start }     # Let's Rock!
