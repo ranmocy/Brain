@@ -2,6 +2,7 @@ require 'colorize'
 require 'yaml'
 
 HOST          = ""
+PORT          = 33333
 SITE_PATH     = File.expand_path('./.site')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
 LAYOUT_PATH   = File.expand_path('./.layout')  # need to be absolute
@@ -19,9 +20,10 @@ module Brain
       when :start_end
         log_file = File.open('/tmp/brain.log', 'a+')
         @server = HTTPServer.new(DocumentRoot: BUILD_PATH,
-                                 Port: 33333,
+                                 Port: PORT,
                                  AccessLog: [[log_file, AccessLog::COMBINED_LOG_FORMAT]],
                                  Logger: Log.new(log_file))
+        puts "Server will run on http://localhost:#{PORT}".green
         Thread.new { @server.start }     # Let's Rock!
       when :stop_end
         @server.shutdown                 # shutdown with guard
