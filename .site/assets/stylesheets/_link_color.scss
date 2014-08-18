@@ -1,0 +1,9 @@
+@import "color";
+
+@mixin link_color($color: $red, $bg: black) {
+    color: $color;
+    &:hover, &.active {
+        color: $bg;
+        text-decoration: none;
+    }
+}

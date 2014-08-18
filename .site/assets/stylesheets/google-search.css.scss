@@ -1,0 +1,23 @@
+@import "color";
+@import "link_color";
+
+div.gsc-control-cse {
+    table td {
+        border: none;
+        padding: 0;
+    }
+    input.gsc-input {
+        background: none !important;
+    }
+    input.gsc-search-button {
+        border: 0;
+        height: 100%;
+    }
+    div.gcsc-branding {
+        display: none;
+    }
+
+    a.gs-title {
+        @include link_color($red !important);
+    }
+}
