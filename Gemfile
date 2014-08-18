@@ -1,6 +1,7 @@
-source 'http://ruby.taobao.org'
-ruby "2.0.0"
+source 'https://rubygems.org'
 
+gem 'rake'
+gem 'compass'
+gem 'blueprint'
 gem 'jekyll'
 gem 'jekyll-assets'
-gem 'compass'
