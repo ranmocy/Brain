@@ -225,6 +225,8 @@ module Brain
     end
 
     def generate_scss(file)
+      return puts "Skip #{file.src_path}" if File.extname(file.dest_path).empty?
+
       FileUtils.mkdir_p File.dirname(file.dest_path)
       res = `scss #{file.src_path} #{file.dest_path} 2>&1`
       puts res.red unless $?.success?
