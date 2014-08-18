@@ -5,3 +5,9 @@ Brain 计划就要把我脑袋里的东西都掏出来，暴露到阳光之下�
 记录，整合，再现。
 
 它会比日记，更让人回味。
+
+## 使用方法
+
+    bundle
+    bundle exec middleman
+    open http://0.0.0.0:4567
