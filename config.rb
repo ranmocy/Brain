@@ -154,7 +154,7 @@ module Brain
     end
 
     def link_to name, url, options = {}
-      "<a href='#{HOST}#{url}' #{options_str(options)}>#{name}</a>"
+      "<a href='#{HOST}#{url}/' #{options_str(options)}>#{name}</a>"
     end
 
     def image_tag name, options = {}
