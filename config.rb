@@ -71,7 +71,7 @@ module Brain
           file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
         end
       when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
-        file.url = "/#{file.meta.category}/#{file.meta.title}".downcase
+        file.url = "/#{file.meta.category}/#{file.meta.title}/".downcase
         file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
       when ".txt"
         file.url = File.join("/#{file.meta.category}", file.url)
@@ -154,7 +154,6 @@ module Brain
     end
 
     def link_to name, url, options = {}
-      url += '/' unless url[-1] == '/'
       "<a href='#{HOST}#{url}' #{options_str(options)}>#{name}</a>"
     end
 

@@ -22,9 +22,9 @@ html
       span.date = datestr(created_at)
       span.date = current_page.meta.motto
       span.link
-        == link_to "Categories", "/categories"
-        == link_to "Memories", "/memories"
-        == link_to "About", "/about"
+        == link_to "Categories", "/categories/"
+        == link_to "Memories", "/memories/"
+        == link_to "About", "/about/"
     article
       == yield
 
@@ -35,7 +35,7 @@ html
       .piece
         span
           = "Designed by: "
-          == link_to "Ranmocy", "/about",  rel: "author", title: "Ranmocy"
+          == link_to "Ranmocy", "/about/",  rel: "author", title: "Ranmocy"
         span
           = "Hosted by: "
           == link_to "Github", "https://github.com/", rel: "friend", title: "Github", target: "_blank"
