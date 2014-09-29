@@ -7,6 +7,7 @@ html
     meta name="description" content="My Brain, My Treasure."
     link rel="author" href="https://plus.google.com/+WanzhangSheng"
     link rel="publisher" href="https://plus.google.com/+WanzhangSheng"
+    link href="atom.xml" rel="alternate" type="application/atom+xml" title="My Brain, My Treasure."
 
     meta property="og:type" content="blog"
     meta property="og:title" content=(current_page.meta.title || "Ranmocy's Garden")
@@ -21,10 +22,6 @@ html
     meta name="twitter:creator" content="@ranmocy"
     meta name="twitter:domain" content="http://ranmocy.info"
 
-    meta name="apple-mobile-web-app-capable" content="yes"
-    meta name="mobile-web-app-capable" content="yes"
-    meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-
     link href="/icons/favicon.ico" rel="icon" type="image/x-icon"
     link href="/icons/favicon.ico" rel="shortcut icon" type="image/x-icon"
     link rel="apple-touch-icon" href="/icons/Icon-60@2x.png"
@@ -33,7 +30,7 @@ html
     link rel="apple-touch-icon" sizes="152x152" href="/icons/Icon-76@2x.png"
     link rel="apple-touch-icon" sizes="58x58" href="/icons/Icon-Small@2x.png"
 
-    link href="atom.xml" rel="alternate" type="application/atom+xml" title="My Brain, My Treasure."
+    meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     == stylesheet_link_tag "default"
   body class="typo"
     nav
