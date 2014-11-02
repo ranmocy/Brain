@@ -1,14 +1,15 @@
 ---
 title: Howto Add Custom Keys to iTerm2
 created_at: 2014-11-02T20:16:39-0800
-updated_at: 2014-11-02T20:16:39-0800
+updated_at: 2014-11-02T20:31:17-0800
 category: Tech
 ---
 
 If you want to:
 
-* add key-bindings to manipulate input by word
-* add `option-del` to delete word
+* add Unix-key word operations
+* add `option-b` and `option-f` to move by word
+* add `option-del` and `option-backspace` to delete by word
 * add your own custom keys to iTerms
 
 then please read on.
