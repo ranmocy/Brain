@@ -71,7 +71,8 @@ module Brain
           file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
         end
       when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
-        file.url = "/#{file.meta.category}/#{file.meta.title}/".downcase
+        url = File.basename(file.url).gsub(file.ext, '')
+        file.url = "/#{file.meta.category}/#{url}/".downcase
         file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
       when ".txt"
         file.url = File.join("/#{file.meta.category}", file.url)
