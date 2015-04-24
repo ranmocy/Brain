@@ -53,8 +53,11 @@ I use them all.
 - Background Productivity Apps
     + Alfred2
     + BetterTouchTools
+    + Karabiner
+    + Seil
     + Dropbox
     + 1Password
+    + Flux
 - Apps that always on
     + Mailbox
     + Omnifocus
