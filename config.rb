@@ -3,12 +3,13 @@ require 'yaml'
 
 HOST          = ""
 PORT          = 33333
-SITE_PATH     = File.expand_path('./.site')    # need to be absolute
+ROOT_PATH     = File.expand_path('.')    # need to be absolute
 BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
 LAYOUT_PATH   = File.expand_path('./.layout')  # need to be absolute
 MOTTO         = YAML.load_file('motto.yml')
 categories    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
 CATEGORIES    = (defined?(PUBLISH) && PUBLISH) ? categories : categories + ['draft']
+
 
 module Brain
   class Server
@@ -29,68 +30,101 @@ module Brain
         @server.shutdown                 # shutdown with guard
       end
     end
-
   end
+
+
+  class BrainFile
+    attr_reader :content, :meta
+
+    # Relative file path to the root
+    def initialize(file_path)
+      @path = file_path
+      read_content
+    end
+
+    def src_path
+      @src_path ||= File.join(ROOT_PATH, @path)
+    end
+
+    # URL is all lower-case.
+    # it's case sensitive in Unix-like system
+    def relative_dest_path
+      @relative_dest_path ||= if [".scss", ".slim", ".md"].include?(ext)
+        path_without_ext
+      else
+        @path
+      end.downcase
+    end
+
+    def dest_path
+      @dest_path ||= File.join(BUILD_PATH, relative_dest_path)
+    end
+
+    def url
+      @url ||= if File.basename(relative_dest_path) == 'index.html'
+        dirname
+      else
+        relative_dest_path
+      end
+    end
+
+    def ext
+      @ext ||= File.extname @path
+    end
+
+    def dirname
+      @dirname ||= File.dirname(@path)
+    end
+
+    def basename
+      @basename ||= File.basename(@path)
+    end
+
+    def basename_without_ext
+      @basename_without_ext ||= File.basename(@path, ext)
+    end
+
+    def path_without_ext
+      @path_without_ext ||= File.join(File.dirname(@path), basename_without_ext)
+    end
+
+    def path_with_new_ext(new_ext)
+      path_without_ext + new_ext
+    end
+
+    private
+
+    # read yaml header if possible
+    def read_content
+      @content = File.read @path
+      @meta    = Hashie::Mash.new
+      header   = @content.match(/\A---\n(.*?)\n---\n\n(.*)\Z/m)
+      if header
+        @content = header[2]
+        @meta    = Hashie::Mash.new YAML.load(header[1])
+        @meta.category.downcase! rescue nil
+      end
+    rescue ArgumentError # images are not UTF-8
+      nil
+    end
+  end
+
 
   class Scanner
     require 'hashie'
 
-    def remove_ext(file)
-      File.join(File.dirname(file), File.basename(file, File.extname(file)))
-    end
-
-    def replace_ext(file, ext)
-      File.join(File.dirname(file), File.basename(file, File.extname(file)) + ext)
-    end
-
     def scan_file(file_path, root: File.expand_path('.')) # path for url
-      file          = Hashie::Mash.new
-      file.ext      = File.extname(file_path)
-      file.src_path = file_path
-      file.content  = File.read(file_path)
-
-      # read yaml header if possible
-      begin
-        header       = file.content.match(/\A---\n(.*?)\n---\n\n(.*)\Z/m)
-        file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
-        file.content = header[2] if header # remove the header
-        file.meta.category.downcase! rescue nil
-      rescue ArgumentError # images are not UTF-8
-        file.meta = Hashie::Mash.new
-      end
-
-      # url
-      file.url = file_path[root.length..-1]
-      case file.ext
-      when ".slim",".scss"
-        file.url = remove_ext(file.url)
-        file.dest_path = File.join(BUILD_PATH, file.url)
-        # slim has a pretty url
-        if File.extname(file.url) == ".html" && File.basename(file.url) != "index.html"
-          file.url = replace_ext(file.url, '')
-          file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
-        end
-      when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
-        url = File.basename(file.url).gsub(file.ext, '')
-        file.url = "/#{file.meta.category}/#{url}/".downcase
-        file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
-      when ".txt"
-        file.url = File.join("/#{file.meta.category}", file.url)
-        file.dest_path = File.join(BUILD_PATH, file.url)
-      else
-        file.dest_path = File.join(BUILD_PATH, file.url)
-      end
-
-      file
+      BrainFile.new(file_path)
     end
 
     def scan(dir_path)
-      Dir.glob("#{dir_path}/**/*", File::FNM_DOTMATCH).select { |path| File.file?(path) }
-      .map { |file_path| scan_file(file_path, root: dir_path) }
+      Dir.glob("#{dir_path}/**/*", File::FNM_DOTMATCH)
+         .select { |path| File.file?(path) }
+         .map { |file_path| scan_file(file_path, root: dir_path) }
     end
 
     def call(guard_class, event, *args)
-      @@files    = scan(SITE_PATH)
+      @@files    = scan(ROOT_PATH)
       # Layouts are `layout_name => layout_file`
       @@layouts  = scan(LAYOUT_PATH).inject({}) do |layouts, file|
         layouts[File.basename(file.src_path, ".html.slim")] = file
@@ -244,8 +278,8 @@ module Brain
       when :run_on_modifications
         path = args.first
         dir = path.split('/')[0]
-        if dir == File.basename(SITE_PATH)
-          root = SITE_PATH
+        if dir == File.basename(ROOT_PATH)
+          root = ROOT_PATH
         elsif dir == File.basename(LAYOUT_PATH)
           root = LAYOUT_PATH
         else
