@@ -16,8 +16,8 @@ GitCafe = Hashie::Mash.new({
   })
 SOURCES = [Github, GitCafe]
 
-def cmd(s, success: nil, failure: nil)
-  system("#{s} #{SILENT}") ? puts(success) : warn(failure)
+def cmd(s, name: nil)
+  system("#{s} #{SILENT}") ? puts("Success: #{name}") : abort("Failed: #{name}")
 end
 
 
@@ -32,24 +32,21 @@ task :upload, [:force] do |t, args|
 
   SOURCES.each do |s|
     cmd("git push #{s.url} master:#{s.source_branch} #{git_args}",
-        success: "Sourced to #{s.name.capitalize}.",
-        failure: "Failed sourcing to #{s.name.capitalize}.")
+        name: "Source to #{s.name.capitalize}.")
   end
 end
 
 desc "Generate and publish blog to Github and GitCafe"
 task :publish => [:generate, :upload] do
   Dir.chdir BUILD_PATH do
-    cmd("git init")
-    cmd("git add --all")
+    cmd("mv cname c && mv c CNAME || true", name: 'Fix CNAME')
+    cmd("git init && git add --all", name: 'Init repo')
     message = "Site updated at #{Time.now.utc}"
-    cmd("git commit -m #{message.shellescape}",
-        success: "Commited.")
+    cmd("git commit -m #{message.shellescape}", name: "Commit")
 
     SOURCES.each do |s|
       cmd("git push #{s.url} master:#{s.publish_branch} --force",
-          success: "Success published #{s.name.capitalize}",
-          failure: "Failed published #{s.name.capitalize}")
+          name: "Publishing #{s.name.capitalize}")
     end
   end
 end
