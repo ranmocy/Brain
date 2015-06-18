@@ -1,14 +1,16 @@
-require 'colorize'
+require 'pathname'
 require 'yaml'
+
+require 'colorize'
 
 HOST          = ""
 PORT          = 33333
-SITE_PATH     = File.expand_path('./.site')    # need to be absolute
-BUILD_PATH    = File.expand_path('/tmp/brain') # need to be absolute
-LAYOUT_PATH   = File.expand_path('./.layout')  # need to be absolute
+ROOT_PATH     = Pathname.new('.')
+BUILD_PATH    = Pathname.new('/tmp/brain')
+LAYOUT_PATH   = Pathname.new('./.layout')
+INCLUDE_FILES = ['./.nojekyll'].map { |f| File.expand_path(f) }
 MOTTO         = YAML.load_file('motto.yml')
-categories    = ['Blog', 'Diary', 'Dream', 'Idea', 'Org', 'Philosophy', 'Piece', 'Poem', 'Remark', 'Tech', 'Translation', 'Young']
-CATEGORIES    = (defined?(PUBLISH) && PUBLISH) ? categories : categories + ['draft']
+
 
 module Brain
   class Server
@@ -29,106 +31,149 @@ module Brain
         @server.shutdown                 # shutdown with guard
       end
     end
-
   end
+
+
+  class BrainFile
+    attr_reader :content, :meta
+
+    # Relative file path to the root
+    def initialize(file_path)
+      @path = Pathname.new(file_path)
+      @content = File.read @path
+      @meta    = Hashie::Mash.new
+      read_meta_from_yaml_header
+    end
+
+    def src_path
+      @src_path ||= ROOT_PATH.join(@path)
+    end
+
+    # URL is all lower-case.
+    # it's case sensitive in Unix-like system
+    def relative_dest_path
+      @relative_dest_path ||= begin
+        path = case ext
+        when ".scss", ".slim"
+          path_without_ext
+        when ".md"
+          path_without_ext.join('index.html')
+        else
+          @path
+        end
+
+        Pathname.new(path.to_s.downcase)
+      end
+    end
+
+    def dest_path
+      @dest_path ||= BUILD_PATH.join(relative_dest_path)
+    end
+
+    def url
+      @url ||= Pathname.new('/').join(if relative_dest_path.basename == 'index.html'
+        dirname
+      else
+        relative_dest_path
+      end)
+    end
+
+    def ext
+      @ext ||= @path.extname
+    end
+
+    def ext_name
+      @ext_name ||= ext[1..-1]
+    end
+
+    def dirname
+      @dirname ||= @path.dirname
+    end
+
+    def basename
+      @basename ||= @path.basename
+    end
+
+    def basename_without_ext
+      @basename_without_ext ||= @path.basename(ext)
+    end
+
+    def path_without_ext
+      @path_without_ext ||= @path.sub_ext ''
+    end
+
+    def path_with_new_ext(new_ext)
+      @path.sub_ext new_ext
+    end
+
+    private
+
+    def read_meta_from_yaml_header
+      header   = @content.match(/\A---\n(.*?)\n---\n\n(.*)\Z/m)
+      if header
+        @content = header[2]
+        @meta    = Hashie::Mash.new YAML.load(header[1])
+        @meta.category.downcase! rescue nil
+      end
+    rescue ArgumentError # images are not UTF-8
+      nil
+    end
+
+    def method_missing(meth, *args, &blk)
+      @meta[meth]
+    end
+  end
+
+
+  class BrainCategory < BrainFile
+    def initialize(name, articles)
+      @path = Pathname.new("./#{name}/index.html.slim")
+      @content = File.read(ROOT_PATH.join('memories/index.html.slim'))
+      @meta = Hashie::Mash.new({
+        title: name.capitalize,
+        category: name,
+        motto: MOTTO[name],
+        articles: articles,
+        })
+    end
+  end
+
 
   class Scanner
     require 'hashie'
 
-    def remove_ext(file)
-      File.join(File.dirname(file), File.basename(file, File.extname(file)))
+    def self.find_files(dir_path)
+      Dir.glob("#{dir_path}/**/*")
+         .select { |path| File.file?(path) }
+         .map { |file_path| BrainFile.new(file_path) }
     end
 
-    def replace_ext(file, ext)
-      File.join(File.dirname(file), File.basename(file, File.extname(file)) + ext)
-    end
-
-    def scan_file(file_path, root: File.expand_path('.')) # path for url
-      file          = Hashie::Mash.new
-      file.ext      = File.extname(file_path)
-      file.src_path = file_path
-      file.content  = File.read(file_path)
-
-      # read yaml header if possible
-      begin
-        header       = file.content.match(/\A---\n(.*?)\n---\n\n(.*)\Z/m)
-        file.meta    = Hashie::Mash.new header ? YAML.load(header[1]) : nil
-        file.content = header[2] if header # remove the header
-        file.meta.category.downcase! rescue nil
-      rescue ArgumentError # images are not UTF-8
-        file.meta = Hashie::Mash.new
-      end
-
-      # url
-      file.url = file_path[root.length..-1]
-      case file.ext
-      when ".slim",".scss"
-        file.url = remove_ext(file.url)
-        file.dest_path = File.join(BUILD_PATH, file.url)
-        # slim has a pretty url
-        if File.extname(file.url) == ".html" && File.basename(file.url) != "index.html"
-          file.url = replace_ext(file.url, '')
-          file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
-        end
-      when ".md" # pretty url:  /CATEGORY/TITLE/(index.html)
-        url = File.basename(file.url).gsub(file.ext, '')
-        file.url = "/#{file.meta.category}/#{url}/".downcase
-        file.dest_path = File.join(BUILD_PATH, file.url, 'index.html')
-      when ".txt"
-        file.url = File.join("/#{file.meta.category}", file.url)
-        file.dest_path = File.join(BUILD_PATH, file.url)
-      else
-        file.dest_path = File.join(BUILD_PATH, file.url)
-      end
-
-      file
-    end
-
-    def scan(dir_path)
-      Dir.glob("#{dir_path}/**/*", File::FNM_DOTMATCH).select { |path| File.file?(path) }
-      .map { |file_path| scan_file(file_path, root: dir_path) }
-    end
-
-    def call(guard_class, event, *args)
-      @@files    = scan(SITE_PATH)
-      # Layouts are `layout_name => layout_file`
-      @@layouts  = scan(LAYOUT_PATH).inject({}) do |layouts, file|
+    def self.scan
+      # Layouts are `layout_name => layout_file.html.slim`
+      @@layouts  = self.find_files(LAYOUT_PATH).inject({}) do |layouts, file|
         layouts[File.basename(file.src_path, ".html.slim")] = file
         layouts
       end
-      @@articles = CATEGORIES.map { |category|
-        scan(File.expand_path(category)).each { |file| file.category ||= category }
-      }.flatten
-      .select { |a| [".md", ".txt"].include? a.ext }
-      .sort_by { |a| [a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0)] }
-      .reverse
 
-      hash = Hash.new([])
-      @@articles_by_category = @@articles.inject(hash) { |h, article|
-        h[article.meta.category] += [article]; h
-      }
+      # All else files
+      @@files = self.find_files(ROOT_PATH) + INCLUDE_FILES.map { |f| BrainFile.new(f) }
 
-      layout_content = File.read(File.join(LAYOUT_PATH, 'category.html.slim'))
-      @@categories = @@articles_by_category.map do |name, articles|
-        Hashie::Mash.new({
-          url: "/#{name}/",
-          content: layout_content,
-          src_path: name,
-          dest_path: File.join(BUILD_PATH, "/#{name}/index.html"),
-          meta: Hashie::Mash.new({
-            title: name.capitalize,
-            category: name,
-            motto: MOTTO[name],
-            articles: articles,
-            }),
-          })
-      end
+      # Atom needs articles
+      @@articles = @@files
+        .reject { |f| f.category.nil? }
+        .sort_by { |a| [ a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0) ] }
+        .reverse
+
+      # Article is file with meta of category
+      @@categories = @@articles.group_by { |f| f.category.downcase }
+      @@files += @@categories.map { |name, articles| BrainCategory.new(name, articles) }
+
+      self
     end
 
     def self.method_missing(meth, *args, &blk)
-      class_variable_defined?("@@#{meth}") ? class_variable_get("@@#{meth}") : nil
+      class_variable_get("@@#{meth}") rescue nil
     end
-
   end
 
   class SlimEnv
@@ -177,7 +222,17 @@ module Brain
     end
 
     def article_class
-      ["poem"].include?(category.downcase) ? category.downcase : "articles"
+      category && category.downcase == "poem" ? "poem" : "articles"
+    end
+
+    def category_url(name)
+      size = if name == 'motto'
+        File.read('motto/index.html.slim').scan(/^\s+li\s/).size
+      else
+        categories[name].size rescue NoMethodError nil
+      end
+
+      "#{name.capitalize}(#{size})"
     end
 
     def groups
@@ -191,7 +246,7 @@ module Brain
     end
 
     def method_missing(meth, *args, &blk)
-      current_page.meta.send(meth.to_s) || Scanner.send(meth) # return nil if no method
+      current_page.send(meth.to_s) || Scanner.send(meth) # return nil if no method
     end
 
   end
@@ -228,9 +283,10 @@ module Brain
     end
 
     def generate_scss(file)
-      return puts "Skip #{file.src_path}" if File.extname(file.dest_path).empty?
+      # skip partial scss files
+      return puts "Skip #{file.src_path}" if file.dest_path.extname.empty?
 
-      FileUtils.mkdir_p File.dirname(file.dest_path)
+      FileUtils.mkdir_p file.dest_path.dirname
       res = `scss #{file.src_path} #{file.dest_path} 2>&1`
       puts res.red unless $?.success?
     end
@@ -239,47 +295,38 @@ module Brain
       apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, layout: "article"
     end
 
-    def call(guard_class, event, *args)
-      case event
-      when :run_on_modifications
-        path = args.first
-        dir = path.split('/')[0]
-        if dir == File.basename(SITE_PATH)
-          root = SITE_PATH
-        elsif dir == File.basename(LAYOUT_PATH)
-          root = LAYOUT_PATH
-        else
-          root = File.expand_path('.')
-        end
-        path = File.expand_path(path)
-        file = Scanner.new.scan_file(path, root: root)
-
-        cmd = "generate_#{file.ext[1..-1]}"
-        if respond_to? cmd
-          puts "#{file.ext[1..-1].upcase}: #{file.src_path}"
-          self.send cmd, file
-        else
-          puts "copying #{file.url} to #{file.dest_path}".green
-          write_file(file.dest_path, file.content)
-        end
+    def generate_file(file)
+      cmd = "generate_#{file.ext_name}"
+      if respond_to? cmd
+        puts "#{file.ext_name.upcase}: #{file.src_path}"
+        self.send cmd, file
       else
-        cleanup
+        puts "copying #{file.url} to #{file.dest_path}".green
+        write_file(file.dest_path, file.content)
+      end
+    end
 
-        (Scanner.files + Scanner.articles).each do |file|
-          cmd = "generate_#{file.ext[1..-1]}"
-          if respond_to? cmd
-            puts "#{file.ext[1..-1].upcase}: #{file.src_path}"
-            self.send cmd, file
-          else
-            puts "copying #{file.url} to #{file.dest_path}".green
-            write_file(file.dest_path, file.content)
-          end
-        end
+    def run_on_modifications(args)
+      path = Pathname.new(args.first)
+      # if layout changes all files will be re-generated
+      if path.expand_path == LAYOUT_PATH.expand_path
+        run_on_start
+      else
+        file = BrainFile.new(path)
+        generate_file(file)
+      end
+    end
 
-        Scanner.categories.each do |file|
-          helper = SlimEnv.new(file)
-          apply_layout file, helper, Slim::Template.new { file.content }.render(helper)
-        end
+    def run_on_start(args)
+      cleanup
+      Scanner.scan.files.each { |file| generate_file(file) }
+    end
+
+    def call(guard_class, event, *args)
+      if respond_to? event
+        send(event, args)
+      else
+        run_on_start(args)
       end
     end
   end
