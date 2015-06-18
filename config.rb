@@ -52,11 +52,18 @@ module Brain
     # URL is all lower-case.
     # it's case sensitive in Unix-like system
     def relative_dest_path
-      @relative_dest_path ||= Pathname.new(if [".scss", ".slim", ".md"].include?(ext)
-        path_without_ext
-      else
-        @path
-      end.to_s.downcase)
+      @relative_dest_path ||= begin
+        path = case ext
+        when ".scss", ".slim"
+          path_without_ext
+        when ".md"
+          path_without_ext.join('index.html')
+        else
+          @path
+        end
+
+        Pathname.new(path.to_s.downcase)
+      end
     end
 
     def dest_path
@@ -64,11 +71,11 @@ module Brain
     end
 
     def url
-      @url ||= if relative_dest_path.basename == 'index.html'
+      @url ||= Pathname.new('/').join(if relative_dest_path.basename == 'index.html'
         dirname
       else
         relative_dest_path
-      end
+      end)
     end
 
     def ext
@@ -121,7 +128,7 @@ module Brain
   class BrainCategory < BrainFile
     def initialize(name, articles)
       @path = Pathname.new("./#{name}/index.html.slim")
-      @content = File.read(LAYOUT_PATH.join('category.html.slim'))
+      @content = File.read(ROOT_PATH.join('memories/index.html.slim'))
       @meta = Hashie::Mash.new({
         title: name.capitalize,
         category: name,
@@ -151,20 +158,15 @@ module Brain
       # All else files
       @@files = self.find_files(ROOT_PATH) + INCLUDE_FILES.map { |f| BrainFile.new(f) }
 
-      # Article is file with meta of category
+      # Atom needs articles
       @@articles = @@files
         .reject { |f| f.category.nil? }
         .sort_by { |a| [ a.meta.created_at||Time.new(0), a.meta.updated_at||Time.new(0) ] }
         .reverse
 
-      @@articles_by_category = @@articles
-        .group_by { |f| f.category }
-
-      # Generate categories files as normal files
-      @@categories = @@articles_by_category.map do |name, articles|
-        BrainCategory.new(name, articles)
-      end
-      @@files += @@categories
+      # Article is file with meta of category
+      @@categories = @@articles.group_by { |f| f.category.downcase }
+      @@files += @@categories.map { |name, articles| BrainCategory.new(name, articles) }
 
       self
     end
@@ -220,7 +222,17 @@ module Brain
     end
 
     def article_class
-      ["poem"].include?(category.downcase) ? category.downcase : "articles"
+      category && category.downcase == "poem" ? "poem" : "articles"
+    end
+
+    def category_url(name)
+      size = if name == 'motto'
+        File.read('motto/index.html.slim').scan(/^\s+li\s/).size
+      else
+        categories[name].size rescue NoMethodError nil
+      end
+
+      "#{name.capitalize}(#{size})"
     end
 
     def groups
@@ -234,7 +246,7 @@ module Brain
     end
 
     def method_missing(meth, *args, &blk)
-      current_page.meta.send(meth.to_s) || Scanner.send(meth) # return nil if no method
+      current_page.send(meth.to_s) || Scanner.send(meth) # return nil if no method
     end
 
   end
@@ -271,9 +283,10 @@ module Brain
     end
 
     def generate_scss(file)
-      return puts "Skip #{file.src_path}" if File.extname(file.dest_path).empty?
+      # skip partial scss files
+      return puts "Skip #{file.src_path}" if file.dest_path.extname.empty?
 
-      FileUtils.mkdir_p File.dirname(file.dest_path)
+      FileUtils.mkdir_p file.dest_path.dirname
       res = `scss #{file.src_path} #{file.dest_path} 2>&1`
       puts res.red unless $?.success?
     end
@@ -294,8 +307,9 @@ module Brain
     end
 
     def run_on_modifications(args)
+      path = Pathname.new(args.first)
       # if layout changes all files will be re-generated
-      if Pathname.new(args.first).expand_path == LAYOUT_PATH.expand_path
+      if path.expand_path == LAYOUT_PATH.expand_path
         run_on_start
       else
         file = BrainFile.new(path)

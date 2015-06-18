@@ -1,12 +1,12 @@
-- articles.group_by {|a| a.meta.created_at.strftime("%Y")}.each do |y, articles|
+- articles.group_by {|a| a.created_at.strftime("%Y")}.each do |y, articles|
   fieldset.lists
     legend = y
-    - articles.group_by {|a| a.meta.created_at.strftime("%b")}.each do |m, articles|
+    - articles.group_by {|a| a.created_at.strftime("%b")}.each do |m, articles|
       fieldset.lists
         legend = m
         .div = "⌄"
         - articles.each do |article|
           .item
-            == link_to article.meta.title, article.url
-            .motto = "[#{article.meta.category.capitalize}] #{datestr(article.meta.created_at)}"
+            == link_to article.title, article.url
+            .motto = "[#{article.category.capitalize}] #{datestr(article.created_at)}"
             .div = "⌄"
