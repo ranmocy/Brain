@@ -1,37 +1,55 @@
-PUBLISH = true # except `draft` dir
-require 'pathname'
-require 'fileutils'
+require 'hashie'
 load 'config.rb'
 
-# HOST           = "http://ranmocy.info"
-GITHUB_REPO    = "git@github.com:ranmocy/ranmocy.github.io.git"
-GITHUB_BRANCH  = "master"
-GITCAFE_REPO   = "git@gitcafe.com:ranmocy/ranmocy.git"
-GITCAFE_BRANCH = "gitcafe-pages"
-SILENT         = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
+SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
+Github = Hashie::Mash.new({
+  name: 'github',
+  url: 'git@github.com:ranmocy/ranmocy.github.io.git',
+  source_branch: 'source',
+  publish_branch: 'master',
+  })
+GitCafe = Hashie::Mash.new({
+  name: 'gitcafe',
+  url: 'git@gitcafe.com:ranmocy/ranmocy.git',
+  source_branch: 'master',
+  publish_branch: 'gitcafe-pages',
+  })
+SOURCES = [Github, GitCafe]
+
+def cmd(s, success: nil, failure: nil)
+  system("#{s} #{SILENT}") ? puts(success) : warn(failure)
+end
 
 
 desc "Generate blog files"
 task :generate do
-  Brain::Scanner.new.call(self, :start_begin)
   Brain::Generator.new.call(self, :start_begin)
 end
 
 desc "Update sources"
 task :upload, [:force] do |t, args|
-  system("git push github master:source #{args[:force] ? '-f' : ''} #{SILENT}") ? puts("Sourced to Github.") : puts("Failed sourcing to Github.")
-  system("git push gitcafe master:master #{args[:force] ? '-f' : ''} #{SILENT}") ? puts("Sourced to GitCafe.") : puts("Failed sourcing to GitCafe.")
+  git_args = args[:force] ? '-f' : ''
+
+  SOURCES.each do |s|
+    cmd("git push #{s.url} master:#{s.source_branch} #{git_args}",
+        success: "Sourced to #{s.name.capitalize}.",
+        failure: "Failed sourcing to #{s.name.capitalize}.")
+  end
 end
 
 desc "Generate and publish blog to Github and GitCafe"
 task :publish => [:generate, :upload] do
   Dir.chdir BUILD_PATH do
-    system("git init #{SILENT}")
-    system("git add --all #{SILENT}")
+    cmd("git init")
+    cmd("git add --all")
     message = "Site updated at #{Time.now.utc}"
-    system("git commit -m #{message.shellescape} #{SILENT}") && puts("Commited.")
+    cmd("git commit -m #{message.shellescape}",
+        success: "Commited.")
 
-    system("git push #{GITHUB_REPO} master:#{GITHUB_BRANCH} --force #{SILENT}") ? puts("Success published Github") : warn("Failed published Github")
-    system("git push #{GITCAFE_REPO} master:#{GITCAFE_BRANCH} --force #{SILENT}") ? puts("Success published GitCafe") : warn("Failed published GitCafe")
+    SOURCES.each do |s|
+      cmd("git push #{s.url} master:#{s.publish_branch} --force",
+          success: "Success published #{s.name.capitalize}",
+          failure: "Failed published #{s.name.capitalize}")
+    end
   end
 end
