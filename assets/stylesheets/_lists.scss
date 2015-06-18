@@ -1,5 +1,6 @@
 @import "colors";
 @import "link_color";
+@import "arrow";
 
 // Categories
 fieldset.lists {
@@ -27,7 +28,6 @@ fieldset.lists {
         }
     }
 }
-.div {
+.center {
     text-align: center;
-    font-size: 2em;
 }

@@ -1,0 +1,30 @@
+.arrow {
+    display:inline-block;
+    width:7px;
+    height:7px;
+    line-height:7px;
+    border-top:3px solid #aaa;
+    border-right:3px solid #aaa;
+    -ms-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+.arrow-down {
+    -ms-transform:rotate(135deg);
+    -moz-transform:rotate(135deg);
+    -webkit-transform:rotate(135deg);
+    transform:rotate(135deg);
+}
+.arrow-left {
+    -ms-transform:rotate(225deg);
+    -moz-transform:rotate(225deg);
+    -webkit-transform:rotate(225deg);
+    transform:rotate(225deg);
+}
+.arrow-up{
+    -ms-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -webkit-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
