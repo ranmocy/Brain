@@ -129,12 +129,13 @@ module Brain
     def initialize(name, articles)
       @path = Pathname.new("./#{name}/index.html.slim")
       @content = File.read(ROOT_PATH.join('memories/index.html.slim'))
+      read_meta_from_yaml_header
       @meta = Hashie::Mash.new({
         title: name.capitalize,
         category: name,
         motto: MOTTO[name],
         articles: articles,
-        })
+        }).merge(@meta)
     end
   end
 
