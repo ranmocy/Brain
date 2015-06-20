@@ -1,8 +1,16 @@
 load 'config.rb'
 
 guard :shell do
-  watch(/(.*)$/) { |m|
-    path = m[1]
+  # watch scss partials
+  watch(%r{assets/stylesheets/_.*\.scss$}) {
+    path = "assets/stylesheets/default.css.scss"
+    Brain::Generator.new.call(self, :run_on_modifications, path)
+    n "=> #{path} ", "Brain", :success
+    path
+  }
+  # watch all files
+  watch(".*") { |m|
+    path = m[0]
     Brain::Generator.new.call(self, :run_on_modifications, path)
     n "=> #{path} ", "Brain", :success
     path
