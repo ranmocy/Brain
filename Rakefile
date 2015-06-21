@@ -34,6 +34,8 @@ task :upload, [:force] do |t, args|
     cmd("git push #{s.url} master:#{s.source_branch} #{git_args}",
         name: "Source to #{s.name.capitalize}.")
   end
+
+  cmd("git fetch -p", name: "Update remote branches.")
 end
 
 desc "Generate and publish blog to Github and GitCafe"
