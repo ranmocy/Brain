@@ -237,8 +237,8 @@ module Brain
     end
 
     def groups
-      {life: ["blog", "diary", "dream", "poem", ],
-        idea: ["motto", "idea", "remark", "philosophy", ],
+      {life: ["diary", "dream", "poem", ],
+        idea: ["idea", "remark", "philosophy", ],
         work: ["tech", "piece", "translation"], }
     end
 
