@@ -227,12 +227,7 @@ module Brain
     end
 
     def category_url(name)
-      size = if name == 'motto'
-        File.read('motto/index.html.slim').scan(/^\s+li\s/).size
-      else
-        categories[name].size rescue NoMethodError nil
-      end
-
+      size = categories[name].size
       "#{name.capitalize}(#{size})"
     end
 
