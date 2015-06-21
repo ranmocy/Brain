@@ -1,23 +1,23 @@
 doctype html
 html
   head
-    title = current_page.title || "Ranmocy's Garden"
+    title = title
     meta http-equiv="Content-Type" charset="utf-8"
     meta name="author" content="Ranmocy"
-    meta name="description" content="My Brain, My Treasure."
+    meta name="description" content=tagline
     link rel="author" href="https://plus.google.com/+WanzhangSheng"
     link rel="publisher" href="https://plus.google.com/+WanzhangSheng"
-    link href="atom.xml" rel="alternate" type="application/atom+xml" title="My Brain, My Treasure."
+    link href="atom.xml" rel="alternate" type="application/atom+xml" title=title
 
     meta property="og:type" content="blog"
-    meta property="og:title" content=(current_page.title || "Ranmocy's Garden")
-    meta property="og:description" content=(current_description || "My Brain, My Treasure.")
+    meta property="og:title" content=title
+    meta property="og:description" content=description
     meta property="og:image" content="http://ranmocy.info/favicon.ico"
 
     meta name="twitter:card" content="summary"
     meta name="twitter:site" content="@ranmocy"
-    meta name="twitter:title" content=(current_page.title || "Ranmocy's Garden")
-    meta name="twitter:description" content=(current_description || "My Brain, My Treasure.")
+    meta name="twitter:title" content=title
+    meta name="twitter:description" content=description
     meta name="twitter:image" content="http://ranmocy.info/favicon.ico"
     meta name="twitter:creator" content="@ranmocy"
     meta name="twitter:domain" content="http://ranmocy.info"
@@ -34,9 +34,8 @@ html
     == stylesheet_link_tag "default"
   body class="typo"
     nav
-      span.title == link_to title || "Ranmocy's Garden", "/"
-      span.date = datestr(created_at)
-      span.date = current_page.motto
+      span.title == link_to title, "/"
+      span.date = tagline
       span.link
         == link_to "Categories", "/categories/"
         == link_to "Memories", "/memories/"

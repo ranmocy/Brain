@@ -133,9 +133,9 @@ module Brain
       @meta = Hashie::Mash.new({
         title: name.capitalize,
         category: name,
-        motto: MOTTO[name],
+        tagline: MOTTO[name],
         articles: articles,
-        }).merge(@meta)
+        })
     end
   end
 
@@ -180,14 +180,11 @@ module Brain
   class SlimEnv
 
     def initialize(file=nil)
-      metaclass = class << self; self; end
-      metaclass.send(:define_method, :current_page) { file }
-      metaclass.send(:define_method, :current_description) {
-        unless file.ext == '.slim'
-          content = file.content.gsub("\n", "")
-          (content.length <= 100) ? content : "#{content[0...97]}..."
-        end
-      }
+      @file = file
+    end
+
+    def current_page
+      @file
     end
 
     def include(name, options = {}, &block)
@@ -218,6 +215,23 @@ module Brain
       "<script src='/assets/javascripts/#{name}.js' type='text/javascript'></script>"
     end
 
+    def title
+      current_page && current_page.title || "Ranmocy's Garden"
+    end
+
+    def tagline
+      current_page && (current_page.tagline || datestr(current_page.created_at)) || "My Brain, My Treasure."
+    end
+
+    def description
+      if current_page.ext == '.md'
+        content = current_page.content.gsub("\n", "")
+        (content.length <= 100) ? content : "#{content[0...97]}..."
+      else
+        tagline
+      end
+    end
+
     def datestr(time)
       time && time.strftime('%b %d %Y')
     end
@@ -226,15 +240,16 @@ module Brain
       category && category.downcase == "poem" ? "poem" : "articles"
     end
 
-    def category_url(name)
-      size = categories[name].size
-      "#{name.capitalize}(#{size})"
+    def category_item(name)
+      "#{name.capitalize}(#{categories[name].size})"
     end
 
     def groups
-      {life: ["diary", "dream", "poem", ],
+      {
+        life: ["diary", "dream", "poem", ],
         idea: ["idea", "remark", "philosophy", ],
-        work: ["tech", "piece", "translation"], }
+        work: ["tech", "piece", "translation"],
+      }
     end
 
     def motto

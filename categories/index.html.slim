@@ -5,5 +5,5 @@
     p
       - category_list.each do |category_name|
         .item
-          == link_to category_url(category_name), "/#{category_name}/", title: motto[category_name]
+          == link_to category_item(category_name), "/#{category_name}/", title: motto[category_name]
           .motto = motto[category_name]
