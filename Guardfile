@@ -3,6 +3,7 @@ load 'config.rb'
 guard :shell do
   # watch configs
   watch("config.rb") {
+    load 'config.rb'
     Brain::Generator.new.call(self, :start_end)
     n "=> config.rb ", "Brain", :success
     "config.rb"
