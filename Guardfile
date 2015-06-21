@@ -23,5 +23,5 @@ guard :shell do
   }
   callback(Brain::Server.new, [:start_end, :stop_end])
   callback(Brain::Generator.new, [:start_end, :run_all_end])
-  callback(:start_end) { `open http://localhost:#{PORT}` }
+  callback(:start_end) { puts "Open preview at http://localhost:#{PORT}".green }
 end
