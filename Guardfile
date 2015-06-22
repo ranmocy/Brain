@@ -28,9 +28,8 @@ class Generator < Brain::Generator
     # if layout changes all files will be re-generated
     if path.expand_path == LAYOUT_PATH.expand_path
       generate_all
-    else
-      file = Brain::BrainFile.new(path)
-      generate_file(file)
+    elsif path.exist? # ignore if not exists
+      generate_file(Brain::BrainFile.new(path))
     end
   end
 
