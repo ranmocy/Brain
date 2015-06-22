@@ -4,7 +4,6 @@ require 'yaml'
 require 'colorize'
 
 HOST          = ""
-PORT          = 33333
 ROOT_PATH     = Pathname.new('.')
 BUILD_PATH    = Pathname.new('/tmp/brain')
 LAYOUT_PATH   = Pathname.new('./.layout')
@@ -13,27 +12,6 @@ MOTTO         = YAML.load_file('motto.yml')
 
 
 module Brain
-  class Server
-    require "webrick"
-    include WEBrick
-
-    def call(guard_class, event, *args)
-      case event
-      when :start_end
-        log_file = File.open('/tmp/brain.log', 'a+')
-        @server = HTTPServer.new(DocumentRoot: BUILD_PATH,
-                                 Port: PORT,
-                                 AccessLog: [[log_file, AccessLog::COMBINED_LOG_FORMAT]],
-                                 Logger: Log.new(log_file))
-        puts "Server will run on http://localhost:#{PORT}".green
-        Thread.new { @server.start }     # Let's Rock!
-      when :stop_end
-        @server.shutdown                 # shutdown with guard
-      end
-    end
-  end
-
-
   class BrainFile
     attr_reader :content, :meta
 
@@ -317,28 +295,9 @@ module Brain
       end
     end
 
-    def run_on_modifications(args)
-      path = Pathname.new(args.first)
-      # if layout changes all files will be re-generated
-      if path.expand_path == LAYOUT_PATH.expand_path
-        run_on_start
-      else
-        file = BrainFile.new(path)
-        generate_file(file)
-      end
-    end
-
-    def run_on_start(args)
+    def generate_all
       cleanup
       Scanner.scan.files.each { |file| generate_file(file) }
-    end
-
-    def call(guard_class, event, *args)
-      if respond_to? event
-        send(event, args)
-      else
-        run_on_start(args)
-      end
     end
   end
 

@@ -1,5 +1,5 @@
 require 'hashie'
-load 'config.rb'
+require_relative 'config.rb'
 
 SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
 Github = Hashie::Mash.new({
@@ -23,7 +23,7 @@ end
 
 desc "Generate blog files"
 task :generate do
-  Brain::Generator.new.call(self, :start_begin)
+  Brain::Generator.new.generate_all
 end
 
 desc "Update sources"
