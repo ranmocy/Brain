@@ -5,10 +5,11 @@ updated_at: 2014-09-25T23:13:53-0800
 category: Piece
 ---
 
-# [rCaltrain](http://caltrain.ranmocy.info/), a Caltrain scheduler.
+# [rCaltrain](http://rcaltrain.com/), a Caltrain scheduler.
 
-It's a HTML5 application, optimized for mobiles, available offline!
+The [Web version](http://rcaltrain.com) is a HTML5 application, optimized for mobiles, available offline!
 
-Add it to your home screen!
+Also there is a [iOS version](https://itunes.apple.com/us/app/rcaltrain/id933651977?mt=8) written in Swift.
 
+All versions are open sourced.
 Fork me at [Github](https://github.com/ranmocy/rCaltrain).
