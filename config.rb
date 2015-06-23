@@ -214,10 +214,6 @@ module Brain
       time && time.strftime('%b %d %Y')
     end
 
-    def article_class
-      category && category.downcase == "poem" ? "poem" : "articles"
-    end
-
     def category_item(name)
       "#{name.capitalize}(#{categories[name].size})"
     end
@@ -256,10 +252,9 @@ module Brain
     end
 
     def apply_layout(file, helper, content, layout: "default")
-      layout_name = file.meta["layout"] || layout
-      puts "render layout #{layout_name} for #{file.url}".yellow
-      if Scanner.layouts[layout_name]
-        template = Slim::Template.new { Scanner.layouts[layout_name].content }
+      puts "render layout #{layout} for #{file.url}".yellow
+      if Scanner.layouts[layout]
+        template = Slim::Template.new { Scanner.layouts[layout].content }
         content = template.render(helper) { content }
       end
       write_file(file.dest_path, content)
@@ -281,7 +276,10 @@ module Brain
     end
 
     def generate_md(file)
-      apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, layout: "article"
+      layout_name = file.meta['layout'] ||
+        (file.category && Scanner.layouts[file.category.downcase]) && file.category.downcase ||
+        "article"
+      apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, layout: layout_name
     end
 
     def generate_file(file)
