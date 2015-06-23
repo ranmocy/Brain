@@ -5,8 +5,6 @@ updated_at: 2013-01-19T23:23:35+0800
 category: Piece
 ---
 
-# [Guard-Rails](https://rubygems.org/gems/guard-rails), a Caltrain scheduler.
-
-Restart Rails when things change in your app
+[Guard-Rails](https://rubygems.org/gems/guard-rails) restarts Rails when things change in your app.
 
 Fork me at [Github](https://github.com/ranmocy/guard-rails).
