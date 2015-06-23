@@ -26,8 +26,7 @@ class Generator < Brain::Generator
   def run_on_modifications(args)
     path = Pathname.new(args.first)
     # if layout changes all files will be re-generated
-    # FIXME: path.start_with?(LAYOUT_PATH)
-    if path.expand_path == LAYOUT_PATH.expand_path
+    if LAYOUT_PATH.children.include? path
       generate_all
     elsif path.exist? # ignore if not exists
       generate_file(Brain::BrainFile.new(path))

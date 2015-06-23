@@ -6,7 +6,7 @@ require 'colorize'
 HOST          = ""
 ROOT_PATH     = Pathname.new('.')
 BUILD_PATH    = Pathname.new('/tmp/brain')
-LAYOUT_PATH   = Pathname.new('./.layout')
+LAYOUT_PATH   = Pathname.new('.layout')
 INCLUDE_FILES = ['./.nojekyll'].map { |f| File.expand_path(f) }
 MOTTO         = YAML.load_file('motto.yml')
 
