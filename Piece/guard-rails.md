@@ -7,4 +7,6 @@ category: Piece
 
 [Guard-Rails](https://rubygems.org/gems/guard-rails) restarts Rails when things change in your app.
 
+More details at [Homepage](http://ranmocy.github.io/guard-rails/).
+
 Fork me at [Github](https://github.com/ranmocy/guard-rails).
