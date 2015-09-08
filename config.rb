@@ -49,11 +49,7 @@ module Brain
     end
 
     def url
-      @url ||= Pathname.new('/').join(if relative_dest_path.basename == 'index.html'
-        dirname
-      else
-        relative_dest_path
-      end)
+      @url ||= Pathname.new('/').join(relative_dest_path.to_s.gsub(%r{(^|/)index\.html$}, '/'))
     end
 
     def ext
