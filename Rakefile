@@ -1,7 +1,7 @@
 require 'hashie'
 require_relative 'config.rb'
 
-SILENT = ($VERBOSE) ? "" : ">/dev/null 2>/dev/null"
+SILENT = verbose ? "" : ">/dev/null 2>/dev/null"
 Github = Hashie::Mash.new({
   name: 'github',
   url: 'git@github.com:ranmocy/ranmocy.github.io.git',
