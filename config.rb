@@ -1,5 +1,6 @@
 require 'pathname'
 require 'yaml'
+require 'time' # support iso8601
 
 require 'colorize'
 
