@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "folder_exclude_patterns": [
+        ".layout",
+        "assets",
+        "categories",
+        "icons",
+        "memories",
+      ],
+      "file_exclude_patterns": [
+        ".*",
+        "402*",
+        "404*",
+        "500*",
+        "atom.xml.slim",
+        "CNAME",
+        "config.rb",
+        "Gemfile*",
+        "Guardfile",
+        "Rakefile",
+        "Raleway.woff",
+        "robots.txt"
+      ]
+    }
+  ]
+}

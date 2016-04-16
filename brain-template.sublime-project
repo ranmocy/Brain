@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "folder_exclude_patterns": [
+        "about",
+        "draft",
+        "Diary",
+        "Dream",
+        "Idea",
+        "Philosophy",
+        "Piece",
+        "Poem",
+        "Remark",
+        "Tech",
+        "Translation",
+        "Young"
+      ]
+    }
+  ]
+}
