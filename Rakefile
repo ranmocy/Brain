@@ -8,13 +8,7 @@ Github = Hashie::Mash.new({
   source_branch: 'source',
   publish_branch: 'master',
   })
-GitCafe = Hashie::Mash.new({
-  name: 'gitcafe',
-  url: 'git@gitcafe.com:ranmocy/ranmocy.git',
-  source_branch: 'master',
-  publish_branch: 'gitcafe-pages',
-  })
-SOURCES = [Github, GitCafe]
+SOURCES = [Github]
 
 def cmd(s, name: nil)
   system("#{s} #{SILENT}") ? puts("Success: #{name}") : abort("Failed: #{name}")
@@ -38,7 +32,7 @@ task :upload, [:force] do |t, args|
   cmd("git fetch -p", name: "Update remote branches.")
 end
 
-desc "Generate and publish blog to Github and GitCafe"
+desc "Generate and publish blog to Github"
 task :publish => [:generate, :upload] do
   Dir.chdir BUILD_PATH do
     cmd("mv cname c && mv c CNAME || true", name: 'Fix CNAME')
