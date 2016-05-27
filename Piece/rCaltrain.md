@@ -9,7 +9,9 @@ category: Piece
 
 The [Web version](http://rcaltrain.com) is a HTML5 application, optimized for mobiles, available offline!
 
-Also there is a [iOS version](https://itunes.apple.com/us/app/rcaltrain/id933651977?mt=8) written in Swift.
+The [iOS version](https://itunes.apple.com/us/app/rcaltrain/id933651977?mt=8) written in Swift.
+
+The [Android version](https://play.google.com/store/apps/details?id=me.ranmocy.rcaltrain) supports Android 4.03 and up.
 
 All versions are open sourced.
 Fork me at [Github](https://github.com/ranmocy/rCaltrain).
