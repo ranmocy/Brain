@@ -3,6 +3,8 @@
     {
       "path": ".",
       "folder_exclude_patterns": [
+        ".bundle",
+        ".sass-cache",
         ".layout",
         "assets",
         "categories",

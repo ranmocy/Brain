@@ -249,7 +249,6 @@ module Brain
     end
 
     def apply_layout(file, helper, content, layout: "default")
-      puts "render layout #{layout} for #{file.url}".yellow
       if Scanner.layouts[layout]
         template = Slim::Template.new { Scanner.layouts[layout].content }
         content = template.render(helper) { content }
@@ -261,15 +260,13 @@ module Brain
       helper = SlimEnv.new(file)
       res    = Slim::Template.new { file.content }.render(helper)
       apply_layout(file, helper, res)
+      puts "#{file.url}".green
     end
 
     def generate_scss(file)
-      # skip partial scss files
-      return puts "Skip #{file.src_path}" if file.dest_path.extname.empty?
-
       FileUtils.mkdir_p file.dest_path.dirname
       res = `scss #{file.src_path} #{file.dest_path} 2>&1`
-      puts res.red unless $?.success?
+      puts $?.success? ? "#{file.url}".green : res.red
     end
 
     def generate_md(file)
@@ -277,15 +274,18 @@ module Brain
         (file.category && Scanner.layouts[file.category.downcase]) && file.category.downcase ||
         "article"
       apply_layout file, SlimEnv.new(file), RDiscount.new(file.content).to_html, layout: layout_name
+      puts "#{layout_name}: #{file.url}".green
     end
 
     def generate_file(file)
       cmd = "generate_#{file.ext_name}"
       if respond_to? cmd
-        puts "#{file.ext_name.upcase}: #{file.src_path}"
+        print "#{file.ext_name.upcase}: #{file.src_path} => "
+        # skip partial scss files
+        return puts "Skip" if file.dest_path.extname.empty?
         self.send cmd, file
       else
-        puts "copying #{file.url} to #{file.dest_path}".green
+        puts "copying #{file.url} to #{file.dest_path}".yellow
         write_file(file.dest_path, file.content)
       end
     end
