@@ -100,6 +100,7 @@ module Brain
   end
 
 
+  # Category page for each folder
   class BrainCategory < BrainFile
     def initialize(name, articles)
       @path = Pathname.new("./#{name}/index.html.slim")
@@ -172,6 +173,10 @@ module Brain
 
     def options_str options
       options.map { |k,v| "#{k}=\"#{v}\"" }.join(" ")
+    end
+
+    def anchor_at name, url, options = {}
+      "<a name='#{url}' #{options_str(options)}></a>"
     end
 
     def link_to name, url, options = {}

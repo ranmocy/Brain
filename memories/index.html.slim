@@ -3,13 +3,22 @@ title: Memories
 tagline: 三千竹水，不生不灭
 ---
 
-- articles.group_by {|a| a.created_at.strftime("%Y")}.each do |y, articles|
+== stylesheet_link_tag "memories"
+
+aside#timemachine
+  .title Time machine
+  - articles.group_by {|a| a.created_at.strftime("%Y")}.each do |year, articles|
+    .time == link_to year, "##{year}"
+
+- articles.group_by {|a| a.created_at.strftime("%Y")}.each do |year, articles|
   .lists
-    .title = y
+    == anchor_at year, "#{year}"
+    .title = year
     .cross-line
-    - articles.group_by {|a| a.created_at.strftime("%b")}.each do |m, articles|
+    - articles.group_by {|a| a.created_at.strftime("%b")}.each do |month, articles|
       .lists.center
-        .title = m
+        == anchor_at month, "#{year}-#{month}"
+        .title = month
         .cross-line.small-line
         i.arrow.arrow-down
         - articles.each do |article|
