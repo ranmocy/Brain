@@ -66,7 +66,7 @@ guard :shell do
     n "=> #{path} ", "Brain", :success
     path
   }
-  callback(Server.new, [:start_end, :stop_end])
   callback(generator, [:start_end, :run_all_end])
+  callback(Server.new, [:start_end, :stop_end])
   callback(:start_end) { puts "Open preview at http://localhost:#{PORT}".green }
 end
