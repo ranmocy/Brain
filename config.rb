@@ -175,10 +175,6 @@ module Brain
       options.map { |k,v| "#{k}=\"#{v}\"" }.join(" ")
     end
 
-    def anchor_at name, url, options = {}
-      "<a name='#{url}' #{options_str(options)}></a>"
-    end
-
     def link_to name, url, options = {}
       "<a href='#{HOST}#{url}' #{options_str(options)}>#{name}</a>"
     end

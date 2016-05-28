@@ -12,13 +12,11 @@ aside#timemachine
 
 - articles.group_by {|a| a.created_at.strftime("%Y")}.each do |year, articles|
   .lists
-    == anchor_at year, "#{year}"
-    .title = year
+    .title[id=year] = year
     .cross-line
     - articles.group_by {|a| a.created_at.strftime("%b")}.each do |month, articles|
       .lists.center
-        == anchor_at month, "#{year}-#{month}"
-        .title = month
+        .title[id="#{year}-#{month}"] = month
         .cross-line.small-line
         i.arrow.arrow-down
         - articles.each do |article|
