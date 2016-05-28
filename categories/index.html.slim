@@ -3,8 +3,14 @@ title: Ranmocy's
 tagline: 情，思，技
 ---
 
+scss:
+    #category.lists {
+        width: 33%;
+
+    }
+
 - groups.each do |group, category_list|
-  .lists
+  #category.lists
     .title = group.to_s.capitalize
     .cross-line
     p

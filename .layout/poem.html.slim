@@ -1,4 +1,10 @@
+scss:
+  article.poem {
+      max-width: 300px;
+      margin: 1em auto;
+  }
+
 == include "default" do
-  .poem
+  article.poem
     == yield
   == partial "disqus"
