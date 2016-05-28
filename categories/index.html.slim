@@ -4,10 +4,17 @@ tagline: 情，思，技
 ---
 
 scss:
-    #category.lists {
-        width: 33%;
-
+  #category.lists {
+    @media screen and (min-width: 1200px) {
+      width: 33%;
+      margin: 1em 0;
+      display: inline-block;
+      vertical-align: top;
+      .cross-line {
+        width: 80%;
+      }
     }
+  }
 
 - groups.each do |group, category_list|
   #category.lists
