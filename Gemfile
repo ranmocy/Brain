@@ -8,6 +8,7 @@ gem 'webrick'     # web server
 gem 'guard'
 gem 'guard-shell' # monitor the file changes
 gem 'terminal-notifier-guard'
+gem 'terminal-notifier'
 
 # dev
 gem 'colorize'
