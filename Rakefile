@@ -29,7 +29,7 @@ task :publish => [:generate] do
     run("git commit -m 'Updated at #{Time.now}.'")
     run("git push origin gh-pages:gh-pages")
     run("/usr/local/bin/firebase deploy")
-  rescue StandardException => e
+  rescue StandardError => e
     require 'pry'; binding.pry
   ensure
     run("git checkout master")
