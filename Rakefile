@@ -1,10 +1,9 @@
 require 'hashie'
 require_relative 'config.rb'
 
-SILENT = verbose == true ? "" : ">/dev/null 2>/dev/null"
-
 def run(cmd, name: cmd)
-  system("#{cmd} #{SILENT}") ? puts("Success: #{name}") : abort("Failed: #{name}")
+  result = `#{cmd} 2>&1`
+  $? == 0 ? puts("Success: #{name}") : abort("Failed: #{name}\n$#{result}")
 end
 
 desc "Generate blog files"
@@ -28,9 +27,7 @@ task :publish => [:generate] do
     run("git add .")
     run("git commit -m 'Updated at #{Time.now}.'")
     run("git push origin gh-pages:gh-pages")
-    run("/usr/local/bin/firebase deploy")
-  rescue StandardError => e
-    require 'pry'; binding.pry
+    `firebase deploy` # it may requires terminal lines, safer to not redirect output
   ensure
     run("git checkout master")
   end
