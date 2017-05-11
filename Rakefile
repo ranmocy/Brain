@@ -28,6 +28,7 @@ task :publish => [:generate] do
     run("git add .")
     run("git commit -m 'Updated at #{Time.now}.'")
     run("git push origin gh-pages:gh-pages")
+    run("/usr/local/bin/firebase deploy")
   rescue StandardException => e
     require 'pry'; binding.pry
   ensure

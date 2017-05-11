@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "CNAME",
+      "LICENSE",
+      "README.md",
+      "Rakefile",
+      "firebase.json",
+      "package.json",
+      "Gemfile*",
+      "*.sublime-project",
+      "*.rb",
+      "*.yml",
+      "*.slim",
+      "**/.*"
+    ]
+  }
+}
