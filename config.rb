@@ -220,7 +220,7 @@ module Brain
       {
         life: ["diary", "dream", "poem", ],
         idea: ["idea", "remark", "philosophy", ],
-        work: ["tech", "piece", "translation"],
+        work: ["tech", "piece", "translation", "novel"],
       }
     end
 
