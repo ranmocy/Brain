@@ -4,6 +4,7 @@
       "path": ".",
       "folder_exclude_patterns": [
         ".bundle",
+        ".firebase",
         ".sass-cache",
         ".layout",
         "assets",
