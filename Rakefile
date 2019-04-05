@@ -24,10 +24,10 @@ task :publish => [:generate] do
     run("rm -r ./* || true")
     run("cp -r #{BUILD_PATH}/* .")
     run("mv cname c && mv c CNAME || true", name: 'Fix CNAME')
+    `firebase --project ranmocy-me deploy` # it may requires terminal lines, safer to not redirect output
     run("git add .")
     run("git commit -m 'Updated at #{Time.now}.'")
     run("git push origin gh-pages:gh-pages")
-    `firebase --project ranmocy-me deploy` # it may requires terminal lines, safer to not redirect output
   ensure
     run("git checkout master")
   end
