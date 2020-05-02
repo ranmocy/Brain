@@ -219,7 +219,7 @@ module Brain
     def groups
       {
         life: ["diary", "dream", "poem", ],
-        idea: ["idea", "remark", "philosophy", ],
+        thought: ["idea", "remark", "philosophy", ],
         work: ["tech", "piece", "translation", "novel"],
       }
     end
