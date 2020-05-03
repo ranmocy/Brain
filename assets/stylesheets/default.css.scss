@@ -42,7 +42,7 @@ body {
         max-width: 512px;
     }
     margin: 0em auto 25% auto;
-    color: black;
+    color: #333;
     font-size: 16px;
     font-family: Lusitana, Lusitana-TTF, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, serif;
     -webkit-font-smoothing: antialiased;
@@ -52,7 +52,7 @@ body {
 nav {
     margin: 2em 0em;
     border: none {
-        bottom: 1px solid lighten(black, 60%);
+        bottom: 1px solid #aaa;
     }
 }
 
@@ -66,7 +66,6 @@ main {
 // Info
 span.title {
     font: 1.5em 'Raleway', 'Raleway-TTF','sans-serif';
-    color: lighten(black, 30%);
 }
 span.date {
     margin: 0 0.5em;
