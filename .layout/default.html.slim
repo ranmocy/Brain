@@ -1,5 +1,5 @@
 doctype html
-html
+html class="borderbox"
   head
     title = title
     meta http-equiv="Content-Type" charset="utf-8"
@@ -32,7 +32,7 @@ html
     link rel="apple-touch-icon" sizes="58x58" href="/icons/Icon-Small@2x.png"
 
     == stylesheet_link_tag "default"
-  body class="typo"
+  body
     nav
       span.title == link_to title, "/"
       span.date = tagline
