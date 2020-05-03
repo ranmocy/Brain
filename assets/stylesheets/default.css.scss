@@ -56,6 +56,13 @@ nav {
     }
 }
 
+// Main
+main {
+    width: 80%;
+    max-width: 600px;
+    margin: 1em auto;
+}
+
 // Info
 span.title {
     font: 1.5em 'Raleway', 'Raleway-TTF','sans-serif';
@@ -118,10 +125,6 @@ pre {
 
 // Article
 article {
-    width: 80%;
-    max-width: 600px;
-    margin: 1em auto;
-
     img {
         max-width: 100%;
         margin: 0 auto;
