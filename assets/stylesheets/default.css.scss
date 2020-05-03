@@ -16,7 +16,6 @@
 
 @import "colors";
 @import "typo";
-@import "google-search";
 
 @import "link_color";
 a {
@@ -130,5 +129,15 @@ article {
         display: block;
         border-radius: 5px;
         box-shadow: 3px 3px #ccc;
+    }
+}
+
+// Google search
+div.gsc-control-cse {
+    table td {
+        border: none;
+        padding: 0;
+        margin: 0;
+        height: 32px;
     }
 }
