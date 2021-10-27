@@ -1,9 +1,11 @@
+# Somehow this needs to be imported before our config.rb
+# Otherwise it will cause bad requests for all requests to the server
+require "webrick"
 require_relative 'config.rb'
 
 PORT = 33333
 
 class Server
-  require "webrick"
   include WEBrick
 
   def call(guard_class, event, *args)
@@ -14,8 +16,8 @@ class Server
                                Port: PORT,
                                AccessLog: [[log_file, AccessLog::COMBINED_LOG_FORMAT]],
                                Logger: Log.new(log_file))
-      puts "Server will run on http://localhost:#{PORT}".green
       Thread.new { @server.start }     # Let's Rock!
+      puts "Open preview at http://localhost:#{PORT}".green
     when :stop_end
       @server.shutdown                 # shutdown with guard
     end
@@ -68,5 +70,4 @@ guard :shell do
   }
   callback(generator, [:start_end, :run_all_end])
   callback(Server.new, [:start_end, :stop_end])
-  callback(:start_end) { puts "Open preview at http://localhost:#{PORT}".green }
 end
