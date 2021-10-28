@@ -12,7 +12,7 @@ INCLUDE_FILES = ['./.nojekyll'].map { |f| File.expand_path(f) }
 MOTTO         = YAML.load_file('motto.yml')
 GROUPS        = {
   life: ["diary", "dream", "poem", "novel"],
-  thought: ["idea", "remark", "philosophy"],
+  thought: ["remark", "philosophy"],
   work: ["tech", "project", "translation"],
 }
 

@@ -2,7 +2,7 @@
 title: How to be a successful game streaming service
 created_at: 2019-04-05T03:30:34-0800
 updated_at: 2019-04-05T03:30:34-0800
-category: Idea
+category: Remark
 ---
 
 What would attract a user to use a game streaming service instead of traditional PC or consoles?
