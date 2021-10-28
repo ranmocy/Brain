@@ -10,6 +10,11 @@ BUILD_PATH    = Pathname.new('/tmp/brain')
 LAYOUT_PATH   = Pathname.new('.layout')
 INCLUDE_FILES = ['./.nojekyll'].map { |f| File.expand_path(f) }
 MOTTO         = YAML.load_file('motto.yml')
+GROUPS        = {
+  life: ["diary", "dream", "poem", "novel"],
+  thought: ["idea", "remark", "philosophy"],
+  work: ["tech", "project", "translation"],
+}
 
 
 module Brain
@@ -217,11 +222,7 @@ module Brain
     end
 
     def groups
-      {
-        life: ["diary", "dream", "poem", ],
-        thought: ["idea", "remark", "philosophy", ],
-        work: ["tech", "piece", "translation", "novel"],
-      }
+      GROUPS
     end
 
     def motto

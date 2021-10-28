@@ -2,7 +2,7 @@
 title: Spark Driver Less
 created_at: 2015-04-22T22:53:52-0700
 updated_at: 2015-06-27T13:24:04-0700
-category: Piece
+category: Project
 ---
 
 SparkDriverless is a totally decentralized system inspired by Spark,

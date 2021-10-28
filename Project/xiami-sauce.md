@@ -2,7 +2,7 @@
 title: 虾米酱
 created_at: 2013-03-10T00:00:00+0800
 updated_at: 2013-03-10T00:00:00+0800
-category: Piece
+category: Project
 ---
 
 # 虾米酱 - XiamiSauce

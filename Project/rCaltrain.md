@@ -2,7 +2,7 @@
 title: rCaltrain
 created_at: 2014-09-25T23:13:53-0800
 updated_at: 2016-05-27T04:49:15-0800
-category: Piece
+category: Project
 ---
 
 # [rCaltrain](http://rcaltrain.com/), a Caltrain scheduler.

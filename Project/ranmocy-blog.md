@@ -2,7 +2,7 @@
 title: RanmocyBlog
 created_at: 2012-01-26T00:00:00+0800
 updated_at: 2015-06-25T03:52:54-0800
-category: Piece
+category: Project
 ---
 
 [This Blog](http://ranmocy.info) is [first created](https://github.com/ranmocy/ranmocy_blog) at Jan 26, 2012,

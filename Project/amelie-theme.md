@@ -2,7 +2,7 @@
 title: Amelie-theme
 created_at: 2012-06-16T00:00:00+0800
 updated_at: 2012-06-16T00:00:00+0800
-category: Piece
+category: Project
 ---
 
 [Amelie-theme](https://github.com/ranmocy/amelie-theme) is a Emacs 24 theme with dard background and bright colorful foreground.
