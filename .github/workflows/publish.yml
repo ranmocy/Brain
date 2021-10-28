@@ -11,6 +11,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        # check out all history
+        fetch-depth: 0
     - uses: ruby/setup-ruby@v1.84.0
     - uses: actions/setup-node@v2.4.1
     - run: npm install -g firebase-tools
@@ -18,4 +21,7 @@ jobs:
     - name: Publish
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: bundle exec rake publish
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        bundle exec rake publish
