@@ -60,11 +60,12 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
       // body
       const contentParts = fileContent.split("\n---\n\n")
       assert(contentParts.length === 2, filePath)
-      const [headerLines, content] = contentParts
+      const [headerStr, content] = contentParts
 
       // Extract headers
+      const headerRendered = render(headerStr, { currentDate: new Date().toISOString() })
       const headers = Object.fromEntries(
-        headerLines.split("\n").slice(1)
+        headerRendered.split("\n").slice(1)
           .map(line => line.split(': '))
           .filter(parts => parts.length >= 2)
           .map(parts => {
@@ -83,15 +84,17 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
 
       const id = path.basename(filename, '.md')
       const createdAt = new Date(ensure(headers.created_at, filePath))
-      const description = headers.description ||
-        (content.length <= 100) ? content.replace("\n", ' ') : `${content.replace("\n", ' ').slice(0, 97)}...`
+      const createdAtStr = createdAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+      const tagline = headers.tagline || createdAtStr
+      const description = headers.description || tagline
 
       return {
         targetPath: path.join(BUILD_DIR, category, id, 'index.html'),
         url: `/${category}/${id}/`,
         title: ensure(headers.title, filePath),
+        tagline: tagline,
         createdAt: createdAt,
-        createdAtStr: createdAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }),
+        createdAtStr: createdAtStr,
         updatedAt: new Date(ensure(headers.updated_at, filePath)),
         category: category,
         categoryCapitalized: capitalize(category),
@@ -197,7 +200,7 @@ allFiles.forEach((file) => {
   console.log(`Rendering: ${file.url}`)
   const env = {
     title: file.title,
-    metadata: file.createdAtStr,
+    tagline: file.tagline,
     description: file.description,
   }
   const content =
@@ -212,7 +215,7 @@ allFiles.forEach((file) => {
   console.log(`Rendering: /memories/`)
   const env = {
     title: 'Memories',
-    metadata: '三千竹水，不生不灭',
+    tagline: '三千竹水，不生不灭',
     description: '三千竹水，不生不灭',
     memories: getFilesByDate(allFiles),
   }
@@ -226,7 +229,7 @@ allFiles.forEach((file) => {
   console.log(`Rendering: /categories/`)
   const env = {
     title: 'Ranmocy\'s',
-    metadata: '情，思，技',
+    tagline: '情，思，技',
     description: '情，思，技',
     groups: Object.entries(GROUPS).map(([groupId, categories]) => ({
       groupName: capitalize(groupId),
@@ -245,7 +248,7 @@ CATEGORIES.forEach((category) => {
   console.log(`Rendering: /${category}/`)
   const env = {
     title: capitalize(category),
-    metadata: CATEGORY_TAGLINES[category],
+    tagline: CATEGORY_TAGLINES[category],
     description: CATEGORY_TAGLINES[category],
     memories: getFilesByDate(filesByCategory[category]),
   }
@@ -259,7 +262,7 @@ Object.entries(templates).filter(([name]) => !name.startsWith('_') && path.extna
   console.log(`Rendering: /${name}`)
   const env = {
     title: TITLE,
-    metadata: TAGLINE,
+    tagline: TAGLINE,
     description: TAGLINE,
   }
   const content = render(_BASE, env, template)
