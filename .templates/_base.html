@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="borderbox">
+
+<head>
+  <title>{{ title }}</title>
+  <meta http-equiv="Content-Type" charset="utf-8">
+  <meta name="author" content="Ranmocy">
+  <meta name="description" content="{{ description }}">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="author" href="https://plus.google.com/+WanzhangSheng">
+  <link rel="publisher" href="https://plus.google.com/+WanzhangSheng">
+  <link href="atom.xml" rel="alternate" type="application/atom+xml" title="{{ title }}">
+
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="https://ranmocy.me/favicon.ico">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@ranmocy">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="https://ranmocy.me/favicon.ico">
+  <meta name="twitter:creator" content="@ranmocy">
+  <meta name="twitter:domain" content="https://ranmocy.me">
+
+  <link href="/icons/favicon.ico" rel="icon" type="image/x-icon">
+  <link href="/icons/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/Icon-60@2x.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/Icon-60@3x.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icons/Icon-76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/Icon-76@2x.png">
+  <link rel="apple-touch-icon" sizes="58x58" href="/icons/Icon-Small@2x.png">
+
+  <link href='/assets/stylesheets/typo.css' media='screen' rel='stylesheet' type='text/css'>
+  <link href='/assets/stylesheets/default.css' media='screen' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav>
+    <span class="title"><a href="/">{{ title }}</a></span>
+    <span class="date">{{ metadata }}</span>
+    <span class="link">
+      <a href="/categories/">Categories</a>
+      <a href="/memories/">Memories</a>
+      <a href="/about/">About</a>
+    </span>
+  </nav>
+
+  <main>
+    {{ children }}
+  </main>
+
+  <footer>
+    <div class="piece">
+      <span>我努力将诸多人格中微小的片面拼合。</span>
+      <span>我拨开我的大脑，只为博君一笑。</span>
+    </div>
+    <div class="piece">
+      <span>&copy;Copyright 2012-{{ currentYear }} <a href="/about/" rel="author" title="Ranmocy">Ranmocy</a></span>
+      <span>All Rights Reserved.</span>
+    </div>
+  </footer>
+
+  <script type='text/javascript'>
+    var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-20961770-4']); _gaq.push(['_trackPageview']); (function () { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+  </script>
+</body>
+
+</html>

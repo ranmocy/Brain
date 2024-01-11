@@ -1,0 +1,29 @@
+<style>
+  @media screen and (min-width: 1200px) {
+    #category.lists {
+      width: 33%;
+      margin: 1em 0;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    #category.lists .cross-line {
+      width: 80%;
+    }
+  }
+</style>
+
+{{ loop groups }}
+<div id="category" class="lists">
+  <div class="title">{{ groupName }}</div>
+  <div class="cross-line"></div>
+  <p>
+    {{ loop categories }}
+    <div class="item">
+      <a href="/{{ id }}/" title="{{ tagline }}">{{ name }}({{ size }})</a>
+      <div class="motto">{{ tagline }}</div>
+      </div>
+    {{ end categories }}
+  </p>
+</div>
+{{ end groups }}

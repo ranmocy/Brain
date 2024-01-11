@@ -1,0 +1,50 @@
+<style>
+  aside#timemachine {
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+
+    position: fixed;
+    text-align: center;
+    margin: 0 1.5em;
+    font-size: 12px;
+
+    .time a {
+      line-height: 1.5rem;
+      color: hsl(0 0% 20%);
+
+      &:hover, &.active {
+        font-size: 120%;
+        color: var(--color-red);
+      }
+    }
+  }
+</style>
+
+<aside id="timemachine">
+  <div class="title">Time machine</div>
+  {{ loop memories }}
+  <div class="time"><a href="#{{ year }}">{{ year }}</a></div>
+  {{ end memories }}
+</aside>
+
+{{ loop memories }}
+<div class="lists">
+  <div class="title" id="{{ year }}">{{ year }}</div>
+  <div class="cross-line"></div>
+  {{ loop filesByMonth }}
+  <div class="lists center">
+    <div class="title" id="{{ year }}-{{ month }}">{{ monthStr }}</div>
+    <div class="cross-line small-line"></div>
+    <i class="arrow arrow-down"></i>
+    {{ loop files }}
+    <div class="item">
+      <a href="{{ url }}">{{ title }}</a>
+      <div class="motto">[{{ categoryCapitalized }}] {{ createdAtStr }}</div>
+      <i class="arrow arrow-down"></i>
+    </div>
+    {{ end files }}
+  </div>
+  {{ end filesByMonth }}
+</div>
+{{ end memories }}

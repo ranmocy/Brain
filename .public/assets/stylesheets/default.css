@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css?family=Lusitana");
+/* If Google is unreachable, use local fallbacks */
+@font-face {
+  font-family: "Raleway-TTF";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Raleway"), local("Raleway-Regular"),
+    url(/assets/fonts/raleway.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Lusitana-TTF";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Lusitana"), url(/assets/fonts/lusitana.ttf) format("truetype");
+}
+
+/* Base Color and Font */
+html {
+  --color-bg: hsl(0 0% 99.61%);
+  --color-fg: hsl(0 0% 20%);
+  --color-border: hsl(0 0% 66.67%);
+  --color-active: hsl(0 0% 0%);
+  --color-red: #dc322f;
+
+  color: var(--color-fg);
+  background: var(--color-bg);
+}
+body {
+  @media (min-width: 1280px) {
+    width: 60%;
+  }
+  @media (min-width: 640px) and (max-width: 1280px) {
+    width: 80%;
+    max-width: 768px;
+  }
+  @media (max-width: 640px) {
+    width: 100%;
+    max-width: 512px;
+  }
+  margin: 0em auto 25% auto;
+  font-size: 16px;
+  font-family: Lusitana, Lusitana-TTF, Microsoft Yahei, Hiragino Sans GB,
+    WenQuanYi Micro Hei, serif;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--color-red);
+
+  &:hover, &.active {
+    color: var(--color-active);
+    text-decoration: none;
+  }
+}
+
+/* Nav */
+nav {
+  margin: 2em 0em;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Main */
+main {
+  width: 80%;
+  max-width: 600px;
+  margin: 1em auto;
+}
+
+/* Info */
+span.title {
+  font: 1.5em "Raleway", "Raleway-TTF", "sans-serif";
+}
+span.date {
+  margin: 0 0.5em;
+}
+span.link {
+  float: right;
+  font-size: 0.8em;
+  a {
+    margin-left: 1em;
+  }
+}
+header span.title {
+  font-size: 1em;
+}
+footer {
+  color: hsl(0 0% 50%);
+  font-size: 12px;
+  margin: 2em 10%;
+  border-top: double;
+  clear: both;
+  .piece {
+    text-align: center;
+    span {
+      margin: 0 1em;
+      display: inline-block;
+    }
+  }
+}
+
+/* Margin */
+em,
+strong,
+a {
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+/* Code */
+code {
+  border: 1px hsl(0 0% 80%) solid;
+  padding: 2px 4px;
+  background: hsl(0 0% 98.04%);
+  margin: 0 0.2em;
+  font-size: 80%;
+  line-height: inherit;
+  white-space: nowrap;
+}
+pre {
+  overflow-x: auto;
+  code {
+    border: none;
+    word-wrap: normal;
+    white-space: pre;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Article */
+article {
+  img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 3px 3px hsl(0 0% 80%);
+  }
+}
+
+/* Google search */
+div.gsc-control-cse {
+  table td {
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 32px;
+  }
+}
+
+/* Lists */
+.lists {
+  font-size: 90%;
+  width: 90%;
+  color: hsl(0 0% 30%);
+  margin: 2em auto;
+  text-align: center;
+
+  .title {
+    display: inline-block;
+    font: 1.6em "Raleway", "Raleway-TTF", "sans-serif";
+    margin: 0 auto;
+    padding: 0 1em;
+    background-color: var(--color-bg);
+  }
+
+  .cross-line {
+    width: 50%;
+    margin: -1em auto 1.2em auto;
+    border-top: hsl(0 0% 50%) solid 1px;
+  }
+
+  .small-line {
+    width: 30%;
+  }
+
+  .item {
+    text-align: center;
+    margin-bottom: 1em;
+
+    a {
+      font: normal 23px/32px serif;
+      color: var(--color-active);
+
+      &:hover, &.active {
+        color: var(--color-red);
+      }
+    }
+  }
+}
+
+/* Arrows */
+.arrow {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  line-height: 7px;
+  border-top: 3px solid var(--color-border);
+  border-right: 3px solid var(--color-border);
+  -ms-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.arrow-down {
+  -ms-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+.arrow-left {
+  -ms-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+}
+.arrow-up {
+  -ms-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
