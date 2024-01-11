@@ -6,13 +6,13 @@
   font-style: normal;
   font-weight: 400;
   src: local("Raleway"), local("Raleway-Regular"),
-    url(/assets/fonts/raleway.ttf) format("truetype");
+    url(/fonts/raleway.ttf) format("truetype");
 }
 @font-face {
   font-family: "Lusitana-TTF";
   font-style: normal;
   font-weight: 400;
-  src: local("Lusitana"), url(/assets/fonts/lusitana.ttf) format("truetype");
+  src: local("Lusitana"), url(/fonts/lusitana.ttf) format("truetype");
 }
 
 /* Base Color and Font */

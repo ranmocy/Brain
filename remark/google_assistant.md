@@ -7,7 +7,7 @@ category: Remark
 
 Google 发布了 Pixel 手机，和新的 Home Launcher。有很多人吐槽它跟 iPhone 多么多么的相似。但是看看初始界面的对比图，你们会发现这里存在一个巨大的差别：图标少了许多。
 
-<img src="/remark/pixel_vs_iphone.png" style="box-shadow:none" alt="iPhone vs Pixel"></img>
+<img src="/images/pixel_vs_iphone.png" style="box-shadow:none" alt="iPhone vs Pixel"></img>
 
 Steven Jobs 开创了 App-based OS 的平台时代，十年朝气蓬勃。然而 Google 对下一个十年的赌注是：App 们已经过时了，我们要用 AI 打造一个全新的人机界面。
 
