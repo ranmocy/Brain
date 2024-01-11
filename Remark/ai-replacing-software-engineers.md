@@ -1,0 +1,18 @@
+---
+title: On AI replacing software engineers
+created_at: 2024-01-10T16:02:00-0800
+updated_at: 2024-01-10T16:02:00-0800
+category: Remark
+---
+
+As I watched the progress in the AI community through the last year, my projection of how soon AI could replace software engineers got shortened multiple times. This alarms me that I could quickly face real career pressure because the risk is increasing for me to get ready with the new work pattern before my current jobs are replaced.
+
+Of course, not all software engineers will be replaced all at once. Different domains will have very different paces. In general, if a role has more open-source examples and more repeated code to write, the more money this society pays for it, the sooner it will be replaced.
+
+The most risky role is front-end engineers. When we say front-end engineers in this industry, we typically mean web app front-end engineers. This role matches all the criteria mentioned above. Despite thousands of web frameworks for UI/styling/logic that exist today, they are all based on one universal web standard. It means that one organization could only focus on a specific framework or code pattern, like React, for training their AI model or front-end code generation product. If they focus on the most popular one, there are enormous open-source codes to train after. Because they focus on one specific framework or code pattern, the model could be extremely good, much better than OpenAI's GPT models, which are generic LLMs. If the model is trained end-to-end from code to the visual effect, then they could ensure the visual result is what users want. Users won't care about the framework they use or how they structure the code because they only care about the final visual results. The knowledge of how to organize the code and make it maintainable, is largely obsolete. 252K websites are created daily ([source](https://siteefy.com/how-many-websites-are-there/)), meaning it's a huge market worth replacing by machines and automation.
+
+Android/iOS developers are facing problems, but the pressure is slightly less because many fewer mobile apps are created every day, and it's much harder to develop good mobile apps since it needs to consider many more things like battery and data usage.
+
+Business logic engineers could be the next: front-end or back-end engineers. Naturally, business logic is always described using natural language first before it's translated into code describing the same thing. Today, the LLM already can code a large portion of these tasks. What needs to be added is the ecosystem and tools for better human-machine interactions for today's non-tech people to jump into this area. The people who could survive in this domain would be product managers with tech backgrounds or software engineers with strong product mindsets. Again, the value of years of experience in writing business logic or organizing the code base will decrease gradually in this domain as they will be replaced piece by piece.
+
+As generalists are easier to be replaced, specialists are much harder. They are the domains where the business logic is highly tied to business knowledge. Like flight dispatcher systems, we definitely want highly human-understandable code to avoid disasters. On the other hand, these specialists' careers are bound to whether the industry is growing or shrinking, as their knowledge is likely un-transferrable. This is also why hardware engineers are paid less than software engineers on average. They used to be paid well. Software engineers in ten years could be hardware engineers today, but I expect it to be worse.
