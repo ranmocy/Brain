@@ -139,16 +139,6 @@ article {
   }
 }
 
-/* Google search */
-div.gsc-control-cse {
-  table td {
-    border: none;
-    padding: 0;
-    margin: 0;
-    height: 32px;
-  }
-}
-
 /* Lists */
 .lists {
   font-size: 90%;
