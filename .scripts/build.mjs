@@ -85,20 +85,25 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
       const id = path.basename(filename, '.md')
       const createdAt = new Date(ensure(headers.created_at, filePath))
       const createdAtStr = createdAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+      const updatedAt = new Date(ensure(headers.updated_at, filePath))
       const tagline = headers.tagline || createdAtStr
-      const description = headers.description || tagline
+      const description = headers.description || content.replace(/\s+/g, ' ').trim().slice(0, 97) + '...'
 
       return {
-        targetPath: path.join(BUILD_DIR, category, id, 'index.html'),
         url: `/${category}/${id}/`,
         title: ensure(headers.title, filePath),
-        tagline: tagline,
-        createdAt: createdAt,
-        createdAtStr: createdAtStr,
-        updatedAt: new Date(ensure(headers.updated_at, filePath)),
-        category: category,
+        tagline,
+        createdAt,
+        createdAtISO: createdAt.toISOString(),
+        createdAtStr,
+        year: createdAt.getFullYear(),
+        month: createdAt.getMonth() + 1,
+        monthStr: createdAt.toLocaleString('en-us', { month: 'short' }),
+        updatedAt,
+        updatedAtISO: updatedAt.toISOString(),
+        category,
         categoryCapitalized: capitalize(category),
-        description: description,
+        description,
         html,
       }
     })
@@ -106,28 +111,21 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
   console.log(`Category ${category}: ${files.length} files`)
   return [category, files]
 }))
-const allFiles = Object.values(filesByCategory).flat()
+const allFiles = Object.values(filesByCategory).flat().sort((a, b) => b.createdAt - a.createdAt)
+
 function getFilesByDate(files) {
-  const filesWithDate = files.map((file) => {
-    const year = file.createdAt.getFullYear()
-    const month = file.createdAt.getMonth() + 1
-    const monthStr = file.createdAt.toLocaleString('en-us', { month: 'short' })
-    return { ...file, year, month, monthStr }
-  })
-  const filesByDate =
-    Object.entries(groupBy(filesWithDate, (file) => file.year))
-      .sort((a, b) => b[0] - a[0])
-      .map(([year, files]) => {
-        const filesByMonth = Object.entries(groupBy(files, (file) => file.month))
-          .sort((a, b) => b[0] - a[0])
-          .map(([month, files]) => ({
-            month,
-            monthStr: files[0].monthStr,
-            files: files.sort((a, b) => b.createdAt - a.createdAt),
-          }))
-        return { year, filesByMonth }
-      })
-  return filesByDate
+  return Object.entries(groupBy(files, (file) => file.year))
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, files]) => {
+      const filesByMonth = Object.entries(groupBy(files, (file) => file.month))
+        .sort((a, b) => b[0] - a[0])
+        .map(([month, files]) => ({
+          month,
+          monthStr: files[0].monthStr,
+          files: files.sort((a, b) => b.createdAt - a.createdAt),
+        }))
+      return { year, filesByMonth }
+    })
 }
 
 // Read templates
@@ -136,9 +134,110 @@ const templates = Object.fromEntries(fs.readdirSync(TEMPLATES_DIR).map(filename 
   const content = fs.readFileSync(path.join(TEMPLATES_DIR, filename), { encoding: 'utf-8' })
   return [name, content]
 }))
-const _ARTICLE = ensure(templates._article)
 const _BASE = ensure(templates._base)
-const _POEM = ensure(templates._poem)
+
+// Render files
+const renderingFiles = [
+  ...allFiles.map(file => ({
+    ...file,
+    templates: [file.category === 'poem' ? templates._poem : templates._article, _BASE],
+  })),
+  {
+    url: '/memories/',
+    templates: [templates._memories, _BASE],
+    title: 'Memories',
+    tagline: '三千竹水，不生不灭',
+    description: '三千竹水，不生不灭',
+    memories: getFilesByDate(allFiles),
+  },
+  {
+    url: '/categories/',
+    templates: [templates._categories, _BASE],
+    title: 'Ranmocy\'s',
+    tagline: '情，思，技',
+    description: '情，思，技',
+    groups: Object.entries(GROUPS).map(([groupId, categories]) => ({
+      groupName: capitalize(groupId),
+      categories: categories.map((id) => ({
+        id,
+        name: capitalize(id),
+        tagline: CATEGORY_TAGLINES[id],
+        size: filesByCategory[id].length,
+      })),
+    })),
+  },
+  ...(CATEGORIES.map((category) => ({
+    url: `/${category}/`,
+    templates: [templates._memories, _BASE],
+    title: capitalize(category),
+    tagline: CATEGORY_TAGLINES[category],
+    description: CATEGORY_TAGLINES[category],
+    memories: getFilesByDate(filesByCategory[category]),
+  }))),
+  // Root files
+  ...(Object.entries(templates).filter(([name]) => !name.startsWith('_')).map(([name, template]) => {
+    const isFile = name.endsWith('.xml')
+    return ({
+      url: isFile ? `/${name}` : `/${name}/`,
+      templates: isFile ? [templates['atom.xml']] : [template, _BASE],
+      title: TITLE,
+      tagline: TAGLINE,
+      description: TAGLINE,
+      feedUpdatedAt: allFiles.map(file => file.updatedAt).sort()[0].toISOString(),
+      allFiles: allFiles,
+    });
+  })),
+]
+renderingFiles.forEach((file) => {
+  console.log(`Rendering: ${file.url}`)
+  assert(file.url[0] === '/')
+  const url = file.url.slice(1)
+  const filepath = path.join(BUILD_DIR, url, url.endsWith('/') ? 'index.html' : '')
+  const content = file.templates.reduce((rendered, template) => render(template, file, rendered), file.html)
+  writeFile(filepath, content)
+})
+
+
+// Copy public files
+fs.readdirSync(PUBLIC_DIR, { recursive: true })
+  .filter((filename) => !fs.statSync(path.join(PUBLIC_DIR, filename)).isDirectory())
+  .forEach((filename) => {
+    console.log(`Copying /${filename}`)
+    const srcPath = path.join(PUBLIC_DIR, filename)
+    const targetPath = path.join(BUILD_DIR, filename)
+    // No overriding
+    assert(!fs.existsSync(targetPath), targetPath)
+    fs.mkdirSync(path.dirname(targetPath), { recursive: true })
+    fs.cpSync(srcPath, targetPath)
+  })
+
+
+// Utils
+
+function ensure(cond, msg) {
+  assert(cond, msg)
+  return cond
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+function groupBy(arr, keyFunc) {
+  return arr.reduce((res, elem) => {
+    const key = keyFunc(elem)
+    if (!(key in res)) {
+      res[key] = []
+    }
+    res[key].push(elem)
+    return res
+  }, {})
+}
+
+function writeFile(targetPath, content) {
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true })
+  fs.writeFileSync(targetPath, content)
+}
 
 /**
  * Render template with given env mapper
@@ -148,6 +247,7 @@ const _POEM = ensure(templates._poem)
  * @returns {string}
  */
 function render(template, env, children) {
+  assert(template, 'Template is empty')
   env = {
     currentYear: new Date().getFullYear(),
     ...env,
@@ -192,149 +292,4 @@ function render(template, env, children) {
   }
 
   return result.join("\n")
-}
-
-
-// Generate article HTML files
-allFiles.forEach((file) => {
-  console.log(`Rendering: ${file.url}`)
-  const env = {
-    title: file.title,
-    tagline: file.tagline,
-    description: file.description,
-  }
-  const content =
-    render(_BASE, env,
-      render(file.category === 'poem' ? _POEM : _ARTICLE, env, file.html))
-  writeFile(file.targetPath, content)
-})
-
-
-// Generate /memories/ page
-{
-  console.log(`Rendering: /memories/`)
-  const env = {
-    title: 'Memories',
-    tagline: '三千竹水，不生不灭',
-    description: '三千竹水，不生不灭',
-    memories: getFilesByDate(allFiles),
-  }
-  const content = render(_BASE, env, render(templates._memories, env))
-  writeFile(path.join(BUILD_DIR, 'memories', 'index.html'), content)
-}
-
-
-// Generate categories files
-{
-  console.log(`Rendering: /categories/`)
-  const env = {
-    title: 'Ranmocy\'s',
-    tagline: '情，思，技',
-    description: '情，思，技',
-    groups: Object.entries(GROUPS).map(([groupId, categories]) => ({
-      groupName: capitalize(groupId),
-      categories: categories.map((id) => ({
-        id,
-        name: capitalize(id),
-        tagline: CATEGORY_TAGLINES[id],
-        size: filesByCategory[id].length,
-      })),
-    })),
-  }
-  const content = render(_BASE, env, render(templates._categories, env))
-  writeFile(path.join(BUILD_DIR, 'categories', 'index.html'), content)
-}
-CATEGORIES.forEach((category) => {
-  console.log(`Rendering: /${category}/`)
-  const env = {
-    title: capitalize(category),
-    tagline: CATEGORY_TAGLINES[category],
-    description: CATEGORY_TAGLINES[category],
-    memories: getFilesByDate(filesByCategory[category]),
-  }
-  const content = render(_BASE, env, render(templates._memories, env))
-  writeFile(path.join(BUILD_DIR, category, 'index.html'), content)
-})
-
-
-// Generate root files
-Object.entries(templates).filter(([name]) => !name.startsWith('_') && path.extname(name) === '').forEach(([name, template]) => {
-  console.log(`Rendering: /${name}`)
-  const env = {
-    title: TITLE,
-    tagline: TAGLINE,
-    description: TAGLINE,
-  }
-  const content = render(_BASE, env, template)
-  writeFile(path.join(BUILD_DIR, name, 'index.html'), content)
-})
-
-
-// Generate atom.xml
-{
-  console.log(`Rendering: /atom.xml`)
-  const env = {
-    title: TITLE,
-    tagline: TAGLINE,
-    feedUpdatedAt: allFiles.map(file => file.updatedAt).sort()[0].toISOString(),
-    files: allFiles.sort((a, b) => b.createdAt - a.createdAt).map(file => ({
-      ...file,
-      createdAt: file.createdAt.toISOString(),
-      updatedAt: file.updatedAt.toISOString(),
-    })),
-  }
-  const content = render(templates['atom.xml'], env)
-  writeFile(path.join(BUILD_DIR, 'atom.xml'), content)
-}
-
-
-// Copy public files
-fs.readdirSync(PUBLIC_DIR, { recursive: true })
-  .filter((filename) => !fs.statSync(path.join(PUBLIC_DIR, filename)).isDirectory())
-  .forEach((filename) => {
-    console.log(`Copying /${filename}`)
-    const srcPath = path.join(PUBLIC_DIR, filename)
-    const targetPath = path.join(BUILD_DIR, filename)
-    // No overriding
-    assert(!fs.existsSync(targetPath), targetPath)
-    fs.mkdirSync(path.dirname(targetPath), { recursive: true })
-    fs.cpSync(srcPath, targetPath)
-  })
-
-
-/**
- * Assert condition exists
- * @param {any} cond
- * @param {string} msg
- * @returns cond
- */
-function ensure(cond, msg) {
-  assert(cond, msg)
-  return cond
-}
-
-/**
- * Group by.
- * @param {Array[T]} arr
- * @param {(T) => string} keyFunc
- * @returns {object}
- */
-function groupBy(arr, keyFunc) {
-  return arr.reduce((res, elem) => {
-    const key = keyFunc(elem)
-    if (!(key in res)) {
-      res[key] = []
-    }
-    res[key].push(elem)
-    return res
-  }, {})
-}
-
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-function writeFile(targetPath, content) {
-  fs.mkdirSync(path.dirname(targetPath), { recursive: true })
-  fs.writeFileSync(targetPath, content)
 }

@@ -12,15 +12,15 @@
     </author>
     <rights>Copyright (c) 2012-{{ currentYear }} Ranmocy; All rights reserved.</rights>
 
-    {{ loop files }}
+    {{ loop allFiles }}
     <entry>
         <title type="text">{{ title }}</title>
         <link type="text/html" href="https://ranmocy.me{{ url }}" />
         <link type="text/html" href="https://ranmocy.me{{ url }}index.html" rel="alternate" />
         <id>urn:uuid:{{ category }}:{{ title }}</id>
-        <created>{{ createdAt }}</created>
-        <updated>{{ updatedAt }}</updated>
-        <published>{{ createdAt }}</published>
+        <created>{{ createdAtISO }}</created>
+        <updated>{{ updatedAtISO }}</updated>
+        <published>{{ createdAtISO }}</published>
         <author>
             <name>Ranmocy</name>
             <email>ranmocy+garden@gmail.com</email>
@@ -30,5 +30,5 @@
             <![CDATA[{{ html }}]]>
         </content>
     </entry>
-    {{ end files }}
+    {{ end allFiles }}
 </feed>
