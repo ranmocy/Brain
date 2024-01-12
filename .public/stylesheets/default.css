@@ -53,6 +53,7 @@ nav {
   z-index: 100;
   height: var(--nav-height);
   padding-top: 2rem;
+  margin-bottom: 2rem;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }
@@ -166,7 +167,7 @@ article {
   font-size: 90%;
   width: 90%;
   color: hsl(0 0% 30%);
-  margin: 2em auto;
+  margin: 0 auto 2em auto;
   text-align: center;
 
   .title {
