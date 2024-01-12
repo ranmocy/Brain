@@ -1,5 +1,5 @@
 <style>
-  #groups {
+  .groups {
     display: flex;
     flex-direction: column;
 
@@ -9,13 +9,13 @@
   }
 
   @media screen and (min-width: 950px) {
-    #groups {
+    .groups {
       flex-direction: row;
     }
   }
 </style>
 
-<div id="groups">
+<div class="groups">
   {{ loop groups }}
   <div class="lists">
     <div class="title">{{ groupName }}</div>

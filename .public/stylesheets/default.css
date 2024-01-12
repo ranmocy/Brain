@@ -22,6 +22,7 @@ html {
   --color-border: hsl(0 0% 66.67%);
   --color-active: hsl(0 0% 0%);
   --color-red: #dc322f;
+  --nav-height: 65px;
 
   color: var(--color-fg);
   background: var(--color-bg);
@@ -38,12 +39,40 @@ body {
     width: 100%;
     max-width: 512px;
   }
-  margin: 0em auto 25% auto;
+  margin: 0 auto min(25%, 50vh) auto;
   font-size: 16px;
   font-family: Lusitana, Lusitana-TTF, Microsoft Yahei, Hiragino Sans GB,
     WenQuanYi Micro Hei, serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Nav */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  padding-top: 2rem;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Main */
+main {
+  position: sticky;
+  top: var(--nav-height);
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Anchors */
+.anchor[id] {
+  padding-top: calc(var(--nav-height) + 2rem) !important;
+  margin-top: calc((var(--nav-height) + 2rem) * -1) !important;
+}
+
+/* Links */
 a {
   color: var(--color-red);
 
@@ -52,26 +81,19 @@ a {
     text-decoration: none;
   }
 }
+.lists a, .timemachine a {
+  color: var(--color-active);
 
-/* Nav */
-nav {
-  margin: 2em 0em;
-  border: none;
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* Main */
-main {
-  width: 80%;
-  max-width: 600px;
-  margin: 1em auto;
+  &:hover, &.active {
+    color: var(--color-red);
+  }
 }
 
 /* Info */
 span.title {
   font: 1.5em "Raleway", "Raleway-TTF", "sans-serif";
 }
-span.date {
+span.tagline {
   margin: 0 0.5em;
 }
 span.link {
@@ -87,7 +109,7 @@ header span.title {
 footer {
   color: hsl(0 0% 50%);
   font-size: 12px;
-  margin: 2em 10%;
+  margin: 2em 0;
   border-top: double;
   clear: both;
   .piece {
@@ -171,11 +193,6 @@ article {
 
     a {
       font: normal 23px/32px serif;
-      color: var(--color-active);
-
-      &:hover, &.active {
-        color: var(--color-red);
-      }
     }
   }
 }

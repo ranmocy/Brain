@@ -40,7 +40,7 @@
 <body>
   <nav>
     <span class="title"><a href="/">{{ title }}</a></span>
-    <span class="date">{{ tagline }}</span>
+    <span class="tagline">{{ tagline }}</span>
     <span class="link">
       <a href="/categories/">Categories</a>
       <a href="/memories/">Memories</a>
@@ -50,18 +50,18 @@
 
   <main>
     {{ children }}
-  </main>
 
-  <footer>
-    <div class="piece">
-      <span>我努力将诸多人格中微小的片面拼合。</span>
-      <span>我拨开我的大脑，只为博君一笑。</span>
-    </div>
-    <div class="piece">
-      <span>&copy;Copyright 2012-{{ currentYear }} <a href="/about/" rel="author" title="Ranmocy">Ranmocy</a></span>
-      <span>All Rights Reserved.</span>
-    </div>
-  </footer>
+    <footer>
+      <div class="piece">
+        <span>我努力将诸多人格中微小的片面拼合。</span>
+        <span>我拨开我的大脑，只为博君一笑。</span>
+      </div>
+      <div class="piece">
+        <span>&copy;Copyright 2012-{{ currentYear }} <a href="/about/" rel="author" title="Ranmocy">Ranmocy</a></span>
+        <span>All Rights Reserved.</span>
+      </div>
+    </footer>
+  </main>
 
   <script type='text/javascript' async>
     var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-20961770-4']); _gaq.push(['_trackPageview']); (function () { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
