@@ -20,7 +20,7 @@
         <id>urn:uuid:{{ category }}:{{ title }}</id>
         <created>{{ createdAtISO }}</created>
         <updated>{{ updatedAtISO }}</updated>
-        <published>{{ createdAtISO }}</published>
+        <published>{{ updatedAtISO }}</published>
         <author>
             <name>Ranmocy</name>
             <email>ranmocy+garden@gmail.com</email>

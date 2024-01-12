@@ -1,6 +1,8 @@
 #!/usr/bin/env -S node --experimental-module
-// Run with `.scripts/build.mjs`
 // node = v18.18.2
+// Run: .scripts/build.mjs
+// Dev: ls -1 .*/**/* | grep -v '.build' | grep -v '.git' | entr -s 'node .scripts/build.mjs'
+// Serve: npx serve .build
 
 import path from 'path'
 import fs from 'fs'
@@ -84,23 +86,22 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
 
       const id = path.basename(filename, '.md')
       const createdAt = new Date(ensure(headers.created_at, filePath))
-      const createdAtStr = createdAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
       const updatedAt = new Date(ensure(headers.updated_at, filePath))
-      const tagline = headers.tagline || createdAtStr
+      const updatedAtStr = updatedAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+      const tagline = headers.tagline || updatedAtStr
       const description = headers.description || content.replace(/\s+/g, ' ').trim().slice(0, 97) + '...'
 
       return {
         url: `/${category}/${id}/`,
         title: ensure(headers.title, filePath),
         tagline,
-        createdAt,
         createdAtISO: createdAt.toISOString(),
-        createdAtStr,
-        year: createdAt.getFullYear(),
-        month: createdAt.getMonth() + 1,
-        monthStr: createdAt.toLocaleString('en-us', { month: 'short' }),
         updatedAt,
         updatedAtISO: updatedAt.toISOString(),
+        updatedAtStr,
+        year: updatedAt.getFullYear(),
+        month: updatedAt.getMonth() + 1,
+        monthStr: updatedAt.toLocaleString('en-us', { month: 'short' }),
         category,
         categoryCapitalized: capitalize(category),
         description,
@@ -111,7 +112,7 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
   console.log(`Category ${category}: ${files.length} files`)
   return [category, files]
 }))
-const allFiles = Object.values(filesByCategory).flat().sort((a, b) => b.createdAt - a.createdAt)
+const allFiles = Object.values(filesByCategory).flat().sort((a, b) => b.updatedAt - a.updatedAt)
 
 function getFilesByDate(files) {
   return Object.entries(groupBy(files, (file) => file.year))
@@ -122,7 +123,7 @@ function getFilesByDate(files) {
         .map(([month, files]) => ({
           month,
           monthStr: files[0].monthStr,
-          files: files.sort((a, b) => b.createdAt - a.createdAt),
+          files: files.sort((a, b) => b.updatedAt - a.updatedAt),
         }))
       return { year, filesByMonth }
     })
