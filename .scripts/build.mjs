@@ -1,8 +1,8 @@
 #!/usr/bin/env -S node
 // node = v18.18.2
-// Run: .scripts/build.mjs
-// Dev: ls -1 .*/**/* | grep -v '.build' | grep -v '.git' | entr -s 'node .scripts/build.mjs'
-// Serve: npx serve .build
+// Run: `.scripts/build.mjs`
+// Dev: `find . -not -path './.git/*' -not -path './.build/*' | entr -s '.scripts/build.mjs'`
+// Serve: `npx serve .build`
 
 import path from 'path'
 import fs from 'fs'
