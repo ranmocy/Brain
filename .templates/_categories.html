@@ -1,29 +1,31 @@
 <style>
-  @media screen and (min-width: 1200px) {
-    #category.lists {
-      width: 33%;
-      margin: 1em 0;
-      display: inline-block;
-      vertical-align: top;
-    }
+  #groups {
+    display: flex;
+    flex-direction: column;
 
-    #category.lists .cross-line {
+    .cross-line {
       width: 80%;
+    }
+  }
+
+  @media screen and (min-width: 950px) {
+    #groups {
+      flex-direction: row;
     }
   }
 </style>
 
-{{ loop groups }}
-<div id="category" class="lists">
-  <div class="title">{{ groupName }}</div>
-  <div class="cross-line"></div>
-  <p>
+<div id="groups">
+  {{ loop groups }}
+  <div class="lists">
+    <div class="title">{{ groupName }}</div>
+    <div class="cross-line"></div>
     {{ loop categories }}
     <div class="item">
       <a href="/{{ id }}/" title="{{ tagline }}">{{ name }}({{ size }})</a>
       <div class="motto">{{ tagline }}</div>
-      </div>
+    </div>
     {{ end categories }}
-  </p>
+  </div>
+  {{ end groups }}
 </div>
-{{ end groups }}
