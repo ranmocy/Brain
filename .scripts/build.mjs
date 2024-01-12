@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --experimental-module
+#!/usr/bin/env -S node
 // node = v18.18.2
 // Run: .scripts/build.mjs
 // Dev: ls -1 .*/**/* | grep -v '.build' | grep -v '.git' | entr -s 'node .scripts/build.mjs'

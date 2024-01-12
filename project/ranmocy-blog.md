@@ -43,5 +43,6 @@ The result is impressive.
 The Ruby version used 13 libraries and nine files. The main building file has 301 lines of Ruby.
 Now, I can build the same website with 295 lines of JavaScript in one file and one library to convert Markdown to HTML.
 It even has a mini template rendering function that supports looping.
+And it takes 240ms to build the entire website, and 15s for CloudFlare from me pushing the code to deploy it everywhere.
 
-This, once again, is an evidence that reducing the requirement would dramatically reduce the software's complexity and increase its reliability and maintainability.
+This, once again, is an evidence that reducing the requirements would dramatically reduce the software's complexity and increase its quality and speed at the same time.
