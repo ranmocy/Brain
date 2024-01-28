@@ -60,9 +60,9 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
       // ---
       //
       // body
-      const contentParts = fileContent.split("\n---\n\n")
+      const contentParts = fileContent.split("\n---\n")
       assert(contentParts.length === 2, filePath)
-      const [headerStr, content] = contentParts
+      const [headerStr, content] = contentParts.map(s => s.trim())
 
       // Extract headers
       const headerRendered = render(headerStr, { currentDate: new Date().toISOString() })
