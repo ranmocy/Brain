@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "me.ranmocy.monkeytree",
+      "sha256_cert_fingerprints": [
+        "C2:87:F3:09:99:03:26:55:AF:AF:7F:65:AC:FA:43:52:F4:47:CA:FE:53:94:01:B2:E6:2E:C3:50:76:7B:30:3E"
+      ]
+    }
+  }
+]
