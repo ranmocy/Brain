@@ -34,6 +34,9 @@ const CATEGORY_TAGLINES = {
   tech: "技术宅拯救世界",
   project: "What I did defines what I am",
   translation: "Words worth spreading widely",
+
+  memories: "三千竹水，不生不灭",
+  categories: "情，思，技",
 }
 
 const MARKDOWN_CONVERTER = new showdown.Converter()
@@ -53,6 +56,7 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
   const files = fs.readdirSync(categoryPath)
     .filter((filename) => filename.endsWith('.md'))
     .map((filename) => {
+      const fileBasename = path.basename(filename, path.extname(filename))
       const filePath = path.join(categoryPath, filename)
       const fileContent = fs.readFileSync(filePath, { encoding: 'utf-8' })
       // ---
@@ -85,14 +89,23 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
       const html = MARKDOWN_CONVERTER.makeHtml(content)
 
       const id = path.basename(filename, '.md')
+      const url = `/${category}/${id}/`
       const createdAt = new Date(ensure(headers.created_at, filePath))
       const updatedAt = new Date(ensure(headers.updated_at, filePath))
       const updatedAtStr = updatedAt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
       const tagline = headers.tagline || updatedAtStr
       const description = headers.description || content.replace(/\s+/g, ' ').trim().slice(0, 97) + '...'
 
+      // Asset files: `${fileBasename}_${assetName}.xxx`
+      const assets = fs.readdirSync(categoryPath)
+        .filter(assetName => assetName.startsWith(`${fileBasename}_`))
+        .map(assetName => ({
+          sourcePath: path.join(categoryPath, assetName),
+          targetUrl: `${url}${assetName.slice(`${fileBasename}_`.length)}`,
+        }))
+
       return {
-        url: `/${category}/${id}/`,
+        url,
         title: ensure(headers.title, filePath),
         tagline,
         createdAtISO: createdAt.toISOString(),
@@ -106,6 +119,7 @@ const filesByCategory = Object.fromEntries(CATEGORIES.map((category) => {
         categoryCapitalized: capitalize(category),
         description,
         html,
+        assets,
       }
     })
 
@@ -147,16 +161,16 @@ const renderingFiles = [
     url: '/memories/',
     templates: [templates._memories, _BASE],
     title: 'Memories',
-    tagline: '三千竹水，不生不灭',
-    description: '三千竹水，不生不灭',
+    tagline: CATEGORY_TAGLINES['memories'],
+    description: CATEGORY_TAGLINES['memories'],
     memories: getFilesByDate(allFiles),
   },
   {
     url: '/categories/',
     templates: [templates._categories, _BASE],
     title: 'Ranmocy\'s',
-    tagline: '情，思，技',
-    description: '情，思，技',
+    tagline: CATEGORY_TAGLINES['categories'],
+    description: CATEGORY_TAGLINES['categories'],
     groups: Object.entries(GROUPS).map(([groupId, categories]) => ({
       groupName: capitalize(groupId),
       categories: categories.map((id) => ({
@@ -190,12 +204,18 @@ const renderingFiles = [
   })),
 ]
 renderingFiles.forEach((file) => {
-  console.log(`Rendering: ${file.url}`)
+  console.log(`Rendering:\t${file.url}`)
   assert(file.url[0] === '/')
   const url = file.url.slice(1)
   const filepath = path.join(BUILD_DIR, url, url.endsWith('/') ? 'index.html' : '')
   const content = file.templates.reduce((rendered, template) => render(template, file, rendered), file.html)
   writeFile(filepath, content)
+
+  // Copy asset files
+  file.assets?.forEach((asset) => {
+    console.log(`Copying:\t${asset.targetUrl}`)
+    fs.copyFileSync(asset.sourcePath, path.join(BUILD_DIR, asset.targetUrl))
+  })
 })
 
 
@@ -203,7 +223,7 @@ renderingFiles.forEach((file) => {
 fs.readdirSync(PUBLIC_DIR, { recursive: true })
   .filter((filename) => !fs.statSync(path.join(PUBLIC_DIR, filename)).isDirectory())
   .forEach((filename) => {
-    console.log(`Copying /${filename}`)
+    console.log(`Copying:\t/${filename}`)
     const srcPath = path.join(PUBLIC_DIR, filename)
     const targetPath = path.join(BUILD_DIR, filename)
     // No overriding
